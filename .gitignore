@@ -32,9 +32,13 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
+
+# local dev-only data store (see src/lib/booking/store.ts)
+/data
 
 # typescript
 *.tsbuildinfo

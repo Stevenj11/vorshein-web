@@ -1,0 +1,455 @@
+{
+  "meta": {
+    "description": "VORSHEIN: CONTROL. RESISTENCIA. RENDIMIENTO. Entrenamiento acuático de alto rendimiento para quienes necesitan desempeñarse bajo presión."
+  },
+  "nav": {
+    "vorshein": "Vorshein",
+    "training": "Entrenamiento",
+    "system": "El Sistema",
+    "events": "Eventos",
+    "reserve": "Reservar",
+    "findYourLevel": "Desbloquea tu Nivel"
+  },
+  "footer": {
+    "systemLabel": "Sistema",
+    "startLabel": "Empezar",
+    "findYourLevel": "Desbloquea tu Nivel",
+    "competitionStatus": "Estatus de Competencia",
+    "reserve": "Reservar Evaluación",
+    "rights": "Todos los derechos reservados.",
+    "founded": "Fundado por {name}"
+  },
+  "languageSwitcher": {
+    "label": "Idioma"
+  },
+  "brand": {
+    "system": "Sistema de Rendimiento Acuático",
+    "tagline": "CONTROL. RESISTENCIA. RENDIMIENTO."
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Sistema de Rendimiento Acuático",
+      "headlineLine1": "Rendimiento",
+      "headlineLine2": "bajo presión.",
+      "sub": "Entrenamiento acuático de alto rendimiento, construido para desempeñarse bajo presión. CONTROL. RESISTENCIA. RENDIMIENTO.",
+      "ctaPrimary": "Entra al Sistema",
+      "ctaSecondary": "Desbloquea tu Nivel"
+    },
+    "philosophy": {
+      "index": "01",
+      "label": "Vorshein",
+      "heading": "VORSHEIN no es una escuela de natación. Es un sistema de preparación acuática.",
+      "body": "Construimos capacidad real en el agua: control, resistencia y precisión bajo presión — a través de un método progresivo, no de clases sueltas. Cada nivel se construye sobre el anterior.",
+      "cta": "La filosofía completa →"
+    },
+    "programs": {
+      "index": "02",
+      "label": "Entrenamiento",
+      "viewAll": "Todos los Programas →",
+      "viewProgram": "Ver Programa →"
+    },
+    "system": {
+      "index": "03",
+      "label": "El Sistema",
+      "viewFull": "Manual Completo →",
+      "heading": "Diez módulos. Un solo sistema de rendimiento acuático."
+    },
+    "assessment": {
+      "index": "04",
+      "label": "Evaluación",
+      "heading": "Descubre tu nivel.",
+      "body": "Una evaluación interactiva de 2 minutos. Tu perfil, tu punto de partida y tu programa recomendado.",
+      "cta": "Comenzar Evaluación"
+    },
+    "events": {
+      "index": "05",
+      "label": "Eventos",
+      "heading": "Próximo Evento",
+      "status": "Próximamente",
+      "cta": "Estatus de Competencia →"
+    }
+  },
+  "stats": {
+    "modules": "Módulos de entrenamiento",
+    "levels": "Niveles de progresión",
+    "questions": "Preguntas de evaluación",
+    "system": "Sistema de rendimiento"
+  },
+  "vorsheinPage": {
+    "label": "Vorshein",
+    "heading": "No formamos nadadores. Formamos capacidad acuática de alto rendimiento.",
+    "intro": "VORSHEIN nace de una idea simple: el agua no perdona la improvisación. Quien necesita rendir en ella — por trabajo, exigencia física o superación personal — necesita un sistema de preparación real, no una clase suelta. Por eso VORSHEIN se construye como un sistema de rendimiento acuático, no como una academia tradicional de natación.",
+    "philosophyLabel": "Filosofía",
+    "pillars": {
+      "control": {
+        "name": "Control",
+        "text": "Antes de la velocidad, antes de la resistencia: control del cuerpo, de la respiración y de la mente en el agua."
+      },
+      "endurance": {
+        "name": "Resistencia",
+        "text": "La resistencia no se improvisa. Se construye de forma progresiva, sesión tras sesión, sin atajos."
+      },
+      "performance": {
+        "name": "Rendimiento",
+        "text": "El objetivo final es rendir de forma confiable, incluso — especialmente — bajo presión."
+      }
+    },
+    "methodologyLabel": "Metodología",
+    "methodologyP1": "Cada participante avanza por un sistema de tres niveles — Foundation, Performance y Tactical — cada uno construido sobre el dominio real del anterior, no sobre el tiempo transcurrido. El punto de partida de cada persona se determina con Vorshein Assessment, no se asume.",
+    "methodologyP2Prefix": "Diez módulos de entrenamiento —",
+    "methodologyP2Highlight": "técnica, resistencia, control respiratorio, confianza en el agua, velocidad, rendimiento bajo la superficie, recuperación, control mental, apnea y preparación para competencia",
+    "methodologyP2Suffix": "— se combinan según el nivel y el objetivo de cada persona.",
+    "founderLabel": "Fundador",
+    "founderText": "VORSHEIN fue fundado por {name}, responsable de la metodología y dirección del sistema de entrenamiento."
+  },
+  "trainingPage": {
+    "label": "Entrenamiento",
+    "heading": "Tres niveles. Una sola progresión.",
+    "sub": "No eliges tu nivel — lo demuestras. Vorshein Assessment determina tu punto de partida real dentro del sistema.",
+    "cta": "Desbloquea tu Nivel",
+    "viewFullProgram": "Ver programa completo →"
+  },
+  "enrollment": {
+    "label": "Inscripciones",
+    "statusOpen": "Inscripciones abiertas",
+    "days": "Sábado y Domingo",
+    "daysLabel": "Días",
+    "timeLabel": "Horario",
+    "priceLabel": "Precio",
+    "priceValue": "{currency} {price} / mes",
+    "priceDetail": "{count} clases de {hours} horas",
+    "deadlineLabel": "Cierre de inscripciones",
+    "startLabel": "Inicio del curso",
+    "cta": "Reservar mi cupo"
+  },
+  "programDetail": {
+    "back": "← Todos los programas",
+    "reserve": "Reservar Evaluación",
+    "whatYoullTrain": "Lo que vas a entrenar",
+    "curriculum": "Currículo",
+    "gallery": "Vista Previa",
+    "mediaHero": "Sesión de entrenamiento — próximamente",
+    "mediaFacility": "Instalaciones — próximamente",
+    "mediaEquipment": "Equipo — próximamente",
+    "mediaWater": "Entrenamiento en agua — próximamente",
+    "durationLabel": "Duración",
+    "formatLabel": "Formato",
+    "methodologyHeading": "Metodología y Duración",
+    "improvementsHeading": "Lo que vas a mejorar",
+    "breathingHeading": "Control Respiratorio",
+    "apneaHeading": "Apnea",
+    "apneaSafetyLabel": "Nota de Seguridad",
+    "underwaterHeading": "Entrenamiento Bajo el Agua",
+    "competitionPrepHeading": "Preparación para Competencia",
+    "competitionPrepDisclaimer": "Estructura orientativa. El formato oficial de cada evento se confirma al activarse el calendario de competencias.",
+    "certificationHeading": "Certificación",
+    "certificationFormatLabel": "Formato de evaluación",
+    "certificationUnlocksLabel": "Habilita",
+    "mediaBreathing": "Ejercicio de respiración — próximamente",
+    "mediaApnea": "Sesión de apnea supervisada — próximamente",
+    "mediaUnderwater": "Entrenamiento subacuático — próximamente",
+    "mediaCompetition": "Prueba de rendimiento — próximamente",
+    "mediaCertification": "Evaluación final — próximamente",
+    "levels": {
+      "foundation": {
+        "duration": "6–8 semanas · 2 sesiones por semana",
+        "methodology": "Grupos reducidos (4 a 6 personas) con un instructor dedicado. Cada sesión combina corrección técnica en vivo, retroalimentación verbal inmediata y progresión medida: no se avanza a la siguiente habilidad hasta consolidar la anterior. El objetivo de esta etapa no es la velocidad — es construir una base de confianza y técnica que sostenga todo lo que viene después.",
+        "improvements": [
+          "Comodidad real con el rostro sumergido y la respiración controlada",
+          "Flotación y equilibrio corporal en el agua",
+          "Entradas y salidas seguras del agua",
+          "Técnica base de estilo libre y espalda",
+          "Resistencia inicial: 25 a 100 metros continuos sin detenerse",
+          "Manejo de la ansiedad en profundidad progresiva"
+        ],
+        "breathing": {
+          "body": "En este nivel el trabajo respiratorio es de base, no de apnea: ritmo de respiración bilateral, exhalación controlada bajo el agua, y la coordinación entre respiración y brazada. Es el fundamento técnico sobre el que se construye — más adelante — cualquier trabajo de apnea real."
+        },
+        "certification": {
+          "format": "Evaluación práctica en agua: checklist técnico de flotación, respiración y desplazamiento, más una distancia mínima continua sin detenerse.",
+          "unlocks": "Elegibilidad para inscribirte al programa Performance."
+        }
+      },
+      "performance": {
+        "duration": "8–10 semanas · 3 sesiones por semana",
+        "methodology": "Entrenamiento por intervalos con planillas de ritmo (splits), análisis técnico en video, y trabajo específico de eficiencia por estilo. Se introduce el control respiratorio bajo esfuerzo — no apnea competitiva, sino la capacidad de mantener técnica y calma cuando el cuerpo ya está fatigado.",
+        "improvements": [
+          "Eficiencia de brazada y reducción de resistencia al avance",
+          "Virajes y viradas técnicas",
+          "Respiración bilateral bajo esfuerzo sostenido",
+          "Estrategia de ritmo en distancias de 100 a 500 metros",
+          "Primeras apneas estáticas cortas, siempre supervisadas",
+          "Base de desplazamiento subacuático (patada de delfín, línea de cuerpo)"
+        ],
+        "breathing": {
+          "body": "Se incorpora tolerancia progresiva al esfuerzo respiratorio: series de apnea estática corta (segundos, no minutos), siempre en superficie, siempre con un compañero observando activamente. El objetivo es familiaridad y control, no rendimiento — la apnea real de alto nivel pertenece al programa Tactical."
+        },
+        "underwater": {
+          "body": "Introducción al desplazamiento subacuático: línea de cuerpo, patada de delfín básica, y ejercicios cortos de orientación sin referencias visuales en superficie. Es la base técnica que en Tactical se convierte en apnea dinámica real."
+        },
+        "certification": {
+          "format": "Prueba de distancia cronometrada, evaluación técnica por video, y verificación de comodidad respiratoria en apnea estática corta supervisada.",
+          "unlocks": "Elegibilidad para solicitar evaluación de ingreso al programa Tactical."
+        }
+      },
+      "tactical": {
+        "duration": "12–16 semanas · 4+ sesiones por semana · programa intensivo",
+        "methodology": "Periodización individualizada según carga y recuperación de cada participante. Las sesiones de apnea son siempre supervisadas 1 a 1 o mediante sistema de compañero certificado — nunca en solitario. Se incorporan escenarios de presión (fatiga, tiempo límite, decisión bajo estrés) y revisión técnica en video después de cada bloque.",
+        "improvements": [
+          "Capacidad de intervalos de alta intensidad",
+          "Apnea estática: progresión de tiempo de contención supervisada",
+          "Apnea dinámica: distancia subacuática con técnica eficiente",
+          "Tolerancia a CO₂ y eficiencia de consumo de oxígeno",
+          "Control mental y toma de decisiones bajo fatiga",
+          "Recuperación activa y pasiva entre bloques de alta exigencia"
+        ],
+        "apnea": {
+          "body": [
+            "El entrenamiento de apnea en Vorshein se apoya en dos mecanismos fisiológicos reales. El primero es el reflejo de inmersión (mammalian dive reflex): al sumergir el rostro, el cuerpo reduce la frecuencia cardíaca, redirige la circulación hacia los órganos vitales y libera glóbulos rojos adicionales desde el bazo — una respuesta natural que se refina con entrenamiento consistente.",
+            "El segundo es la tolerancia al CO₂: la urgencia de respirar no la genera la falta de oxígeno, sino la acumulación de dióxido de carbono. Por eso se trabaja con tablas progresivas — de CO₂ (mismo tiempo de contención, descansos cada vez más cortos) y de O₂ (contención cada vez más larga, descanso constante) — bajo supervisión directa en cada sesión."
+          ],
+          "safetyNote": "La apnea conlleva riesgo real de hipoxia si se practica sin supervisión. En Vorshein, todo entrenamiento de apnea se realiza con un observador de seguridad certificado presente en cada sesión, siguiendo protocolos reconocidos de seguridad en apnea. Nunca se practica en solitario, dentro o fuera de nuestras instalaciones."
+        },
+        "underwater": {
+          "body": "Apnea dinámica con progresión de distancia, posición corporal hidrodinámica, patada de delfín eficiente y orientación subacuática sin referencias visuales. Incluye técnica de ecualización para cambios de profundidad, aplicable tanto a natación como a contextos de inmersión."
+        },
+        "competitionPrep": {
+          "body": "Una evaluación o competencia Vorshein integra, de forma orientativa: una prueba de resistencia cronometrada, una prueba de velocidad, apnea estática (tiempo de contención supervisado), apnea dinámica (distancia subacuática), evaluación técnica y un escenario de presión física y mental."
+        },
+        "certification": {
+          "format": "Prueba de nado cronometrada, evaluación técnica, apnea estática y dinámica dentro de márgenes conservadores respecto a tu progresión demostrada, y un escenario práctico bajo presión.",
+          "unlocks": "Elegibilidad formal para solicitar participación en competencias Vorshein."
+        }
+      }
+    }
+  },
+  "systemPage": {
+    "label": "Manual de Entrenamiento",
+    "heading": "El Sistema VORSHEIN.",
+    "sub": "Diez módulos. Todo lo que forma parte de la preparación acuática, combinado según tu nivel y objetivo."
+  },
+  "eventsPage": {
+    "label": "Eventos",
+    "heading": "Apnea. Competencias. Pruebas de rendimiento.",
+    "sub": "El calendario de eventos de VORSHEIN se activará próximamente. Mientras tanto, conoce tu estatus de competencia.",
+    "nextEvent": "Próximo Evento",
+    "comingStatus": "Próximamente",
+    "manualHeading": "Cómo funciona una competencia VORSHEIN",
+    "manualIntro": "Aún no hay fecha de calendario, pero la estructura de evaluación ya está definida. Una competencia o evaluación VORSHEIN combina seis componentes, de forma orientativa:",
+    "components": [
+      "Prueba de resistencia cronometrada",
+      "Prueba de velocidad",
+      "Apnea estática — tiempo de contención supervisado",
+      "Apnea dinámica — distancia subacuática",
+      "Evaluación técnica",
+      "Escenario de presión física y mental"
+    ],
+    "pathHeading": "Cómo llegar a competir",
+    "pathSteps": [
+      "Completa la evaluación de 9 preguntas y alcanza el nivel AVANZADO.",
+      "Inscríbete en el programa TACTICAL y obtén tu certificación.",
+      "Solicita tu elegibilidad — quedas habilitado en cuanto se active el calendario de competencias."
+    ],
+    "disclaimer": "Estructura orientativa. El formato, la fecha y el reglamento oficial de cada evento se confirman al activarse el calendario de competencias."
+  },
+  "programs": {
+    "foundation": {
+      "name": "FOUNDATION",
+      "subtitle": "Básico",
+      "forWhom": "Para quienes todavía necesitan desarrollar fundamentos sólidos.",
+      "focus": [
+        "Adaptación acuática",
+        "Técnica básica",
+        "Respiración",
+        "Flotación",
+        "Eficiencia",
+        "Resistencia inicial",
+        "Seguridad",
+        "Control corporal"
+      ]
+    },
+    "performance": {
+      "name": "PERFORMANCE",
+      "subtitle": "Intermedio",
+      "forWhom": "Para quienes tienen dominio básico y buscan aumentar su rendimiento.",
+      "focus": [
+        "Técnica avanzada",
+        "Resistencia",
+        "Velocidad",
+        "Eficiencia",
+        "Virajes",
+        "Respiración bajo esfuerzo",
+        "Control del ritmo",
+        "Pruebas de rendimiento"
+      ]
+    },
+    "tactical": {
+      "name": "TACTICAL",
+      "subtitle": "Avanzado",
+      "forWhom": "Para quienes tienen nivel avanzado y buscan preparación de alto rendimiento.",
+      "focus": [
+        "Entrenamiento de alto rendimiento",
+        "Apnea",
+        "Tolerancia al esfuerzo",
+        "Pruebas acuáticas",
+        "Resistencia avanzada",
+        "Control respiratorio",
+        "Escenarios de presión",
+        "Protocolos especializados"
+      ]
+    }
+  },
+  "manual": {
+    "01": { "name": "Técnica de Nado", "description": "Mecánica de nado eficiente: postura, tracción y patada como base de todo lo demás." },
+    "02": { "name": "Resistencia", "description": "Construcción progresiva de resistencia aeróbica y capacidad de sostener esfuerzo." },
+    "03": { "name": "Control Respiratorio", "description": "Gestión consciente de la respiración, en superficie y bajo presión de esfuerzo." },
+    "04": { "name": "Confianza en el Agua", "description": "Control emocional y corporal en aguas profundas, abiertas o de baja visibilidad." },
+    "05": { "name": "Velocidad", "description": "Desarrollo de potencia y velocidad sin sacrificar eficiencia técnica." },
+    "06": { "name": "Rendimiento Subacuático", "description": "Desplazamiento, orientación y control del cuerpo por debajo de la superficie." },
+    "07": { "name": "Recuperación", "description": "Protocolos de recuperación activa y pasiva entre sesiones de alta exigencia." },
+    "08": { "name": "Control Mental", "description": "Regulación del estrés y la fatiga para mantener decisiones claras bajo presión." },
+    "09": { "name": "Apnea", "description": "Tolerancia progresiva a la contención de la respiración, siempre supervisada." },
+    "10": { "name": "Preparación para Competencia", "description": "Integración de todos los módulos anteriores en protocolos de evaluación y competencia." }
+  },
+  "assessment": {
+    "intro": {
+      "label": "Vorshein Assessment",
+      "heading": "Descubre tu Nivel.",
+      "body": "{count} preguntas. Aproximadamente 2 minutos. Al terminar recibirás tu perfil acuático y el programa recomendado para ti.",
+      "cta": "Comenzar Evaluación"
+    },
+    "back": "Atrás",
+    "analyzing": "Analizando tu perfil…",
+    "questions": {
+      "experience": {
+        "prompt": "¿Cuál describe mejor tu experiencia actual en el agua?",
+        "options": ["Estoy comenzando", "Puedo nadar pero me falta técnica", "Entreno regularmente", "Compito o realizo pruebas avanzadas"]
+      },
+      "distance": {
+        "prompt": "¿Qué distancia puedes completar cómodamente sin detenerte?",
+        "options": ["Menos de 25 metros", "Entre 25 y 100 metros", "Entre 100 y 500 metros", "Más de 500 metros"]
+      },
+      "technique": {
+        "prompt": "¿Cómo evaluarías tu técnica de nado?",
+        "options": ["Sin técnica formal", "Técnica básica", "Técnica sólida", "Técnica refinada / competitiva"]
+      },
+      "apnea": {
+        "prompt": "¿Tienes experiencia realizando apnea?",
+        "helper": "Control de respiración sin salir a la superficie.",
+        "options": ["Ninguna", "Algo, me siento incómodo", "Cómodo hasta 30–60 segundos", "Entreno apnea de forma estructurada"]
+      },
+      "deepWater": {
+        "prompt": "¿Cómo te sientes en aguas profundas, sin poder tocar el fondo?",
+        "options": ["Ansioso, prefiero evitarlo", "Manejable, con esfuerzo", "Cómodo", "En control total"]
+      },
+      "frequency": {
+        "prompt": "¿Con qué frecuencia entrenas actualmente en el agua?",
+        "options": ["Rara vez o nunca", "Una vez por semana", "2–3 veces por semana", "4+ veces, programa estructurado"]
+      },
+      "pressure": {
+        "prompt": "¿Cómo manejas el esfuerzo físico bajo presión?",
+        "helper": "Fatiga, estrés, tiempo límite.",
+        "options": ["Me cuesta, necesito parar", "Sigo, con dificultad", "Mantengo el control", "Rindo de forma confiable bajo presión"]
+      },
+      "goal": {
+        "prompt": "¿Cuál es tu objetivo principal?",
+        "options": ["Aprender desde cero", "Mejorar mi rendimiento", "Aumentar resistencia", "Preparación específica / apnea", "Competir", "Evaluación personal"]
+      },
+      "medical": {
+        "prompt": "¿Tienes alguna condición médica relevante para entrenamiento de alto esfuerzo?",
+        "helper": "No afecta tu nivel — solo ajusta nuestras recomendaciones de seguridad.",
+        "options": ["Sí, una condición significativa", "Algunas limitaciones menores", "Ninguna que yo sepa", "Condición física óptima, sin restricciones"]
+      }
+    },
+    "result": {
+      "label": "Tu Perfil Vorshein",
+      "levelLabel": "NIVEL 0{n}",
+      "readinessLabel": "Preparación Acuática",
+      "strength": "Fortaleza",
+      "priority": "Prioridad",
+      "recommendedPath": "Ruta Recomendada",
+      "competitionStatus": "Estatus de Competencia",
+      "eligible": "ELEGIBLE",
+      "locked": "BLOQUEADO",
+      "eligibleMessage": "Tu perfil actual cumple el requisito mínimo de rendimiento.",
+      "lockedMessage": "Se requiere clasificación {level} para participar.",
+      "safetyNoteLabel": "Nota de Seguridad",
+      "safetyNoteSignificant": "Consulta con un médico antes de iniciar entrenamiento de alta intensidad.",
+      "safetyNoteMinor": "Informa a tu entrenador sobre tus limitaciones antes de la primera sesión.",
+      "viewProgram": "Ver tu Programa",
+      "retake": "Repetir Evaluación",
+      "reserve": "Reservar tu Evaluación"
+    }
+  },
+  "scoring": {
+    "tags": {
+      "technique": "Técnica",
+      "endurance": "Resistencia",
+      "breathControl": "Control Respiratorio",
+      "confidence": "Confianza en el Agua",
+      "mentalControl": "Control Mental"
+    },
+    "levelPath": {
+      "BASIC": "VORSHEIN FOUNDATION",
+      "INTERMEDIATE": "VORSHEIN PERFORMANCE",
+      "ADVANCED": "VORSHEIN TACTICAL"
+    },
+    "levelName": {
+      "BASIC": "BÁSICO",
+      "INTERMEDIATE": "INTERMEDIO",
+      "ADVANCED": "AVANZADO"
+    }
+  },
+  "competition": {
+    "noResultLabel": "BLOQUEADO",
+    "noResultMessage": "Completa tu evaluación para conocer tu estatus."
+  },
+  "concierge": {
+    "title": "Chat con IA de Vorshein",
+    "subtitle": "Concierge Digital de Entrenamiento",
+    "greeting": "Soy Vorshein AI, tu concierge de entrenamiento. Puedo ayudarte a entender los programas, conocer requisitos o encontrar tu nivel.",
+    "placeholder": "Escribe tu pregunta…",
+    "send": "Enviar",
+    "typing": "Vorshein AI está escribiendo…",
+    "openLabel": "Chat con IA de Vorshein",
+    "closeLabel": "Cerrar",
+    "errorReply": "No pude procesar tu mensaje. Intenta de nuevo en un momento.",
+    "actionStartAssessment": "Comenzar Evaluación",
+    "actionFindYourLevel": "Desbloquea tu Nivel",
+    "actionCheckEligibility": "Verificar Elegibilidad",
+    "rules": {
+      "greeting": "Hola. Soy Vorshein AI — puedo explicarte los programas, los requisitos de competencia, o ayudarte a descubrir tu nivel. ¿Qué necesitas?",
+      "whatIsThisPage": "Vorshein es un sistema de preparación acuática de alto rendimiento — no una escuela de natación tradicional. Tiene tres niveles (Foundation, Performance, Tactical), un manual de 10 módulos de entrenamiento, y una evaluación que determina tu nivel real y tu programa recomendado.",
+      "apneaCompete": "Las competencias de apnea requieren una clasificación avanzada dentro de Vorshein. Primero necesitamos conocer tu nivel acuático actual.",
+      "compete": "Para participar en competencias Vorshein se requiere una clasificación avanzada. Empecemos por determinar tu nivel actual con una evaluación de 2 minutos.",
+      "apnea": "El entrenamiento de apnea forma parte del programa Tactical (nivel avanzado). Podemos determinar si ese es tu punto de partida correcto con una evaluación breve.",
+      "experienceHint": "Con esa experiencia, es probable que tu punto de partida sea el nivel Performance. Para determinarlo con precisión puedo iniciar una evaluación de aproximadamente 2 minutos.",
+      "level": "Vorshein Assessment determina tu nivel real — Foundation, Performance o Tactical — a partir de 9 preguntas sobre tu experiencia actual en el agua.",
+      "programs": "Vorshein tiene tres niveles: Foundation (fundamentos), Performance (rendimiento) y Tactical (alto rendimiento y apnea). Tu evaluación determina cuál te corresponde.",
+      "philosophy": "Vorshein es un sistema de preparación acuática, no una escuela de natación tradicional: control, resistencia y rendimiento bajo presión, construidos de forma progresiva.",
+      "events": "El calendario de eventos Vorshein se activará próximamente. Puedes revisar tu estatus de competencia en cualquier momento en la sección Eventos.",
+      "fallback": "Todavía estoy en modo demo y no entendí bien tu pregunta — puedo ayudarte con: qué es Vorshein, los programas y niveles, requisitos de competencia, o cómo hacer tu evaluación. ¿Cuál te sirve?"
+    }
+  },
+  "booking": {
+    "label": "Reservar",
+    "levelLabel": "Nivel",
+    "pathLabel": "Ruta",
+    "heading": "Reserva tu evaluación.",
+    "body": "Déjanos tus datos. Al confirmar, te abrimos WhatsApp con tu reserva lista para enviar — ahí coordinamos tu cupo y el pago directamente.",
+    "fromResultBody": "Tu perfil ya está listo. Al confirmar, te abrimos WhatsApp con tu reserva lista para enviar — ahí coordinamos tu programa y el pago directamente.",
+    "nameLabel": "Nombre completo",
+    "emailLabel": "Email",
+    "phoneLabel": "Teléfono (opcional)",
+    "notesLabel": "Notas (opcional)",
+    "notesPlaceholder": "Disponibilidad, objetivo, dudas puntuales…",
+    "submit": "Reservar",
+    "submitting": "Enviando…",
+    "successTitle": "Solicitud recibida.",
+    "successBody": "Te abrimos WhatsApp con tu reserva lista para enviar. Si no se abrió automáticamente, tocá el botón de abajo.",
+    "whatsappCta": "Contactar con Asistente por WhatsApp",
+    "errorBody": "No pudimos enviar tu solicitud. Intenta de nuevo en un momento.",
+    "nameRequired": "Ingresa tu nombre.",
+    "emailRequired": "Ingresa un email válido."
+  }
+}
