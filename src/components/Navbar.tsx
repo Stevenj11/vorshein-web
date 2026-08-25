@@ -13,9 +13,10 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   const links = [
-    { href: "/vorshein", label: t("vorshein") },
+    { href: "/", label: t("home") },
     { href: "/training", label: t("training") },
-    { href: "/system", label: t("system") },
+    { href: "/apply", label: t("gen001") },
+    { href: "/vorshein", label: t("about") },
     { href: "/events", label: t("events") },
   ];
 
@@ -59,17 +60,6 @@ export function Navbar() {
               </Link>
             );
           })}
-          <Link
-            href="/apply"
-            className={`ml-3 flex items-center gap-2 px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] transition-colors ${
-              pathname === "/apply"
-                ? "text-signal"
-                : "text-fg-faint hover:text-signal"
-            }`}
-          >
-            <span className="h-1 w-1 rounded-full bg-signal" />
-            {t("reserve")}
-          </Link>
         </nav>
 
         <div className="hidden shrink-0 items-center gap-6 lg:flex">
@@ -109,14 +99,6 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/apply"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-signal"
-            >
-              <span className="h-1 w-1 rounded-full bg-signal" />
-              {t("reserve")}
-            </Link>
             <Link
               href="/assessment"
               onClick={() => setOpen(false)}

@@ -9,7 +9,7 @@ export function Footer() {
   const tb = useTranslations("brand");
 
   const links = [
-    { href: "/vorshein", label: t("vorshein") },
+    { href: "/vorshein", label: t("about") },
     { href: "/training", label: t("training") },
     { href: "/system", label: t("system") },
     { href: "/events", label: t("events") },
@@ -70,6 +70,12 @@ export function Footer() {
                 className="text-sm text-fg-muted transition-colors hover:text-fg"
               >
                 {tf("reserve")}
+              </Link>
+              <Link
+                href="/estado"
+                className="text-sm text-fg-muted transition-colors hover:text-fg"
+              >
+                {tf("checkStatus")}
               </Link>
             </div>
           </div>

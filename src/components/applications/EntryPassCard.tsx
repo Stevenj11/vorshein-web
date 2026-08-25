@@ -103,6 +103,12 @@ export function EntryPassCard({
           {t("confirmCta")}
         </a>
         <p className="mt-4 text-xs text-fg-muted">{t("pendingNote")}</p>
+        <a
+          href={`/${locale}/estado?id=${encodeURIComponent(application.id)}`}
+          className="mt-5 inline-block font-mono text-xs uppercase tracking-[0.2em] text-fg-faint transition-colors hover:text-fg"
+        >
+          {t("checkStatusLater")} →
+        </a>
       </div>
     </div>
   );

@@ -3,12 +3,15 @@
     "description": "VORSHEIN: CONTROL. RESISTENCIA. RENDIMIENTO. Entrenamiento acuático de alto rendimiento para quienes necesitan desempeñarse bajo presión."
   },
   "nav": {
+    "home": "Inicio",
     "vorshein": "Vorshein",
-    "training": "Entrenamiento",
+    "about": "Acerca de",
+    "training": "Programas",
+    "gen001": "GEN 001",
     "system": "El Sistema",
     "events": "Eventos",
     "reserve": "Postular",
-    "findYourLevel": "Desbloquea tu Nivel"
+    "findYourLevel": "Descubre tu Nivel"
   },
   "footer": {
     "systemLabel": "Sistema",
@@ -16,6 +19,7 @@
     "findYourLevel": "Desbloquea tu Nivel",
     "competitionStatus": "Estatus de Competencia",
     "reserve": "Postular a GEN 001",
+    "checkStatus": "Estado de mi Postulación",
     "rights": "Todos los derechos reservados.",
     "founded": "Fundado por {name}"
   },
@@ -212,8 +216,36 @@
       "confirmWithin": "Confirma tu cupo dentro de",
       "deadlinePassed": "El plazo de confirmación venció",
       "confirmCta": "Confirmar mi Cupo por WhatsApp",
-      "pendingNote": "Tu cupo queda pendiente hasta que confirmes por WhatsApp y el equipo lo revise."
+      "pendingNote": "Tu cupo queda pendiente hasta que confirmes por WhatsApp y el equipo lo revise.",
+      "checkStatusLater": "Ver estado de mi postulación más tarde"
     }
+  },
+  "statusCheck": {
+    "label": "Estado de mi Postulación",
+    "heading": "¿Confirmaron mi cupo?",
+    "body": "Ingresa tu ID de Postulación (el que aparece en tu Pase de Evaluación) para ver el estado.",
+    "inputLabel": "ID de Postulación",
+    "placeholder": "VRSN-A0001",
+    "cta": "Ver Estado",
+    "checking": "Buscando…",
+    "notFound": "No encontramos una postulación con ese ID. Revisa que esté bien escrito.",
+    "name": "Nombre",
+    "level": "Clasificación Preliminar",
+    "turn": "Tu evaluación",
+    "pending": "Pendiente de confirmación",
+    "pendingDetail": "Aún no confirmamos tu cupo — te avisaremos por WhatsApp en cuanto se confirme.",
+    "waitlist": "En lista de espera",
+    "waitlistDetail": "Tu turno está lleno por ahora. Te avisaremos por WhatsApp si se libera un cupo.",
+    "confirmed": "Cupo confirmado",
+    "confirmedDetail": "Tu cupo está confirmado. Nos vemos el día de tu evaluación.",
+    "review": "En revisión",
+    "reviewDetail": "Tu postulación está en revisión manual — el equipo te contactará por WhatsApp.",
+    "admitted": "¡Admitido en VORSHEIN!",
+    "admittedDetail": "Felicidades — ya eres parte de GEN 001.",
+    "notYetEligible": "Aún no elegible",
+    "notYetEligibleDetail": "Tu evaluación presencial determinó que todavía necesitas desarrollar las bases mínimas. El equipo te contactará por WhatsApp.",
+    "noShow": "No se presentó",
+    "noShowDetail": "No te presentaste a tu evaluación. Contáctanos por WhatsApp si fue un error."
   },
   "programDetail": {
     "back": "← Todos los programas",

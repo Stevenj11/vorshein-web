@@ -3,12 +3,15 @@
     "description": "VORSHEIN: CONTROL. ENDURANCE. PERFORMANCE. High-performance aquatic training for those who need to perform under pressure."
   },
   "nav": {
+    "home": "Home",
     "vorshein": "Vorshein",
-    "training": "Training",
+    "about": "About",
+    "training": "Programs",
+    "gen001": "GEN 001",
     "system": "The System",
     "events": "Events",
     "reserve": "Apply",
-    "findYourLevel": "Unlock Your Level"
+    "findYourLevel": "Discover Your Level"
   },
   "footer": {
     "systemLabel": "System",
@@ -16,6 +19,7 @@
     "findYourLevel": "Unlock Your Level",
     "competitionStatus": "Competition Status",
     "reserve": "Apply to GEN 001",
+    "checkStatus": "Application Status",
     "rights": "All rights reserved.",
     "founded": "Founded by {name}"
   },
@@ -212,8 +216,36 @@
       "confirmWithin": "Confirm your spot within",
       "deadlinePassed": "The confirmation window has passed",
       "confirmCta": "Confirm My Spot on WhatsApp",
-      "pendingNote": "Your spot stays pending until you confirm on WhatsApp and the team reviews it."
+      "pendingNote": "Your spot stays pending until you confirm on WhatsApp and the team reviews it.",
+      "checkStatusLater": "Check my application status later"
     }
+  },
+  "statusCheck": {
+    "label": "Application Status",
+    "heading": "Was my spot confirmed?",
+    "body": "Enter your Application ID (the one on your Entry Pass) to check its status.",
+    "inputLabel": "Application ID",
+    "placeholder": "VRSN-A0001",
+    "cta": "Check Status",
+    "checking": "Looking up…",
+    "notFound": "We couldn't find an application with that ID. Double-check it's typed correctly.",
+    "name": "Name",
+    "level": "Preliminary Classification",
+    "turn": "Your evaluation",
+    "pending": "Pending confirmation",
+    "pendingDetail": "We haven't confirmed your spot yet — we'll let you know on WhatsApp as soon as it's confirmed.",
+    "waitlist": "Waitlisted",
+    "waitlistDetail": "Your turn is currently full. We'll message you on WhatsApp if a spot opens up.",
+    "confirmed": "Spot confirmed",
+    "confirmedDetail": "Your spot is confirmed. See you on your evaluation day.",
+    "review": "Under review",
+    "reviewDetail": "Your application is under manual review — the team will reach out on WhatsApp.",
+    "admitted": "Admitted to VORSHEIN!",
+    "admittedDetail": "Congratulations — you're officially part of GEN 001.",
+    "notYetEligible": "Not yet eligible",
+    "notYetEligibleDetail": "Your in-person evaluation found you still need to build the minimum fundamentals. The team will reach out on WhatsApp.",
+    "noShow": "No-show",
+    "noShowDetail": "You didn't show up for your evaluation. Contact us on WhatsApp if this was a mistake."
   },
   "programDetail": {
     "back": "← All programs",
