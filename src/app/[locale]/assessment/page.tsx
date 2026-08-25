@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { AssessmentFlow } from "@/components/assessment/AssessmentFlow";
 import { Container } from "@/components/ui/Container";
 import { BRAND } from "@/lib/brand";
+import { getActiveGeneration } from "@/lib/generation";
 
 export async function generateMetadata({
   params,
@@ -13,10 +14,15 @@ export async function generateMetadata({
   return { title: `${t("heading")} — ${BRAND.name}` };
 }
 
-export default function AssessmentPage() {
+export default async function AssessmentPage() {
+  const generation = await getActiveGeneration();
   return (
     <Container className="py-24 md:py-32">
-      <AssessmentFlow />
+      <AssessmentFlow
+        eligibility={generation.eligibility}
+        generationName={generation.name}
+        generationLocation={generation.location}
+      />
     </Container>
   );
 }

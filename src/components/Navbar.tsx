@@ -73,7 +73,7 @@ export function Navbar() {
         </div>
 
         <button
-          aria-label="Toggle menu"
+          aria-label={t("toggleMenu")}
           onClick={() => setOpen((v) => !v)}
           className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 lg:hidden"
         >

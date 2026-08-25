@@ -10,13 +10,17 @@ export async function POST(request: NextRequest) {
   if (!body) return NextResponse.json({ error: "invalid body" }, { status: 400 });
 
   const current = await getActiveGeneration();
+  const price = Number(body.price);
+  const assessmentFee = Number(body.assessmentFee);
   const updated = await updateGeneration(current.id, {
     name: body.name,
     location: body.location,
     status: body.status,
-    price: Number(body.price),
-    assessmentFee: Number(body.assessmentFee),
-    trainingFee: Number(body.trainingFee),
+    price,
+    assessmentFee,
+    // Derived server-side, never trusted from the client — guarantees
+    // assessmentFee + trainingFee always equals price.
+    trainingFee: price - assessmentFee,
     whatsappNumber: body.whatsappNumber,
     dates: {
       applicationsOpenISO: body.applicationsOpenISO,

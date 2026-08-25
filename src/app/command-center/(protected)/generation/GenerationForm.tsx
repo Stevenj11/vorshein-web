@@ -10,6 +10,9 @@ const label = "font-mono text-[10px] uppercase tracking-[0.15em] text-white/40";
 
 export function GenerationForm({ generation }: { generation: Generation }) {
   const [saved, setSaved] = useState(false);
+  const [price, setPrice] = useState(generation.price);
+  const [assessmentFee, setAssessmentFee] = useState(generation.assessmentFee);
+  const trainingFee = price - assessmentFee;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,10 +64,42 @@ export function GenerationForm({ generation }: { generation: Generation }) {
       <div>
         <p className={`${label} mb-2`}>Precio (Bs)</p>
         <div className="grid grid-cols-3 gap-3">
-          <input name="price" type="number" defaultValue={generation.price} placeholder="Total" className={field} />
-          <input name="assessmentFee" type="number" defaultValue={generation.assessmentFee} placeholder="Evaluación" className={field} />
-          <input name="trainingFee" type="number" defaultValue={generation.trainingFee} placeholder="Entrenamiento" className={field} />
+          <label className="flex flex-col gap-1">
+            <span className={label}>Total</span>
+            <input
+              name="price"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(Number(e.target.value))}
+              className={field}
+            />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className={label}>Evaluación</span>
+            <input
+              name="assessmentFee"
+              type="number"
+              value={assessmentFee}
+              onChange={(e) => setAssessmentFee(Number(e.target.value))}
+              className={field}
+            />
+          </label>
+          <label className="flex flex-col gap-1">
+            <span className={label}>Entrenamiento (auto)</span>
+            <input
+              name="trainingFee"
+              type="number"
+              value={trainingFee}
+              readOnly
+              className={`${field} opacity-60`}
+            />
+          </label>
         </div>
+        {trainingFee < 0 && (
+          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-red-400">
+            La evaluación no puede costar más que el precio total.
+          </p>
+        )}
       </div>
 
       <div>

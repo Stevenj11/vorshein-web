@@ -1,5 +1,6 @@
 import { Application } from "../applications/types";
-import { GEN_001_DEFAULT } from "../generation";
+import { getActiveGeneration } from "../generation";
+import { formatWeekdayDate } from "../enrollment";
 import { sendEmail } from "./send";
 
 const ADMIN_COPY = "vorsheinoficial@gmail.com";
@@ -11,7 +12,7 @@ export async function sendApplicationReceivedEmail(app: Application): Promise<vo
     "",
     `Application ID: ${app.id}`,
     `Preliminary level: ${app.preliminaryLevel}`,
-    `Fecha: ${app.turnDateISO}`,
+    `Fecha: ${formatWeekdayDate(app.turnDateISO, "es")}`,
     `Turno: ${app.turnTimeSlot}`,
     "",
     "Tu Pase de Evaluación (Entry Pass) ya está generado. El pago se realiza presencialmente el día de tu evaluación.",
@@ -26,13 +27,14 @@ export async function sendApplicationReceivedEmail(app: Application): Promise<vo
 
 /** Section 77 — sent when admin marks CONFIRMED (WhatsApp released). */
 export async function sendEntryConfirmedEmail(app: Application): Promise<void> {
+  const generation = await getActiveGeneration();
   const text = [
     "ENTRY CONFIRMED",
     "",
     `Application ID: ${app.id}`,
-    `Fecha: ${app.turnDateISO}`,
+    `Fecha: ${formatWeekdayDate(app.turnDateISO, "es")}`,
     `Check-in: 30 minutos antes de tu turno (${app.turnTimeSlot})`,
-    `Ubicación: ${GEN_001_DEFAULT.location}`,
+    `Ubicación: ${generation.location}`,
     "Qué llevar: traje de baño, gorro, toalla, documento de identidad.",
   ].join("\n");
   if (app.email) {
@@ -50,7 +52,8 @@ export async function sendAdmissionEmail(
     (app.preliminaryLevel === "TACTICAL" && officialLevel !== "tactical") ||
     (app.preliminaryLevel === "PERFORMANCE" && officialLevel === "foundation");
 
-  const lines = ["YOU'RE IN.", "", `VRSN ID: ${memberId}`, `Nivel oficial: ${officialLevel.toUpperCase()}`, `Generation: ${GEN_001_DEFAULT.name}`];
+  const generation = await getActiveGeneration();
+  const lines = ["YOU'RE IN.", "", `VRSN ID: ${memberId}`, `Nivel oficial: ${officialLevel.toUpperCase()}`, `Generation: ${generation.name}`];
 
   if (wasLower) {
     lines.push(
@@ -59,7 +62,7 @@ export async function sendAdmissionEmail(
     );
   }
 
-  lines.push("", `Inicio de entrenamiento: ${GEN_001_DEFAULT.dates.trainingBeginsISO}`);
+  lines.push("", `Inicio de entrenamiento: ${formatWeekdayDate(generation.dates.trainingBeginsISO, "es")}`);
 
   if (app.email) {
     await sendEmail({ to: app.email, subject: `VORSHEIN — You're In (${memberId})`, text: lines.join("\n") });
@@ -68,12 +71,13 @@ export async function sendAdmissionEmail(
 
 /** Section 80 — sent when the applicant doesn't reach Foundation's minimum requirement. */
 export async function sendNotYetEligibleEmail(app: Application): Promise<void> {
+  const generation = await getActiveGeneration();
   const text = [
     "NOT YET ELIGIBLE",
     "",
     `Application ID: ${app.id}`,
     "Tu evaluación presencial determinó que todavía necesitas desarrollar las bases mínimas antes de comenzar el ciclo de entrenamiento.",
-    `Refund due: Bs ${GEN_001_DEFAULT.trainingFee} (el monto de Bs ${GEN_001_DEFAULT.assessmentFee} corresponde a la evaluación ya realizada).`,
+    `Refund due: Bs ${generation.trainingFee} (el monto de Bs ${generation.assessmentFee} corresponde a la evaluación ya realizada).`,
   ].join("\n");
   if (app.email) {
     await sendEmail({ to: app.email, subject: `VORSHEIN — Application Update (${app.id})`, text });

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { getApplication, updateApplication } from "@/lib/applications/store";
 import { recordPayment } from "@/lib/payments/store";
-import { GEN_001_DEFAULT } from "@/lib/generation";
+import { getActiveGeneration } from "@/lib/generation";
 
 export async function GET(request: NextRequest) {
   if (!(await isAdminAuthenticated())) {
@@ -46,22 +46,23 @@ export async function POST(request: NextRequest) {
 
   // pay_qr / pay_cash
   const method = action === "pay_qr" ? "qr" : "cash";
+  const generation = await getActiveGeneration();
   await recordPayment({
     applicationId: id,
     memberId: application.memberId,
-    amount: GEN_001_DEFAULT.price,
+    amount: generation.price,
     method,
     status: "paid",
     date: new Date().toISOString(),
     concept: "GEN 001 — Entry Assessment + Training Cycle",
-    assessmentPortion: GEN_001_DEFAULT.assessmentFee,
-    trainingPortion: GEN_001_DEFAULT.trainingFee,
+    assessmentPortion: generation.assessmentFee,
+    trainingPortion: generation.trainingFee,
     refundDueAt: null,
     refundCompletedAt: null,
   });
   const updated = await updateApplication(id, {
     status: "PAID",
-    paymentAmount: GEN_001_DEFAULT.price,
+    paymentAmount: generation.price,
     paymentMethod: method,
     paymentStatus: "paid",
     paymentDate: new Date().toISOString(),

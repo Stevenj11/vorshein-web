@@ -11,7 +11,8 @@
     "system": "El Sistema",
     "events": "Eventos",
     "reserve": "Postular",
-    "findYourLevel": "Descubre tu Nivel"
+    "findYourLevel": "Descubre tu Nivel",
+    "toggleMenu": "Abrir menú"
   },
   "footer": {
     "systemLabel": "Sistema",
@@ -27,7 +28,7 @@
     "label": "Idioma"
   },
   "brand": {
-    "system": "Sistema de Rendimiento Acuático",
+    "system": "Sistema Progresivo de Rendimiento Acuático",
     "tagline": "CONTROL. RESISTENCIA. RENDIMIENTO."
   },
   "home": {
@@ -55,13 +56,13 @@
       "index": "03",
       "label": "El Sistema",
       "viewFull": "Manual Completo →",
-      "heading": "Diez módulos. Un solo sistema de rendimiento acuático."
+      "heading": "Un solo sistema de rendimiento acuático."
     },
     "assessment": {
       "index": "04",
       "label": "Evaluación",
       "heading": "Descubre tu nivel.",
-      "body": "Una evaluación interactiva de 2 minutos. Tu perfil, tu punto de partida y tu programa recomendado.",
+      "body": "Una evaluación interactiva de 2 minutos. Clasificación preliminar — tu nivel oficial se determina presencialmente.",
       "cta": "Comenzar Evaluación"
     },
     "events": {
@@ -177,7 +178,7 @@
       "birthYear": "Año de nacimiento",
       "whatsapp": "WhatsApp",
       "turnDate": "Evaluación de Ingreso",
-      "turnDateSub": "Entry Assessment — elige el turno que te convenga.",
+      "turnDateSub": "Elige el turno que te convenga.",
       "notYou": "¿No eres tú?",
       "turnFull": "Sin cupos",
       "turnSpotsLeft": "disponibles",
@@ -487,7 +488,7 @@
   },
   "assessment": {
     "intro": {
-      "label": "Vorshein Assessment",
+      "label": "Evaluación de Ingreso",
       "heading": "Conoce tu clasificación preliminar.",
       "body": "{count} preguntas breves. 2–3 minutos. El resultado es una clasificación preliminar — tu nivel oficial se determina mediante evaluación presencial.",
       "cta": "Comenzar Evaluación"
@@ -526,7 +527,8 @@
       "floatingLabel": "Aún no elegible",
       "floatingHeading": "Todavía no cumples el requisito mínimo.",
       "floatingBody": "Foundation requiere poder flotar de forma independiente. Esto es un punto de partida, no un límite permanente — dejá tu interés y te contactamos cuando estés listo para postular.",
-      "futureOpenings": "Dejar mi interés — Future Openings",
+      "futureOpenings": "Dejar mi interés",
+      "futureOpeningsMessage": "Hola, quiero dejar mi interés para futuras convocatorias de VORSHEIN.",
       "retake": "Volver a intentar"
     },
     "confirm": {

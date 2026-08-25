@@ -40,7 +40,17 @@ type Phase =
 const STYLE_ORDER: Style[] = ["freestyle", "backstroke", "breaststroke", "butterfly", "none"];
 const ANALYZING_DURATION = 1100;
 
-export function AssessmentFlow() {
+type Eligibility = { minAge: number; maxAge: number; sex: "male" | "female" | "any" };
+
+export function AssessmentFlow({
+  eligibility,
+  generationName,
+  generationLocation,
+}: {
+  eligibility: Eligibility;
+  generationName: string;
+  generationLocation: string;
+}) {
   const t = useTranslations("assessment");
   const [phase, setPhase] = useState<Phase>("intro");
   const [step, setStep] = useState(0);
@@ -72,7 +82,10 @@ export function AssessmentFlow() {
   function submitAge() {
     const ageNum = Number(age);
     if (!ageNum || ageNum < 1 || ageNum > 120) return;
-    const check = checkEligibility({ age: ageNum, sex: "male" }, { minAge: 18, maxAge: 30, sex: "any" });
+    const check = checkEligibility(
+      { age: ageNum, sex: "male" },
+      { minAge: eligibility.minAge, maxAge: eligibility.maxAge, sex: "any" },
+    );
     if (!check.eligible) {
       setPhase("ineligible-age");
       return;
@@ -82,10 +95,7 @@ export function AssessmentFlow() {
 
   function selectSex(value: "male" | "female") {
     setSex(value);
-    const check = checkEligibility(
-      { age: Number(age), sex: value },
-      { minAge: 18, maxAge: 30, sex: "male" },
-    );
+    const check = checkEligibility({ age: Number(age), sex: value }, eligibility);
     if (!check.eligible) {
       setPhase("ineligible-sex");
       return;
@@ -290,7 +300,15 @@ export function AssessmentFlow() {
   }
 
   if (phase === "ineligible-age" || phase === "ineligible-sex" || phase === "ineligible-floating") {
-    return <IneligibleScreen variant={phase} onRetake={retake} />;
+    return (
+      <IneligibleScreen
+        variant={phase}
+        onRetake={retake}
+        eligibility={eligibility}
+        generationName={generationName}
+        generationLocation={generationLocation}
+      />
+    );
   }
 
   if (phase === "sex") {

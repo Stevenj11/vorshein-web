@@ -11,7 +11,8 @@
     "system": "The System",
     "events": "Events",
     "reserve": "Apply",
-    "findYourLevel": "Discover Your Level"
+    "findYourLevel": "Discover Your Level",
+    "toggleMenu": "Open menu"
   },
   "footer": {
     "systemLabel": "System",
@@ -27,7 +28,7 @@
     "label": "Language"
   },
   "brand": {
-    "system": "Aquatic Performance System",
+    "system": "Progressive Aquatic Performance System",
     "tagline": "CONTROL. ENDURANCE. PERFORMANCE."
   },
   "home": {
@@ -55,13 +56,13 @@
       "index": "03",
       "label": "The System",
       "viewFull": "Full Manual →",
-      "heading": "Ten modules. One aquatic performance system."
+      "heading": "One aquatic performance system."
     },
     "assessment": {
       "index": "04",
       "label": "Assessment",
       "heading": "Discover your level.",
-      "body": "A 2-minute interactive evaluation. Your profile, your starting point, and your recommended program.",
+      "body": "A 2-minute interactive evaluation. Preliminary classification — your official level is set in a presencial evaluation.",
       "cta": "Start Assessment"
     },
     "events": {
@@ -526,7 +527,8 @@
       "floatingLabel": "Not yet eligible",
       "floatingHeading": "You don't meet the minimum requirement yet.",
       "floatingBody": "Foundation requires independent floating. This is a starting point, not a permanent limit — leave your interest and we'll reach out when you're ready to apply.",
-      "futureOpenings": "Leave my interest — Future Openings",
+      "futureOpenings": "Leave my interest",
+      "futureOpeningsMessage": "Hi, I'd like to register my interest for future VORSHEIN cohorts.",
       "retake": "Try again"
     },
     "confirm": {

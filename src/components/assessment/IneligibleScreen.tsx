@@ -1,30 +1,31 @@
 "use client";
 
-import { useLocale, useTranslations } from "next-intl";
-import { GEN_001_DEFAULT } from "@/lib/generation-defaults";
+import { useTranslations } from "next-intl";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 type Variant = "ineligible-age" | "ineligible-sex" | "ineligible-floating";
+type Eligibility = { minAge: number; maxAge: number; sex: "male" | "female" | "any" };
 
 export function IneligibleScreen({
   variant,
   onRetake,
+  eligibility,
+  generationName,
+  generationLocation,
 }: {
   variant: Variant;
   onRetake: () => void;
+  eligibility: Eligibility;
+  generationName: string;
+  generationLocation: string;
 }) {
   const t = useTranslations("assessment.ineligible");
-  const locale = useLocale();
 
   const isFloating = variant === "ineligible-floating";
   const heading = isFloating ? t("floatingHeading") : t("cohortHeading");
   const body = isFloating ? t("floatingBody") : t("cohortBody");
 
-  const waLink = buildWhatsAppLink(
-    locale === "es"
-      ? "Hola, quiero dejar mi interés para futuras convocatorias de VORSHEIN."
-      : "Hi, I'd like to register my interest for future VORSHEIN cohorts.",
-  );
+  const waLink = buildWhatsAppLink(t("futureOpeningsMessage"));
 
   return (
     <div className="mx-auto flex max-w-lg flex-col items-center text-center">
@@ -36,10 +37,10 @@ export function IneligibleScreen({
 
       {!isFloating && (
         <p className="mt-4 font-mono text-xs uppercase tracking-[0.15em] text-fg-faint">
-          {GEN_001_DEFAULT.location.split(",")[0]} · {GEN_001_DEFAULT.name} ·{" "}
+          {generationLocation.split(",")[0]} · {generationName} ·{" "}
           {t("cohortRange", {
-            min: GEN_001_DEFAULT.eligibility.minAge,
-            max: GEN_001_DEFAULT.eligibility.maxAge,
+            min: eligibility.minAge,
+            max: eligibility.maxAge,
           })}
         </p>
       )}
