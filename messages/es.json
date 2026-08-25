@@ -164,7 +164,7 @@
   "apply": {
     "label": "Postulación",
     "heading": "Postula a GEN 001.",
-    "body": "Menos de 1 minuto. Solo tu nombre, año de nacimiento y WhatsApp — el resto se completa presencialmente el día de tu evaluación.",
+    "body": "Ya tenemos tus datos de la evaluación. Elige tu turno y confirma — el resto se completa presencialmente el día de tu evaluación.",
     "form": {
       "needsAssessment": "Necesitas completar la evaluación antes de postular — tu clasificación preliminar determina tu turno.",
       "goToAssessment": "Ir a la Evaluación",
@@ -174,6 +174,7 @@
       "whatsapp": "WhatsApp",
       "turnDate": "Evaluación de Ingreso",
       "turnDateSub": "Entry Assessment — elige el turno que te convenga.",
+      "notYou": "¿No eres tú?",
       "turnFull": "Sin cupos",
       "turnSpotsLeft": "disponibles",
       "errorName": "Escribe tu nombre y apellido.",
@@ -459,6 +460,14 @@
     "back": "Atrás",
     "continue": "Continuar",
     "analyzing": "Procesando tus respuestas…",
+    "identity": {
+      "label": "Antes de empezar",
+      "heading": "¿Cómo te llamas?",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "whatsapp": "WhatsApp",
+      "error": "Completa tu nombre, apellido y un WhatsApp válido."
+    },
     "gates": {
       "ageLabel": "Elegibilidad — Edad",
       "agePrompt": "¿Cuántos años tienes?",

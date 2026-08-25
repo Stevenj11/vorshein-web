@@ -1,7 +1,7 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Application } from "@/lib/applications/types";
 import { formatWeekdayDate } from "@/lib/enrollment";
 import { useAssessmentResult } from "@/lib/assessment/storage";
@@ -16,10 +16,6 @@ type TurnAvailability = {
   full: boolean;
 };
 
-const CURRENT_YEAR = new Date().getFullYear();
-const MIN_BIRTH_YEAR = CURRENT_YEAR - 30;
-const MAX_BIRTH_YEAR = CURRENT_YEAR - 18;
-
 const ERROR_KEY: Record<string, string> = {
   missing_name: "errorName",
   invalid_birth_year: "errorBirthYear",
@@ -30,6 +26,11 @@ const ERROR_KEY: Record<string, string> = {
   server_error: "errorServer",
 };
 
+/**
+ * Identity (name, WhatsApp) is already known from the assessment's
+ * identity step — this form only ever asks for a turn, so applying reads
+ * as one continuous flow instead of retyping the same details twice.
+ */
 export function ApplicationForm({
   entryDates,
   price,
@@ -75,44 +76,21 @@ export function ApplicationForm({
     );
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function handleSubmit() {
+    if (!stored) return;
     setErrorKey(null);
-
-    const form = new FormData(e.currentTarget);
-    const firstName = String(form.get("firstName") ?? "").trim();
-    const lastName = String(form.get("lastName") ?? "").trim();
-    const birthYear = Number(form.get("birthYear"));
-    const whatsapp = String(form.get("whatsapp") ?? "").trim();
-
-    if (!firstName || !lastName) {
-      setErrorKey("errorName");
-      return;
-    }
-    if (!birthYear || birthYear < MIN_BIRTH_YEAR - 5 || birthYear > MAX_BIRTH_YEAR + 5) {
-      setErrorKey("errorBirthYear");
-      return;
-    }
-    if (birthYear < MIN_BIRTH_YEAR || birthYear > MAX_BIRTH_YEAR) {
-      setErrorKey("errorAgeRange");
-      return;
-    }
-    if (!whatsapp || whatsapp.replace(/\D/g, "").length < 7) {
-      setErrorKey("errorWhatsapp");
-      return;
-    }
+    setStatus("submitting");
 
     const payload = {
-      firstName,
-      lastName,
-      birthYear,
-      whatsapp,
+      firstName: stored.firstName,
+      lastName: stored.lastName,
+      birthYear: new Date().getFullYear() - stored.age,
+      whatsapp: stored.whatsapp,
       turnDateISO: turnDate,
-      sex: stored?.sex,
-      assessmentAnswers: stored?.answers,
+      sex: stored.sex,
+      assessmentAnswers: stored.answers,
     };
 
-    setStatus("submitting");
     try {
       const res = await fetch("/api/applications", {
         method: "POST",
@@ -138,62 +116,26 @@ export function ApplicationForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <label className="flex flex-col gap-2">
-          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-            {t("firstName")}
-          </span>
-          <input
-            name="firstName"
-            autoComplete="given-name"
-            className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal"
-          />
-        </label>
-        <label className="flex flex-col gap-2">
-          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-            {t("lastName")}
-          </span>
-          <input
-            name="lastName"
-            autoComplete="family-name"
-            className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal"
-          />
-        </label>
-      </div>
-
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-        <label className="flex flex-col gap-2">
-          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-            {t("birthYear")}
-          </span>
-          <input
-            name="birthYear"
-            type="number"
-            inputMode="numeric"
-            placeholder="2000"
-            min={MIN_BIRTH_YEAR - 5}
-            max={MAX_BIRTH_YEAR + 5}
-            className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal"
-          />
-        </label>
-        <label className="flex flex-col gap-2">
-          <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-            {t("whatsapp")}
-          </span>
-          <input
-            name="whatsapp"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            placeholder="+591 7xxxxxxx"
-            className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal"
-          />
-        </label>
+    <div className="flex flex-col gap-5">
+      <div className="flex items-center justify-between border border-line-strong px-5 py-4">
+        <div>
+          <p className="text-sm font-medium text-fg">
+            {stored.firstName} {stored.lastName}
+          </p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
+            {stored.whatsapp}
+          </p>
+        </div>
+        <a
+          href={`/${locale}/assessment`}
+          className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint transition-colors hover:text-fg"
+        >
+          {t("notYou")}
+        </a>
       </div>
 
       {entryDates.length > 1 && (
-        <div className="border-t border-line pt-5">
+        <div>
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
             {t("turnDate")}
           </span>
@@ -235,13 +177,14 @@ export function ApplicationForm({
       {errorKey && <p className="text-sm text-signal">{t(errorKey)}</p>}
 
       <button
-        type="submit"
+        type="button"
+        onClick={handleSubmit}
         disabled={status === "submitting"}
         className="mt-2 inline-flex items-center justify-center gap-2 bg-fg px-7 py-3.5 text-xs font-mono uppercase tracking-[0.2em] text-void transition-colors duration-200 hover:bg-signal disabled:opacity-40"
       >
         {status === "submitting" ? t("submitting") : t("submit")}
       </button>
       <p className="text-center text-xs text-fg-faint">{t("noPaymentNote")}</p>
-    </form>
+    </div>
   );
 }

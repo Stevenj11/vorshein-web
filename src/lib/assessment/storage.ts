@@ -12,6 +12,11 @@ export type StoredAssessmentResult = {
    * the server for re-validation (spec: backend must validate, not just
    * trust the frontend's computed level). */
   answers: ClassificationInput;
+  /** Collected up front (before the gate/quiz questions) so Apply never
+   * has to ask for them again — the applicant only picks a turn there. */
+  firstName: string;
+  lastName: string;
+  whatsapp: string;
 };
 
 export function saveAssessmentResult(result: StoredAssessmentResult) {

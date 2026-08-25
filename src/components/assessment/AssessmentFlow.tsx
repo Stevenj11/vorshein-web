@@ -20,6 +20,7 @@ import { ResultScreen } from "./ResultScreen";
 
 type Phase =
   | "intro"
+  | "identity"
   | "age"
   | "ineligible-age"
   | "sex"
@@ -38,6 +39,10 @@ export function AssessmentFlow() {
   const t = useTranslations("assessment");
   const [phase, setPhase] = useState<Phase>("intro");
   const [step, setStep] = useState(0);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [identityError, setIdentityError] = useState(false);
   const [age, setAge] = useState("");
   const [sex, setSex] = useState<"male" | "female" | null>(null);
   const [canFloat, setCanFloat] = useState<boolean | null>(null);
@@ -47,6 +52,15 @@ export function AssessmentFlow() {
 
   const question = INDICATOR_QUESTIONS[step];
   const options = question ? (t.raw(`questions.${question.id}.options`) as string[]) : [];
+
+  function submitIdentity() {
+    if (!firstName.trim() || !lastName.trim() || whatsapp.replace(/\D/g, "").length < 7) {
+      setIdentityError(true);
+      return;
+    }
+    setIdentityError(false);
+    setPhase("age");
+  }
 
   function submitAge() {
     const ageNum = Number(age);
@@ -153,6 +167,9 @@ export function AssessmentFlow() {
         age: Number(age),
         sex,
         answers: input,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        whatsapp: whatsapp.trim(),
       });
       setResult(classification);
       setPhase("result");
@@ -162,6 +179,10 @@ export function AssessmentFlow() {
 
   function retake() {
     setStep(0);
+    setFirstName("");
+    setLastName("");
+    setWhatsapp("");
+    setIdentityError(false);
     setAge("");
     setSex(null);
     setCanFloat(null);
@@ -184,7 +205,47 @@ export function AssessmentFlow() {
           {t("intro.body", { count: TOTAL_INDICATOR_QUESTIONS + 3 })}
         </p>
         <div className="mt-10">
-          <Button onClick={() => setPhase("age")}>{t("intro.cta")}</Button>
+          <Button onClick={() => setPhase("identity")}>{t("intro.cta")}</Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (phase === "identity") {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center text-center">
+        <span className="font-mono text-xs uppercase tracking-[0.3em] text-fg-faint">
+          {t("identity.label")}
+        </span>
+        <h2 className="mt-5 text-2xl font-semibold md:text-3xl">{t("identity.heading")}</h2>
+        <div className="mt-8 flex w-full flex-col gap-3">
+          <input
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder={t("identity.firstName") as string}
+            autoFocus
+            className="border border-line-strong bg-transparent px-4 py-3 text-center text-sm text-fg outline-none placeholder:text-fg-faint focus:border-signal"
+          />
+          <input
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder={t("identity.lastName") as string}
+            className="border border-line-strong bg-transparent px-4 py-3 text-center text-sm text-fg outline-none placeholder:text-fg-faint focus:border-signal"
+          />
+          <input
+            value={whatsapp}
+            onChange={(e) => setWhatsapp(e.target.value)}
+            type="tel"
+            inputMode="tel"
+            placeholder={t("identity.whatsapp") as string}
+            className="border border-line-strong bg-transparent px-4 py-3 text-center text-sm text-fg outline-none placeholder:text-fg-faint focus:border-signal"
+          />
+        </div>
+        {identityError && (
+          <p className="mt-4 text-sm text-signal">{t("identity.error")}</p>
+        )}
+        <div className="mt-8">
+          <Button onClick={submitIdentity}>{t("continue")}</Button>
         </div>
       </div>
     );

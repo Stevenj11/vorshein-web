@@ -164,7 +164,7 @@
   "apply": {
     "label": "Application",
     "heading": "Apply to GEN 001.",
-    "body": "Under 1 minute. Just your name, birth year, and WhatsApp — everything else is completed in person on your evaluation day.",
+    "body": "We already have your details from the assessment. Pick your turn and confirm — everything else is completed in person on your evaluation day.",
     "form": {
       "needsAssessment": "You need to complete the assessment before applying — your preliminary classification determines your turn.",
       "goToAssessment": "Go to the Assessment",
@@ -174,6 +174,7 @@
       "whatsapp": "WhatsApp",
       "turnDate": "Entry Evaluation",
       "turnDateSub": "Entry Assessment — pick whichever turn works for you.",
+      "notYou": "Not you?",
       "turnFull": "Full",
       "turnSpotsLeft": "open",
       "errorName": "Enter your first and last name.",
@@ -459,6 +460,14 @@
     "back": "Back",
     "continue": "Continue",
     "analyzing": "Processing your answers…",
+    "identity": {
+      "label": "Before we start",
+      "heading": "What's your name?",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "whatsapp": "WhatsApp",
+      "error": "Enter your first name, last name, and a valid WhatsApp number."
+    },
     "gates": {
       "ageLabel": "Eligibility — Age",
       "agePrompt": "How old are you?",
