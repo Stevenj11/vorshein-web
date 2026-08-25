@@ -12,6 +12,10 @@ async function setStatus(id: string, status: ApplicationStatus, officialLevel?: 
   });
 }
 
+async function deleteApp(id: string) {
+  await fetch(`/api/command-center/applications/${id}`, { method: "DELETE" });
+}
+
 /**
  * Only ever shows ONE obvious next step by default (the button matching
  * where this application actually is in the funnel), plus a "More" toggle
@@ -53,11 +57,21 @@ export function ApplicationRowActions({
     "shrink-0 border border-white bg-white px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-black transition-opacity hover:opacity-80 disabled:opacity-30";
   const secondaryBtn =
     "shrink-0 border border-white/20 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-white/70 transition-colors hover:border-white hover:text-white disabled:opacity-30";
+  const dangerBtn =
+    "shrink-0 border border-red-500/40 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-red-400 transition-colors hover:border-red-400 hover:text-red-300 disabled:opacity-30";
   const moreToggle =
     "shrink-0 px-1.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 transition-colors hover:text-white";
 
   if (status === "ADMITTED") {
     return <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-white/30">—</span>;
+  }
+
+  const rejected = status === "NOT_YET_ELIGIBLE" || status === "NO_SHOW" || status === "WAITLIST";
+
+  function confirmDelete() {
+    if (window.confirm("¿Eliminar esta postulación de forma permanente? Esta acción no se puede deshacer.")) {
+      run(() => deleteApp(id));
+    }
   }
 
   let primary: React.ReactNode = null;
@@ -73,7 +87,7 @@ export function ApplicationRowActions({
         Check-in
       </button>
     );
-  } else if (canAdmit) {
+  } else if (canAdmit && !rejected) {
     primary = (
       <button disabled={busy} className={primaryBtn} onClick={admit}>
         Admitir {preliminaryLevel}
@@ -84,6 +98,11 @@ export function ApplicationRowActions({
   return (
     <div className="flex flex-wrap items-center gap-1.5">
       {primary}
+      {rejected && (
+        <button disabled={busy} className={dangerBtn} onClick={confirmDelete}>
+          Eliminar
+        </button>
+      )}
       <button
         type="button"
         className={moreToggle}

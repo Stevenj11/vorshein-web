@@ -44,24 +44,42 @@ export default function CheckinPage() {
     "w-full border border-white/20 px-6 py-6 text-center text-sm font-mono uppercase tracking-[0.15em] transition-colors active:bg-white active:text-black disabled:opacity-30";
 
   return (
-    <div className="mx-auto flex max-w-md flex-col gap-4">
-      <div className="flex gap-2">
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && search()}
-          placeholder="VRSN-A0001"
-          className="flex-1 border border-white/20 bg-transparent px-4 py-3 text-center font-mono uppercase text-white outline-none focus:border-white"
-        />
-        <button onClick={search} className="border border-white/20 px-5 py-3 text-xs font-mono uppercase tracking-[0.15em]">
-          Buscar
-        </button>
+    <div className="mx-auto flex max-w-md flex-col gap-6">
+      <div className="border border-white/10 p-4">
+        <div className="mb-3 flex items-center gap-2">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/30 font-mono text-[10px] text-white/70">
+            1
+          </span>
+          <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40">
+            Busca al postulante por su ID
+          </span>
+        </div>
+        <div className="flex gap-2">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && search()}
+            placeholder="VRSN-A0001"
+            className="flex-1 border border-white/20 bg-transparent px-4 py-3 text-center font-mono uppercase text-white outline-none focus:border-white"
+          />
+          <button onClick={search} className="border border-white/20 px-5 py-3 text-xs font-mono uppercase tracking-[0.15em]">
+            Buscar
+          </button>
+        </div>
+        {error && <p className="mt-3 text-center text-sm text-red-400">{error}</p>}
       </div>
 
-      {error && <p className="text-center text-sm text-red-400">{error}</p>}
-
       {app && (
-        <>
+        <div className="border border-white/10 p-4">
+          <div className="mb-3 flex items-center gap-2">
+            <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-white/30 font-mono text-[10px] text-white/70">
+              2
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40">
+              Avanza su evaluación presencial
+            </span>
+          </div>
+
           <div className="border border-white/10 p-4 text-center">
             <p className="font-mono text-xs text-cyan-400">{app.id}</p>
             <p className="mt-1 text-lg font-bold">{app.firstName} {app.lastName}</p>
@@ -73,7 +91,7 @@ export default function CheckinPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-3">
+          <div className="mt-4 grid grid-cols-1 gap-3">
             <button disabled={busy} className={bigBtn} onClick={() => action("checkin")}>
               Check-in
             </button>
@@ -90,7 +108,7 @@ export default function CheckinPage() {
               Siguiente →
             </button>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

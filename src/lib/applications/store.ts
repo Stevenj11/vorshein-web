@@ -43,6 +43,14 @@ export async function updateApplication(
   return all[idx];
 }
 
+export async function deleteApplication(id: string): Promise<boolean> {
+  const all = await readAll();
+  const next = all.filter((a) => a.id !== id);
+  if (next.length === all.length) return false;
+  await writeAll(next);
+  return true;
+}
+
 export async function setApplicationStatus(
   id: string,
   status: ApplicationStatus,
