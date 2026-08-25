@@ -37,7 +37,11 @@ async function writeFsFile(key: string, contents: string): Promise<void> {
 
 async function readBlobFile(key: string): Promise<string | null> {
   const { get } = await import("@vercel/blob");
-  const result = await get(`data/${key}.json`, { access: "private" });
+  // useCache:false — every store does a read-then-write on each mutation
+  // (see e.g. applications/store.ts's updateApplication), so a CDN-cached
+  // stale read here would silently clobber the very write that just
+  // happened, or make an admin action look like it did nothing.
+  const result = await get(`data/${key}.json`, { access: "private", useCache: false });
   if (!result || result.statusCode !== 200) return null;
   return new Response(result.stream).text();
 }
