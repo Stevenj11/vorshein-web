@@ -36,18 +36,16 @@ async function writeFsFile(key: string, contents: string): Promise<void> {
 }
 
 async function readBlobFile(key: string): Promise<string | null> {
-  const { list } = await import("@vercel/blob");
-  const { blobs } = await list({ prefix: `data/${key}.json`, limit: 1 });
-  if (blobs.length === 0) return null;
-  const res = await fetch(blobs[0].url, { cache: "no-store" });
-  if (!res.ok) return null;
-  return res.text();
+  const { get } = await import("@vercel/blob");
+  const result = await get(`data/${key}.json`, { access: "private" });
+  if (!result || result.statusCode !== 200) return null;
+  return new Response(result.stream).text();
 }
 
 async function writeBlobFile(key: string, contents: string): Promise<void> {
   const { put } = await import("@vercel/blob");
   await put(`data/${key}.json`, contents, {
-    access: "public",
+    access: "private",
     addRandomSuffix: false,
     allowOverwrite: true,
     contentType: "application/json",
