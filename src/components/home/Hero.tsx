@@ -39,6 +39,18 @@ export function Hero() {
         style={{ animation: "scan-line 10s linear infinite" }}
       />
 
+      {/* Large, near-invisible background mark — fills the wide negative
+          space on desktop with brand texture instead of flat black, at a
+          scale the small foreground logo can't reach on its own. */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.05]"
+        style={{ animation: "breathe 8s ease-in-out infinite" }}
+      >
+        <Logo size={1100} />
+      </div>
+      <div className="pointer-events-none absolute -left-24 top-1/3 h-72 w-72 rounded-full bg-signal/10 blur-[100px]" />
+      <div className="pointer-events-none absolute -right-24 bottom-1/4 h-72 w-72 rounded-full bg-signal/10 blur-[100px]" />
+
       {/* Corner brackets frame the whole viewport so the negative space
           reads as a deliberate, tactical composition rather than empty
           black — same visual language as ImagePlaceholder's frame. */}
