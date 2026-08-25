@@ -124,9 +124,10 @@ export function StatusChecker() {
             </div>
           </div>
 
-          {display.color !== "green" && (
-            <div className="mt-6 border-t border-line pt-6">
-              <p className="text-xs text-fg-faint">{t("waitingNote")}</p>
+          <div className="mt-6 border-t border-line pt-6">
+              <p className="text-xs text-fg-faint">
+                {t(display.color !== "green" ? "waitingNote" : "admittedContactNote")}
+              </p>
               <a
                 href={`https://wa.me/${result.whatsappNumber}?text=${encodeURIComponent(`Hola, quiero consultar el estado de mi postulación ${result.id}.`)}`}
                 target="_blank"
@@ -135,8 +136,7 @@ export function StatusChecker() {
               >
                 {t("contactCta")}
               </a>
-            </div>
-          )}
+          </div>
         </div>
       )}
     </div>

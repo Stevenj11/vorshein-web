@@ -241,12 +241,13 @@
     "review": "En revisión",
     "reviewDetail": "Tu postulación está en revisión manual — el equipo te contactará por WhatsApp dentro de 24 a 48 horas.",
     "admitted": "¡Admitido en VORSHEIN!",
-    "admittedDetail": "Felicidades — ya eres parte de GEN 001.",
+    "admittedDetail": "Felicidades — ya formas parte de la primera generación VORSHEIN. El equipo te contactará por WhatsApp para coordinar los detalles de tu evaluación (ubicación y horario).",
     "notYetEligible": "Aún no elegible",
     "notYetEligibleDetail": "Tu evaluación presencial determinó que todavía necesitas desarrollar las bases mínimas. El equipo te contactará por WhatsApp dentro de 24 a 48 horas.",
     "noShow": "No se presentó",
     "noShowDetail": "No te presentaste a tu evaluación. Contáctanos por WhatsApp si fue un error.",
     "waitingNote": "Puedes volver a revisar tu estado aquí cuando quieras. Si pasan más de 2 días sin novedades, contáctanos directamente por WhatsApp.",
+    "admittedContactNote": "¿Tienes alguna pregunta? Escríbenos por WhatsApp.",
     "contactCta": "Contactar por WhatsApp"
   },
   "programDetail": {

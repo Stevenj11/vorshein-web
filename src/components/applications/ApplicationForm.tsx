@@ -16,6 +16,21 @@ type TurnAvailability = {
   full: boolean;
 };
 
+function CapacityDots({ reserved, capacity, active }: { reserved: number; capacity: number; active: boolean }) {
+  return (
+    <div className="mt-2 flex flex-wrap gap-1">
+      {Array.from({ length: capacity }, (_, i) => (
+        <span
+          key={i}
+          className={`h-1.5 w-1.5 rounded-full ${
+            i < reserved ? (active ? "bg-signal" : "bg-fg-muted") : "border border-line-strong"
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 const ERROR_KEY: Record<string, string> = {
   missing_name: "errorName",
   invalid_birth_year: "errorBirthYear",
@@ -163,9 +178,12 @@ export function ApplicationForm({
                     {formatWeekdayDate(date, locale)}
                   </span>
                   {info && (
-                    <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
-                      {info.timeSlot} · {full ? t("turnFull") : `${info.capacity - info.reserved}/${info.capacity} ${t("turnSpotsLeft")}`}
-                    </span>
+                    <>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+                        {info.timeSlot} · {full ? t("turnFull") : `${info.capacity - info.reserved}/${info.capacity} ${t("turnSpotsLeft")}`}
+                      </span>
+                      <CapacityDots reserved={info.reserved} capacity={info.capacity} active={active} />
+                    </>
                   )}
                 </button>
               );

@@ -105,7 +105,7 @@ export function EntryPassCard({
         <p className="mt-4 text-xs text-fg-muted">{t("pendingNote")}</p>
         <a
           href={`/${locale}/estado?id=${encodeURIComponent(application.id)}`}
-          className="mt-5 inline-block font-mono text-xs uppercase tracking-[0.2em] text-fg-faint transition-colors hover:text-fg"
+          className="mt-5 inline-flex w-full items-center justify-center gap-2 border border-line-strong px-7 py-3 font-mono text-xs uppercase tracking-[0.2em] text-fg transition-colors hover:border-signal hover:text-signal"
         >
           {t("checkStatusLater")} →
         </a>
