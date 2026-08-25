@@ -5,6 +5,9 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/Logo";
 import { isIntroDone } from "@/lib/introLoaderState";
+import { TOTAL_INDICATOR_QUESTIONS } from "@/lib/assessment/questions";
+
+const ASSESSMENT_STEP_COUNT = TOTAL_INDICATOR_QUESTIONS + 3;
 
 const LOADER_TOTAL_MS = 2800;
 
@@ -22,7 +25,7 @@ export function Hero() {
   const stats = [
     { value: "10", label: ts("modules") },
     { value: "03", label: ts("levels") },
-    { value: "09", label: ts("questions") },
+    { value: String(ASSESSMENT_STEP_COUNT).padStart(2, "0"), label: ts("questions") },
   ];
 
   return (
@@ -106,8 +109,8 @@ export function Hero() {
           className="mt-10 flex animate-fade-up flex-col gap-4 sm:flex-row"
           style={{ animationDelay: D(300) }}
         >
-          <Button href="/vorshein">{t("ctaPrimary")}</Button>
-          <Button href="/assessment" variant="ghost">
+          <Button href="/assessment">{t("ctaPrimary")}</Button>
+          <Button href="/system" variant="ghost">
             {t("ctaSecondary")}
           </Button>
         </div>

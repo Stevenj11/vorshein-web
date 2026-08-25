@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { BRAND } from "@/lib/brand";
-import { PROGRAM_SLUG_TO_LEVEL, PROGRAMS } from "@/lib/programs";
+import { PROGRAMS } from "@/lib/programs";
 
 export async function generateMetadata({
   params,
@@ -87,12 +87,7 @@ export default async function TrainingPage({
                   </div>
 
                   <div className="mt-6">
-                    <EnrollmentBanner
-                      locale={locale}
-                      slug={program.slug}
-                      level={PROGRAM_SLUG_TO_LEVEL[program.slug]}
-                      programName={tp(`${program.slug}.name`)}
-                    />
+                    <EnrollmentBanner locale={locale} slug={program.slug} />
                   </div>
                 </div>
               </div>

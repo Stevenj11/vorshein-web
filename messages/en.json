@@ -7,7 +7,7 @@
     "training": "Training",
     "system": "The System",
     "events": "Events",
-    "reserve": "Reserve",
+    "reserve": "Apply",
     "findYourLevel": "Unlock Your Level"
   },
   "footer": {
@@ -15,7 +15,7 @@
     "startLabel": "Start",
     "findYourLevel": "Unlock Your Level",
     "competitionStatus": "Competition Status",
-    "reserve": "Reserve Evaluation",
+    "reserve": "Apply to GEN 001",
     "rights": "All rights reserved.",
     "founded": "Founded by {name}"
   },
@@ -28,12 +28,12 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Aquatic Performance System",
-      "headlineLine1": "Performance",
-      "headlineLine2": "under pressure.",
-      "sub": "High-performance aquatic training, built to perform under pressure. CONTROL. ENDURANCE. PERFORMANCE.",
-      "ctaPrimary": "Enter the System",
-      "ctaSecondary": "Unlock Your Level"
+      "eyebrow": "Cochabamba · GEN 001 · Men 18–30",
+      "headlineLine1": "Swimming is the beginning.",
+      "headlineLine2": "Mastering the water is the goal.",
+      "sub": "A progressive aquatic performance system. CONTROL. ENDURANCE. PERFORMANCE.",
+      "ctaPrimary": "Discover Your Level",
+      "ctaSecondary": "Explore the System"
     },
     "philosophy": {
       "index": "01",
@@ -64,9 +64,47 @@
     "events": {
       "index": "05",
       "label": "Events",
-      "heading": "Next Event",
-      "status": "Coming",
+      "heading": "VORSHEIN EVENTS",
+      "status": "COMING LATER",
       "cta": "Competition Status →"
+    },
+    "howItWorks": {
+      "index": "01",
+      "label": "How It Works",
+      "step1": {
+        "title": "Assessment",
+        "body": "Get your preliminary classification in 2–3 minutes."
+      },
+      "step2": {
+        "title": "Entry",
+        "body": "Demonstrate your ability in person, on your evaluation day."
+      },
+      "step3": {
+        "title": "Progress",
+        "body": "Train, pass the Clearance Test, and unlock the next level."
+      }
+    },
+    "progression": {
+      "index": "04",
+      "label": "Progression",
+      "heading": "You don't choose your level. You prove it.",
+      "entry": "Entry",
+      "foundation": "Foundation",
+      "performance": "Performance",
+      "tactical": "Tactical",
+      "competition": "Competition Eligible"
+    },
+    "gen001": {
+      "index": "06",
+      "label": "Generation",
+      "body": "VORSHEIN ELITE's first official generation. Real spots, real capacity — no invented members."
+    },
+    "pricing": {
+      "index": "07",
+      "label": "Price",
+      "cycle": "cycle",
+      "detail": "{weeks} weeks · {sessions} sessions · {hours} hours · Clearance included",
+      "cta": "Apply to GEN 001"
     }
   },
   "stats": {
@@ -116,15 +154,61 @@
     "daysLabel": "Days",
     "timeLabel": "Schedule",
     "priceLabel": "Price",
-    "priceValue": "{currency} {price} / month",
-    "priceDetail": "{count} classes of {hours} hours",
-    "deadlineLabel": "Enrollment closes",
-    "startLabel": "Course starts",
-    "cta": "Reserve my spot"
+    "priceValue": "{currency} {price} / cycle",
+    "priceDetail": "{count} sessions of {hours} hours · Clearance included",
+    "deadlineLabel": "Applications close",
+    "startLabel": "Cycle starts",
+    "cta": "Evaluate My Level"
+  },
+  "apply": {
+    "label": "Application",
+    "heading": "Apply to GEN 001.",
+    "body": "Complete your details to generate your Entry Pass. Payment happens in person on the day of your evaluation — nothing is charged online.",
+    "form": {
+      "needsAssessment": "You need to complete the assessment before applying — your preliminary classification determines your Entry Assessment turn.",
+      "goToAssessment": "Go to the Assessment",
+      "firstName": "First name(s)",
+      "lastName": "Last name(s)",
+      "birthDate": "Date of birth",
+      "whatsapp": "WhatsApp",
+      "email": "Email",
+      "emergencyContact": "Emergency Contact",
+      "emergencyName": "Name",
+      "emergencyRelation": "Relationship",
+      "emergencyPhone": "Phone",
+      "healthNote": "Condition, injury, or adaptation (optional)",
+      "healthNotePlaceholder": "Tell us if there's anything we should know…",
+      "healthNotePrivate": "This information is private — never shown publicly.",
+      "turnDate": "Your Entry Assessment date",
+      "requiredError": "Please complete all required fields.",
+      "errorBody": "We couldn't process your application. Please try again in a moment.",
+      "submit": "Generate my Entry Pass",
+      "submitting": "Processing…"
+    },
+    "entryPass": {
+      "label": "VORSHEIN // ENTRY PASS",
+      "heading": "Your spot is reserved.",
+      "applicationId": "Application ID",
+      "name": "Name",
+      "division": "Division",
+      "preliminaryLevel": "Preliminary Classification",
+      "date": "Date",
+      "turn": "Turn",
+      "checkIn": "Check-in",
+      "checkInDetail": "30 min before your turn",
+      "price": "Price",
+      "payment": "Payment",
+      "paymentDetail": "In person — QR or Cash",
+      "status": "Status",
+      "confirmWithin": "Confirm your spot within",
+      "deadlinePassed": "The confirmation window has passed",
+      "confirmCta": "Confirm My Spot on WhatsApp",
+      "pendingNote": "Your spot stays pending until you confirm on WhatsApp and the team reviews it."
+    }
   },
   "programDetail": {
     "back": "← All programs",
-    "reserve": "Reserve Evaluation",
+    "reserve": "Apply to GEN 001",
     "whatYoullTrain": "What you'll train",
     "curriculum": "Curriculum",
     "gallery": "Preview",
@@ -152,8 +236,8 @@
     "mediaCertification": "Final evaluation — coming soon",
     "levels": {
       "foundation": {
-        "duration": "6–8 weeks · 2 sessions per week",
-        "methodology": "Small groups (4 to 6 people) with a dedicated instructor. Every session combines live technical correction, immediate verbal feedback, and measured progression: you don't move to the next skill until the current one is solid. The goal at this stage isn't speed — it's building the confidence and technique that everything after this depends on.",
+        "duration": "1 cycle: 4 weeks · 8 sessions · Saturday and Sunday",
+        "methodology": "Small groups (6 to 10 people) with a dedicated instructor. Every session combines live technical correction, immediate verbal feedback, and measured progression: you don't move to the next skill until the current one is solid. The goal at this stage isn't speed — it's building the confidence and technique that everything after this depends on.",
         "improvements": [
           "Real comfort with the face submerged and controlled breathing",
           "Flotation and body balance in the water",
@@ -166,12 +250,12 @@
           "body": "At this level the breathing work is foundational, not apnea: bilateral breathing rhythm, controlled exhale underwater, and coordinating breath with stroke. It's the technical base that any real apnea work — later on — is built on."
         },
         "certification": {
-          "format": "Practical in-water evaluation: a technical checklist covering flotation, breathing, and movement, plus a minimum continuous distance without stopping.",
+          "format": "Practical in-water evaluation: a technical checklist covering flotation, breathing, and movement, plus 102 continuous meters without stopping (6 lengths).",
           "unlocks": "Eligibility to enroll in the Performance program."
         }
       },
       "performance": {
-        "duration": "8–10 weeks · 3 sessions per week",
+        "duration": "1 cycle: 4 weeks · 8 sessions · Saturday and Sunday",
         "methodology": "Interval training with pace plans (splits), video technique analysis, and stroke-specific efficiency work. Breath control under effort is introduced — not competitive apnea, but the ability to hold technique and composure once the body is already fatigued.",
         "improvements": [
           "Stroke efficiency and reduced drag",
@@ -188,12 +272,12 @@
           "body": "Introduction to underwater movement: body line, basic dolphin kick, and short orientation drills without surface visual references. It's the technical base that becomes real dynamic apnea in Tactical."
         },
         "certification": {
-          "format": "Timed distance test, video technique evaluation, and a comfort check on short supervised static breath-holds.",
+          "format": "Distance test: 340 meters (20 lengths), with recorded splits at 17 and 34 meters, plus video technique evaluation.",
           "unlocks": "Eligibility to request entry evaluation for the Tactical program."
         }
       },
       "tactical": {
-        "duration": "12–16 weeks · 4+ sessions per week · intensive program",
+        "duration": "1 cycle: 4 weeks · 8 sessions · Saturday and Sunday",
         "methodology": "Individualized periodization based on each participant's load and recovery. Apnea sessions are always supervised 1-on-1 or through a certified buddy system — never solo. Pressure scenarios (fatigue, time limits, decisions under stress) are built in, with video technique review after every block.",
         "improvements": [
           "High-intensity interval capacity",
@@ -217,8 +301,8 @@
           "body": "A Vorshein evaluation or competition indicatively combines: a timed endurance test, a speed test, static apnea (supervised breath-hold time), dynamic apnea (underwater distance), a technical evaluation, and a physical and mental pressure scenario."
         },
         "certification": {
-          "format": "Timed swim test, technical evaluation, static and dynamic apnea within conservative margins relative to your demonstrated progression, and a practical scenario under pressure.",
-          "unlocks": "Formal eligibility to request participation in Vorshein competitions."
+          "format": "Swim test: 510 meters (30 lengths), technical evaluation, and a practical scenario under pressure. Apnea is not a mandatory certification component — it's worked on during training, never as a pass/fail requirement.",
+          "unlocks": "TACTICAL certification and Competition Eligible as soon as the competition calendar goes live."
         }
       }
     }
@@ -232,8 +316,8 @@
     "label": "Events",
     "heading": "Apnea. Competitions. Performance tests.",
     "sub": "The VORSHEIN events calendar is launching soon. In the meantime, check your competition status.",
-    "nextEvent": "Next Event",
-    "comingStatus": "Coming",
+    "nextEvent": "VORSHEIN EVENTS",
+    "comingStatus": "COMING LATER",
     "manualHeading": "How a VORSHEIN competition works",
     "manualIntro": "There's no calendar date yet, but the evaluation structure is already defined. A VORSHEIN competition or evaluation indicatively combines six components:",
     "components": [
@@ -246,16 +330,16 @@
     ],
     "pathHeading": "How to reach competition",
     "pathSteps": [
-      "Complete the 9-question assessment and reach ADVANCED level.",
-      "Enroll in the TACTICAL program and earn your certification.",
-      "Request eligibility — you're cleared as soon as the competition calendar goes live."
+      "Complete the preliminary assessment and get a TACTICAL classification.",
+      "Apply to GEN 001, get confirmed at TACTICAL in your in-person evaluation, and earn your certification.",
+      "Reach Competition Eligible at your Clearance Test — you're cleared as soon as the competition calendar goes live."
     ],
     "disclaimer": "Indicative structure. The official format, date, and rules for each event are confirmed once the competition calendar goes live."
   },
   "programs": {
     "foundation": {
       "name": "FOUNDATION",
-      "subtitle": "Basic",
+      "subtitle": "Master the water",
       "forWhom": "For those who still need to build solid fundamentals.",
       "focus": [
         "Water adaptation",
@@ -270,7 +354,7 @@
     },
     "performance": {
       "name": "PERFORMANCE",
-      "subtitle": "Intermediate",
+      "subtitle": "Build capacity",
       "forWhom": "For those with basic mastery looking to increase performance.",
       "focus": [
         "Advanced technique",
@@ -285,8 +369,8 @@
     },
     "tactical": {
       "name": "TACTICAL",
-      "subtitle": "Advanced",
-      "forWhom": "For those at an advanced level seeking high-performance preparation.",
+      "subtitle": "Perform under pressure",
+      "forWhom": "For those who already have a solid Performance base and are seeking high-performance preparation.",
       "focus": [
         "High-performance training",
         "Apnea",
@@ -314,71 +398,100 @@
   "assessment": {
     "intro": {
       "label": "Vorshein Assessment",
-      "heading": "Find Your Level.",
-      "body": "{count} questions. About 2 minutes. When you're done you'll get your aquatic profile and recommended program.",
+      "heading": "Get your preliminary classification.",
+      "body": "{count} short questions. 2–3 minutes. The result is a preliminary classification — your official level is set in a presencial evaluation.",
       "cta": "Begin Assessment"
     },
     "back": "Back",
-    "analyzing": "Analyzing your profile…",
+    "continue": "Continue",
+    "analyzing": "Processing your answers…",
+    "gates": {
+      "ageLabel": "Eligibility — Age",
+      "agePrompt": "How old are you?",
+      "sexLabel": "Eligibility — Cohort",
+      "sexPrompt": "GEN 001 is open to men aged 18 to 30. What's your sex?",
+      "sexMale": "Male",
+      "sexFemale": "Female",
+      "floatingLabel": "Minimum Requirement",
+      "floatingPrompt": "Can you float independently, without assistance?",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "ineligible": {
+      "cohortLabel": "Not open for GEN 001",
+      "cohortHeading": "This cohort isn't open for your profile yet.",
+      "cohortBody": "GEN 001 is currently open to men aged 18–30. This doesn't mean Vorshein will never open other categories — leave your interest and we'll reach out.",
+      "cohortRange": "{min}–{max} years",
+      "floatingLabel": "Not yet eligible",
+      "floatingHeading": "You don't meet the minimum requirement yet.",
+      "floatingBody": "Foundation requires independent floating. This is a starting point, not a permanent limit — leave your interest and we'll reach out when you're ready to apply.",
+      "futureOpenings": "Leave my interest — Future Openings",
+      "retake": "Try again"
+    },
+    "confirm": {
+      "label": "Confirmation",
+      "heading": "Before you see your result",
+      "text": "I understand this digital result is preliminary and my official level will be determined through a presencial evaluation.",
+      "cta": "See my preliminary classification"
+    },
     "questions": {
       "experience": {
         "prompt": "Which best describes your current experience in the water?",
-        "options": ["I'm just starting out", "I can swim but lack technique", "I train regularly", "I compete or take advanced tests"]
+        "options": ["I can't float", "I can float but barely swim", "I can swim with limited technique", "I swim regularly", "Advanced / competitive experience"]
       },
       "distance": {
-        "prompt": "What distance can you comfortably complete without stopping?",
-        "options": ["Less than 25 meters", "25 to 100 meters", "100 to 500 meters", "More than 500 meters"]
+        "prompt": "What continuous distance can you swim without stopping?",
+        "options": ["Less than 17 meters", "17 to 34 meters", "35 to 100 meters", "101 to 300 meters", "More than 300 meters"]
       },
-      "technique": {
-        "prompt": "How would you rate your swim technique?",
-        "options": ["No formal technique", "Basic technique", "Solid technique", "Refined / competitive technique"]
+      "styles": {
+        "prompt": "Which strokes do you have sufficient technique in? (select all that apply)",
+        "options": ["Freestyle", "Backstroke", "Breaststroke", "Butterfly", "None with sufficient technique"]
       },
-      "apnea": {
-        "prompt": "Do you have experience with apnea?",
-        "helper": "Breath control without surfacing.",
-        "options": ["None", "A little, uncomfortable", "Comfortable up to 30–60 seconds", "I train apnea in a structured way"]
+      "immersion": {
+        "prompt": "Can you submerge voluntarily, orient yourself, and touch the bottom in a controlled way?",
+        "options": ["Yes", "No"]
       },
-      "deepWater": {
-        "prompt": "How do you feel in deep water, unable to touch the bottom?",
-        "options": ["Anxious, I'd rather avoid it", "Manageable, with effort", "Comfortable", "Fully in control"]
+      "physicalCondition": {
+        "prompt": "How often do you currently train or exercise?",
+        "options": ["Sedentary", "Occasional", "1–2 sessions a week", "3–5 sessions a week", "Intense / competitive training"]
       },
-      "frequency": {
-        "prompt": "How often do you currently train in the water?",
-        "options": ["Rarely or never", "Once a week", "2–3 times a week", "4+ times, structured program"]
+      "turns": {
+        "prompt": "How would you describe your wall turns?",
+        "options": ["I stop completely", "Basic push-off", "Basic turn", "Technical mastery of the turn"]
       },
-      "pressure": {
-        "prompt": "How do you handle physical effort under pressure?",
-        "helper": "Fatigue, stress, time limits.",
-        "options": ["I struggle, I need to stop", "I push through, with difficulty", "I stay in control", "I perform reliably under pressure"]
+      "priorExperience": {
+        "prompt": "What prior experience do you have with structured swimming?",
+        "options": ["Never", "Occasional", "A few months", "Several years", "Formal training or competition"]
+      },
+      "postEffort": {
+        "prompt": "After intense physical effort, how well do you maintain technique and breathing?",
+        "options": ["Completely falls apart", "Falls apart a lot", "Partially maintained", "Well maintained"]
       },
       "goal": {
         "prompt": "What's your main goal?",
-        "options": ["Learn from scratch", "Improve my performance", "Increase endurance", "Specific preparation / apnea", "Compete", "Personal evaluation"]
+        "options": ["Technique", "Physical condition", "Endurance", "Push my limits", "Tactical", "Future competitions", "Other"]
       },
-      "medical": {
-        "prompt": "Do you have any medical condition relevant to high-effort training?",
-        "helper": "This doesn't affect your level — it only adjusts our safety recommendations.",
-        "options": ["Yes, a significant condition", "Some minor limitations", "None that I know of", "Optimal physical condition, no restrictions"]
+      "health": {
+        "prompt": "Do you have any condition, injury, limitation, or adaptation need we should know about?",
+        "helper": "This doesn't mean automatic rejection. A yes sends your application to manual review — never an automatic medical decision.",
+        "options": ["Yes", "No"]
       }
     },
     "result": {
-      "label": "Your Vorshein Profile",
-      "levelLabel": "LEVEL 0{n}",
-      "readinessLabel": "Aquatic Readiness",
-      "strength": "Strength",
-      "priority": "Priority",
+      "label": "Preliminary Classification",
+      "preliminaryTag": "PRELIMINARY",
+      "inconclusiveHeading": "RESULT INCONCLUSIVE",
+      "inconclusiveBody": "Your answers include indicators that contradict each other. This goes to manual review — we don't fake precision we don't have.",
+      "preliminaryBody": "This is your preliminary classification based on your answers.",
       "recommendedPath": "Recommended Path",
-      "competitionStatus": "Competition Status",
-      "eligible": "ELIGIBLE",
-      "locked": "LOCKED",
-      "eligibleMessage": "Your current profile meets the minimum performance requirement.",
-      "lockedMessage": "{level} classification is required to participate.",
-      "safetyNoteLabel": "Safety Note",
-      "safetyNoteSignificant": "Consult a physician before starting high-intensity training.",
-      "safetyNoteMinor": "Let your trainer know about your limitations before your first session.",
-      "viewProgram": "View Your Program",
-      "retake": "Retake Assessment",
-      "reserve": "Reserve Your Evaluation"
+      "statusLabel": "Status",
+      "pendingVerification": "PENDING PHYSICAL VERIFICATION",
+      "officialDisclaimer": "Your official level is determined through a presencial evaluation. This result is indicative.",
+      "manualReviewLabel": "Manual Review",
+      "manualReviewBody": "You reported a condition, injury, or adaptation need. A team member will manually review your application before confirming your spot.",
+      "apply": "Apply to GEN 001",
+      "viewProgram": "View the Program",
+      "retake": "Retake Assessment"
     }
   },
   "scoring": {
@@ -392,17 +505,25 @@
     "levelPath": {
       "BASIC": "VORSHEIN FOUNDATION",
       "INTERMEDIATE": "VORSHEIN PERFORMANCE",
-      "ADVANCED": "VORSHEIN TACTICAL"
+      "ADVANCED": "VORSHEIN TACTICAL",
+      "FOUNDATION": "VORSHEIN FOUNDATION",
+      "PERFORMANCE": "VORSHEIN PERFORMANCE",
+      "TACTICAL": "VORSHEIN TACTICAL"
     },
     "levelName": {
       "BASIC": "BASIC",
       "INTERMEDIATE": "INTERMEDIATE",
-      "ADVANCED": "ADVANCED"
+      "ADVANCED": "ADVANCED",
+      "FOUNDATION": "FOUNDATION",
+      "PERFORMANCE": "PERFORMANCE",
+      "TACTICAL": "TACTICAL"
     }
   },
   "competition": {
-    "noResultLabel": "LOCKED",
-    "noResultMessage": "Complete your assessment to see your status."
+    "label": "Competition Eligibility",
+    "requirement": "TACTICAL CERTIFIED",
+    "explanation": "Competition Eligible is only granted presencially, on Tactical Certified, after completing the training cycle and Clearance Test. It is never granted by the online assessment.",
+    "cta": "Evaluate My Level"
   },
   "concierge": {
     "title": "Vorshein AI Chat",
@@ -419,12 +540,12 @@
     "actionCheckEligibility": "Check Eligibility",
     "rules": {
       "greeting": "Hi. I'm Vorshein AI — I can explain the programs, competition requirements, or help you find your level. What do you need?",
-      "whatIsThisPage": "Vorshein is a high-performance aquatic preparation system — not a traditional swim school. It has three levels (Foundation, Performance, Tactical), a 10-module training manual, and an assessment that determines your real level and recommended program.",
-      "apneaCompete": "Apnea competitions require an advanced classification within Vorshein. First we need to know your current aquatic level.",
-      "compete": "Participating in Vorshein competitions requires Advanced classification. Let's start by determining your current level with a 2-minute evaluation.",
-      "apnea": "Apnea training is part of the Tactical program (advanced level). We can determine if that's your right starting point with a short evaluation.",
-      "experienceHint": "With that experience, your starting point is likely Performance Level. To pin it down precisely, I can start an evaluation that takes about 2 minutes.",
-      "level": "Vorshein Assessment determines your real level — Foundation, Performance, or Tactical — from 9 questions about your current experience in the water.",
+      "whatIsThisPage": "Vorshein is a high-performance aquatic preparation system — not a traditional swim school. It has three levels (Foundation, Performance, Tactical), a 10-module training manual, and an assessment that gives you a preliminary classification and recommended program.",
+      "apneaCompete": "Competing requires a TACTICAL classification confirmed in person and reaching Competition Eligible at your Clearance Test. First we need to know your current aquatic level.",
+      "compete": "Participating in Vorshein competitions requires reaching TACTICAL and Competition Eligible status. Let's start with your preliminary classification via a 2-minute evaluation.",
+      "apnea": "Apnea training is part of the Tactical program. We can see if that's your starting point with a short evaluation.",
+      "experienceHint": "With that experience, your starting point is likely Performance. To pin it down precisely, I can start an evaluation that takes about 2 minutes.",
+      "level": "Vorshein Assessment gives you a preliminary classification — Foundation, Performance, or Tactical — from a short evaluation about your current experience in the water. Your official level is always confirmed in person.",
       "programs": "Vorshein has three levels: Foundation (fundamentals), Performance (performance), and Tactical (high performance and apnea). Your assessment determines which one fits you.",
       "philosophy": "Vorshein is an aquatic preparation system, not a traditional swim school: control, endurance, and performance under pressure, built progressively.",
       "events": "The Vorshein events calendar is launching soon. You can check your competition status anytime in the Events section.",

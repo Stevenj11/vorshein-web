@@ -1,19 +1,30 @@
 import { useSyncExternalStore } from "react";
-import { AssessmentResult } from "./scoring";
+import { ClassificationInput, PreliminaryLevel } from "./gates";
 
 const KEY = "vorshein.assessment.result";
 
-export function saveAssessmentResult(result: AssessmentResult) {
+export type StoredAssessmentResult = {
+  preliminaryLevel: PreliminaryLevel;
+  needsManualReview: boolean;
+  age: number;
+  sex: "male" | "female";
+  /** Raw indicator answers, kept so the Application step can send them to
+   * the server for re-validation (spec: backend must validate, not just
+   * trust the frontend's computed level). */
+  answers: ClassificationInput;
+};
+
+export function saveAssessmentResult(result: StoredAssessmentResult) {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(KEY, JSON.stringify(result));
 }
 
-export function loadAssessmentResult(): AssessmentResult | null {
+export function loadAssessmentResult(): StoredAssessmentResult | null {
   if (typeof window === "undefined") return null;
   const raw = window.localStorage.getItem(KEY);
   if (!raw) return null;
   try {
-    return JSON.parse(raw) as AssessmentResult;
+    return JSON.parse(raw) as StoredAssessmentResult;
   } catch {
     return null;
   }
@@ -37,16 +48,16 @@ function getServerSnapshot() {
 // data hasn't changed, or useSyncExternalStore re-renders forever. Cache the
 // last parsed result against the raw string it came from.
 let cachedRaw: string | null | undefined;
-let cachedResult: AssessmentResult | null = null;
+let cachedResult: StoredAssessmentResult | null = null;
 
-function getClientSnapshot(): AssessmentResult | null {
+function getClientSnapshot(): StoredAssessmentResult | null {
   const raw = window.localStorage.getItem(KEY);
   if (raw === cachedRaw) return cachedResult;
   cachedRaw = raw;
   cachedResult = raw
-    ? ((): AssessmentResult | null => {
+    ? ((): StoredAssessmentResult | null => {
         try {
-          return JSON.parse(raw) as AssessmentResult;
+          return JSON.parse(raw) as StoredAssessmentResult;
         } catch {
           return null;
         }
@@ -60,6 +71,6 @@ function getClientSnapshot(): AssessmentResult | null {
  * (not useState+useEffect) so the server snapshot (null) and the client
  * snapshot (localStorage) never fight each other during hydration.
  */
-export function useAssessmentResult(): AssessmentResult | null {
+export function useAssessmentResult(): StoredAssessmentResult | null {
   return useSyncExternalStore(subscribe, getClientSnapshot, getServerSnapshot);
 }

@@ -60,9 +60,9 @@ export function Navbar() {
             );
           })}
           <Link
-            href="/reserve"
+            href="/apply"
             className={`ml-3 flex items-center gap-2 px-4 py-2 font-mono text-xs uppercase tracking-[0.2em] transition-colors ${
-              pathname === "/reserve"
+              pathname === "/apply"
                 ? "text-signal"
                 : "text-fg-faint hover:text-signal"
             }`}
@@ -110,7 +110,7 @@ export function Navbar() {
               </Link>
             ))}
             <Link
-              href="/reserve"
+              href="/apply"
               onClick={() => setOpen(false)}
               className="flex items-center gap-2 font-mono text-sm uppercase tracking-[0.2em] text-signal"
             >

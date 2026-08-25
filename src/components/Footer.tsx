@@ -66,7 +66,7 @@ export function Footer() {
                 {tf("competitionStatus")}
               </Link>
               <Link
-                href="/reserve"
+                href="/apply"
                 className="text-sm text-fg-muted transition-colors hover:text-fg"
               >
                 {tf("reserve")}

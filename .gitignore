@@ -37,7 +37,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-# local dev-only data store (see src/lib/booking/store.ts)
+# local dev-only JSON data stores (see src/lib/*/store.ts)
 /data
 
 # typescript

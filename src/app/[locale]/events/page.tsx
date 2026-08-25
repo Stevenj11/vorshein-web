@@ -92,7 +92,7 @@ export default async function EventsPage({
 
       <section className="py-16 md:py-20">
         <Container>
-          <CompetitionStatusPanel />
+          <CompetitionStatusPanel locale={locale} />
         </Container>
       </section>
     </div>

@@ -9,7 +9,7 @@ import { Container } from "@/components/ui/Container";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { BRAND } from "@/lib/brand";
-import { getProgram, PROGRAM_SLUG_TO_LEVEL, PROGRAMS } from "@/lib/programs";
+import { getProgram, PROGRAMS } from "@/lib/programs";
 import {
   PROGRAM_APNEA_IMAGE,
   PROGRAM_BREATHING_IMAGE,
@@ -85,7 +85,6 @@ export default async function ProgramDetailPage({
   const tp = await getTranslations({ locale, namespace: "programs" });
   const tm = await getTranslations({ locale, namespace: "manual" });
   const td = await getTranslations({ locale, namespace: "programDetail" });
-  const tt = await getTranslations({ locale, namespace: "trainingPage" });
   const tl = await getTranslations({
     locale,
     namespace: `programDetail.levels.${program.slug}`,
@@ -96,7 +95,6 @@ export default async function ProgramDetailPage({
 
   const isTactical = program.slug === "tactical";
   const hasUnderwater = program.slug !== "foundation";
-  const scoringLevel = PROGRAM_SLUG_TO_LEVEL[program.slug];
 
   let sectionIndex = 1;
   const nextIndex = () => String(sectionIndex++).padStart(2, "0");
@@ -124,15 +122,7 @@ export default async function ProgramDetailPage({
                 {tp(`${program.slug}.forWhom`)}
               </p>
               <div className="mt-9 flex flex-wrap gap-4">
-                <a
-                  href={`/${locale}/reserve?level=${encodeURIComponent(scoringLevel)}&path=${encodeURIComponent(tp(`${program.slug}.name`))}`}
-                  className="inline-flex items-center justify-center gap-2 bg-fg px-7 py-3.5 text-xs font-mono uppercase tracking-[0.2em] text-void transition-colors duration-200 hover:bg-signal"
-                >
-                  {td("reserve")}
-                </a>
-                <Button href="/assessment" variant="ghost">
-                  {tt("cta")}
-                </Button>
+                <Button href="/assessment">{td("reserve")}</Button>
               </div>
             </div>
 
@@ -150,12 +140,7 @@ export default async function ProgramDetailPage({
 
       <section className="border-b border-line py-10">
         <Container>
-          <EnrollmentBanner
-            locale={locale}
-            slug={program.slug}
-            level={scoringLevel}
-            programName={tp(`${program.slug}.name`)}
-          />
+          <EnrollmentBanner locale={locale} slug={program.slug} />
         </Container>
       </section>
 
@@ -365,7 +350,7 @@ export default async function ProgramDetailPage({
 
       <section className="py-20 md:py-28">
         <Container>
-          <CompetitionStatusPanel />
+          <CompetitionStatusPanel locale={locale} />
         </Container>
       </section>
     </div>

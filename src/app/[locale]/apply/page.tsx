@@ -1,8 +1,9 @@
 import { getTranslations } from "next-intl/server";
-import { BookingForm } from "@/components/booking/BookingForm";
+import { ApplicationForm } from "@/components/applications/ApplicationForm";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { BRAND } from "@/lib/brand";
+import { getActiveGeneration } from "@/lib/generation";
 
 export async function generateMetadata({
   params,
@@ -10,25 +11,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "booking" });
+  const t = await getTranslations({ locale, namespace: "apply" });
   return { title: `${t("label")} — ${BRAND.name}` };
 }
 
-export default async function ReservePage({
+export default async function ApplyPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ level?: string; path?: string }>;
 }) {
   const { locale } = await params;
-  const { level, path } = await searchParams;
-  const t = await getTranslations({ locale, namespace: "booking" });
-  const tl = await getTranslations({ locale, namespace: "scoring.levelName" });
-
-  const isKnownLevel =
-    level === "BASIC" || level === "INTERMEDIATE" || level === "ADVANCED";
-  const levelDisplay = isKnownLevel ? tl(level) : undefined;
+  const t = await getTranslations({ locale, namespace: "apply" });
+  const generation = await getActiveGeneration();
 
   return (
     <Container className="py-24 md:py-32">
@@ -37,16 +31,10 @@ export default async function ReservePage({
         <h1 className="mt-8 text-balance text-4xl font-extrabold tracking-tight md:text-5xl">
           {t("heading")}
         </h1>
-        <p className="mt-5 text-fg-muted">
-          {level ? t("fromResultBody") : t("body")}
-        </p>
+        <p className="mt-5 text-fg-muted">{t("body")}</p>
 
         <div className="mt-12">
-          <BookingForm
-            level={level}
-            levelDisplay={levelDisplay}
-            recommendedPath={path}
-          />
+          <ApplicationForm entryDates={generation.dates.entryDatesISO} />
         </div>
       </div>
     </Container>

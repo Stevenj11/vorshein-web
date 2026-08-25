@@ -1,33 +1,21 @@
 import { getTranslations } from "next-intl/server";
-import {
-  ENROLLMENT,
-  formatEnrollmentDate,
-  SCHEDULE_TIME,
-} from "@/lib/enrollment";
+import { getActiveGeneration } from "@/lib/generation";
+import { formatEnrollmentDate } from "@/lib/enrollment";
 import { ProgramSlug } from "@/lib/programs";
 
 export async function EnrollmentBanner({
   locale,
   slug,
-  level,
-  programName,
 }: {
   locale: string;
   slug?: ProgramSlug;
-  level?: string;
-  programName?: string;
 }) {
   const t = await getTranslations({ locale, namespace: "enrollment" });
+  const generation = await getActiveGeneration();
 
-  const deadline = formatEnrollmentDate(ENROLLMENT.deadlineISO, locale);
-  const start = formatEnrollmentDate(ENROLLMENT.startISO, locale);
-  const time = slug ? SCHEDULE_TIME[slug] : null;
-
-  // A plain <a> (not next-intl's Link) — its locale-prefixing drops query
-  // strings on string hrefs, so we prefix the locale ourselves here.
-  const reserveHref = level
-    ? `/${locale}/reserve?level=${encodeURIComponent(level)}&path=${encodeURIComponent(programName ?? "")}`
-    : `/${locale}/reserve`;
+  const capacity = slug ? generation.capacities[slug] : null;
+  const deadline = formatEnrollmentDate(generation.dates.applicationsCloseISO, locale);
+  const start = formatEnrollmentDate(generation.dates.trainingBeginsISO, locale);
 
   return (
     <div className="border border-signal/40 bg-signal-dim">
@@ -46,12 +34,12 @@ export async function EnrollmentBanner({
             </span>
             <p className="mt-1 text-sm font-medium text-fg">{t("days")}</p>
           </div>
-          {time && (
+          {capacity && (
             <div>
               <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
                 {t("timeLabel")}
               </span>
-              <p className="mt-1 text-sm font-medium text-fg">{time}</p>
+              <p className="mt-1 text-sm font-medium text-fg">{capacity.scheduleTime}</p>
             </div>
           )}
           <div>
@@ -59,15 +47,12 @@ export async function EnrollmentBanner({
               {t("priceLabel")}
             </span>
             <p className="mt-1 text-sm font-medium text-fg">
-              {t("priceValue", {
-                currency: ENROLLMENT.currency,
-                price: ENROLLMENT.price,
-              })}
+              {t("priceValue", { currency: generation.currency, price: generation.price })}
             </p>
             <p className="text-xs text-fg-faint">
               {t("priceDetail", {
-                count: ENROLLMENT.classCount,
-                hours: ENROLLMENT.hoursPerClass,
+                count: generation.cycle.sessions,
+                hours: generation.cycle.hours / generation.cycle.sessions,
               })}
             </p>
           </div>
@@ -83,7 +68,7 @@ export async function EnrollmentBanner({
         </div>
 
         <a
-          href={reserveHref}
+          href={`/${locale}/assessment`}
           className="inline-flex shrink-0 items-center justify-center gap-2 bg-fg px-7 py-3.5 text-xs font-mono uppercase tracking-[0.2em] text-void transition-colors duration-200 hover:bg-signal"
         >
           {t("cta")}

@@ -1,34 +1,30 @@
-export type Tag =
-  | "technique"
-  | "endurance"
-  | "breathControl"
-  | "confidence"
-  | "mentalControl";
+export type QuestionKind = "single" | "multi";
 
-export type Question = {
+export type IndicatorQuestion = {
   id: string;
-  index: number;
-  tag: Tag | null;
-  /** 0–3 per option, in display order. Higher = more prepared. */
-  scores: number[];
+  kind: QuestionKind;
   hasHelper?: boolean;
+  optionCount: number;
 };
 
 /**
- * The scored question bank — structure and scoring only. Prompt/helper/option
- * text lives in messages/{locale}.json under assessment.questions.{id} so the
- * flow, progress counter, and scoring engine never need to change per locale.
+ * The 10 indicator questions (spec section 13) — asked after the three hard
+ * gates (age, sex, floating) pass. Prompt/option copy lives in
+ * messages/{locale}.json under assessment.questions.{id}; this file only
+ * describes shape, so the classification engine (gates.ts) and the flow
+ * component never need to change per locale.
  */
-export const QUESTIONS: Question[] = [
-  { id: "experience", index: 1, tag: "technique", scores: [0, 1, 2, 3] },
-  { id: "distance", index: 2, tag: "endurance", scores: [0, 1, 2, 3] },
-  { id: "technique", index: 3, tag: "technique", scores: [0, 1, 2, 3] },
-  { id: "apnea", index: 4, tag: "breathControl", scores: [0, 1, 2, 3], hasHelper: true },
-  { id: "deepWater", index: 5, tag: "confidence", scores: [0, 1, 2, 3] },
-  { id: "frequency", index: 6, tag: "endurance", scores: [0, 1, 2, 3] },
-  { id: "pressure", index: 7, tag: "mentalControl", scores: [0, 1, 2, 3], hasHelper: true },
-  { id: "goal", index: 8, tag: null, scores: [0, 1, 2, 2, 3, 1] },
-  { id: "medical", index: 9, tag: null, scores: [0, 0, 0, 0], hasHelper: true },
+export const INDICATOR_QUESTIONS: IndicatorQuestion[] = [
+  { id: "experience", kind: "single", optionCount: 5 },
+  { id: "distance", kind: "single", optionCount: 5 },
+  { id: "styles", kind: "multi", optionCount: 5 },
+  { id: "immersion", kind: "single", optionCount: 2 },
+  { id: "physicalCondition", kind: "single", optionCount: 5 },
+  { id: "turns", kind: "single", optionCount: 4 },
+  { id: "priorExperience", kind: "single", optionCount: 5 },
+  { id: "postEffort", kind: "single", optionCount: 4 },
+  { id: "goal", kind: "single", optionCount: 7 },
+  { id: "health", kind: "single", optionCount: 2, hasHelper: true },
 ];
 
-export const TOTAL_QUESTIONS = QUESTIONS.length;
+export const TOTAL_INDICATOR_QUESTIONS = INDICATOR_QUESTIONS.length;
