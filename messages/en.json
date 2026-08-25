@@ -29,11 +29,10 @@
   "home": {
     "hero": {
       "eyebrow": "Cochabamba · GEN 001 · Men 18–30",
-      "headlineLine1": "Swimming is the beginning.",
-      "headlineLine2": "Mastering the water is the goal.",
-      "sub": "A progressive aquatic performance system. CONTROL. ENDURANCE. PERFORMANCE.",
+      "tagline": "A progressive aquatic performance system.",
+      "campaignLine": "Swimming is the beginning. Mastering the water is the goal.",
       "ctaPrimary": "Discover Your Level",
-      "ctaSecondary": "Explore the System"
+      "moreLink": "More About Vorshein"
     },
     "philosophy": {
       "index": "01",
