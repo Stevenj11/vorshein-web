@@ -149,10 +149,12 @@
   },
   "enrollment": {
     "label": "Enrollment",
-    "statusOpen": "Enrollment open",
+    "statusOpen": "Applications open",
     "days": "Saturday and Sunday",
     "daysLabel": "Days",
     "timeLabel": "Schedule",
+    "capacityLabel": "Capacity",
+    "capacityValue": "{min}–{max} athletes",
     "priceLabel": "Price",
     "priceValue": "{currency} {price} / cycle",
     "priceDetail": "{count} sessions of {hours} hours · Clearance included",
@@ -208,7 +210,7 @@
   },
   "programDetail": {
     "back": "← All programs",
-    "reserve": "Apply to GEN 001",
+    "reserve": "Evaluate My Level",
     "whatYoullTrain": "What you'll train",
     "curriculum": "Curriculum",
     "gallery": "Preview",
@@ -226,9 +228,20 @@
     "underwaterHeading": "Underwater Training",
     "competitionPrepHeading": "Competition Preparation",
     "competitionPrepDisclaimer": "Indicative structure. The official format for each event is confirmed once the competition calendar goes live.",
-    "certificationHeading": "Certification",
     "certificationFormatLabel": "Evaluation format",
     "certificationUnlocksLabel": "Unlocks",
+    "capacityLabel": "Capacity",
+    "athletesLabel": "Athletes",
+    "weeksLabel": "Weeks",
+    "sessionsLabel": "Sessions",
+    "hoursLabel": "Hours",
+    "priceLabel": "Price",
+    "sessionStructure": {
+      "heading": "2 Hours // One System",
+      "warmupLabel": "Warm-Up",
+      "physicalLabel": "Physical Conditioning",
+      "aquaticLabel": "Aquatic Training"
+    },
     "mediaBreathing": "Breathing exercise — coming soon",
     "mediaApnea": "Supervised apnea session — coming soon",
     "mediaUnderwater": "Underwater training — coming soon",
@@ -243,14 +256,43 @@
           "Flotation and body balance in the water",
           "Safe water entry and exit",
           "Base freestyle and backstroke technique",
-          "Initial endurance: 25 to 100 meters continuous",
+          "Progressive endurance build-up toward the Foundation standard: 102 continuous meters",
           "Managing anxiety in progressively deeper water"
         ],
         "breathing": {
           "body": "At this level the breathing work is foundational, not apnea: bilateral breathing rhythm, controlled exhale underwater, and coordinating breath with stroke. It's the technical base that any real apnea work — later on — is built on."
         },
+        "entryProfile": {
+          "heading": "Entry Profile",
+          "intro": "Foundation is the entry point for anyone who:",
+          "items": [
+            "Can float independently",
+            "Has basic aquatic autonomy",
+            "Can move in the water without constant assistance",
+            "Still needs to develop technique",
+            "Has limited breathing or endurance",
+            "May have technically weak freestyle or backstroke"
+          ],
+          "note": "If someone needs constant assistance to stay safely afloat, they currently don't meet GEN 001's minimum entry requirement."
+        },
+        "roadmap": {
+          "heading": "4-Week Progression",
+          "weeks": [
+            { "label": "W01", "title": "Control", "items": ["Water adaptation", "Flotation", "Breathing", "Orientation"] },
+            { "label": "W02", "title": "Technique", "items": ["Body position", "Freestyle", "Backstroke", "Coordination"] },
+            { "label": "W03", "title": "Capacity", "items": ["Endurance", "Efficiency", "Effort management"] },
+            { "label": "W04", "title": "Integration", "items": ["Technical integration", "Control", "Preparation", "Clearance"] }
+          ]
+        },
         "certification": {
+          "sectionHeading": "Foundation Clearance",
+          "headline": "Prove the base.",
+          "intro": "Completing the 8 sessions doesn't guarantee advancement — Clearance confirms the base is solid.",
           "format": "Practical in-water evaluation: a technical checklist covering flotation, breathing, and movement, plus 102 continuous meters without stopping (6 lengths).",
+          "resultLabel": "Foundation Cleared",
+          "unlockLabel": "Performance Unlocked",
+          "retainedLabel": "Foundation Retained",
+          "retainedNote": "If the standard isn't met yet, you repeat the Foundation cycle until you reach it — no extra charge for the Clearance itself.",
           "unlocks": "Eligibility to enroll in the Performance program."
         }
       },
@@ -272,7 +314,10 @@
           "body": "Introduction to underwater movement: body line, basic dolphin kick, and short orientation drills without surface visual references. It's the technical base that becomes real dynamic apnea in Tactical."
         },
         "certification": {
+          "sectionHeading": "Performance Certification",
           "format": "Distance test: 340 meters (20 lengths), with recorded splits at 17 and 34 meters, plus video technique evaluation.",
+          "resultLabel": "Performance Certified",
+          "unlockLabel": "Tactical Unlocked",
           "unlocks": "Eligibility to request entry evaluation for the Tactical program."
         }
       },
@@ -301,8 +346,11 @@
           "body": "A Vorshein evaluation or competition indicatively combines: a timed endurance test, a speed test, static apnea (supervised breath-hold time), dynamic apnea (underwater distance), a technical evaluation, and a physical and mental pressure scenario."
         },
         "certification": {
+          "sectionHeading": "Tactical Certification",
           "format": "Swim test: 510 meters (30 lengths), technical evaluation, and a practical scenario under pressure. Apnea is not a mandatory certification component — it's worked on during training, never as a pass/fail requirement.",
-          "unlocks": "TACTICAL certification and Competition Eligible as soon as the competition calendar goes live."
+          "resultLabel": "Tactical Certified",
+          "unlockLabel": "Competition Eligible",
+          "unlocks": "TACTICAL certification and eligibility for Competition Eligible as soon as the competition calendar goes live."
         }
       }
     }
@@ -387,10 +435,10 @@
     "01": { "name": "Swim Technique", "description": "Efficient swim mechanics: posture, pull, and kick as the foundation for everything else." },
     "02": { "name": "Endurance", "description": "Progressive build of aerobic endurance and the capacity to sustain effort." },
     "03": { "name": "Breath Control", "description": "Conscious management of breathing, on the surface and under effort." },
-    "04": { "name": "Water Confidence", "description": "Emotional and physical control in deep, open, or low-visibility water." },
+    "04": { "name": "Water Confidence", "description": "Flotation, controlled immersion, orientation, and position recovery: real autonomy inside the pool, supervised at all times." },
     "05": { "name": "Speed", "description": "Developing power and speed without sacrificing technical efficiency." },
     "06": { "name": "Underwater Performance", "description": "Movement, orientation, and body control below the surface." },
-    "07": { "name": "Recovery", "description": "Active and passive recovery protocols between high-demand sessions." },
+    "07": { "name": "Recovery", "description": "Conscious effort management: breathing recovery and control to sustain technique between sessions." },
     "08": { "name": "Mental Control", "description": "Regulating stress and fatigue to keep decisions clear under pressure." },
     "09": { "name": "Apnea", "description": "Progressive tolerance to breath-holding, always supervised." },
     "10": { "name": "Competition Preparation", "description": "Integrating every prior module into evaluation and competition protocols." }

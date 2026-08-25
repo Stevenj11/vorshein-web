@@ -149,10 +149,12 @@
   },
   "enrollment": {
     "label": "Inscripciones",
-    "statusOpen": "Inscripciones abiertas",
+    "statusOpen": "Postulaciones abiertas",
     "days": "Sábado y Domingo",
     "daysLabel": "Días",
     "timeLabel": "Horario",
+    "capacityLabel": "Cupos",
+    "capacityValue": "{min}–{max} atletas",
     "priceLabel": "Precio",
     "priceValue": "{currency} {price} / ciclo",
     "priceDetail": "{count} clases de {hours} horas · Clearance incluido",
@@ -208,7 +210,7 @@
   },
   "programDetail": {
     "back": "← Todos los programas",
-    "reserve": "Postular a GEN 001",
+    "reserve": "Evaluar mi Nivel",
     "whatYoullTrain": "Lo que vas a entrenar",
     "curriculum": "Currículo",
     "gallery": "Vista Previa",
@@ -226,9 +228,20 @@
     "underwaterHeading": "Entrenamiento Bajo el Agua",
     "competitionPrepHeading": "Preparación para Competencia",
     "competitionPrepDisclaimer": "Estructura orientativa. El formato oficial de cada evento se confirma al activarse el calendario de competencias.",
-    "certificationHeading": "Certificación",
     "certificationFormatLabel": "Formato de evaluación",
     "certificationUnlocksLabel": "Habilita",
+    "capacityLabel": "Cupos",
+    "athletesLabel": "Atletas",
+    "weeksLabel": "Semanas",
+    "sessionsLabel": "Sesiones",
+    "hoursLabel": "Horas",
+    "priceLabel": "Precio",
+    "sessionStructure": {
+      "heading": "2 Horas // Un Solo Sistema",
+      "warmupLabel": "Calentamiento",
+      "physicalLabel": "Condición Física",
+      "aquaticLabel": "Entrenamiento Acuático"
+    },
     "mediaBreathing": "Ejercicio de respiración — próximamente",
     "mediaApnea": "Sesión de apnea supervisada — próximamente",
     "mediaUnderwater": "Entrenamiento subacuático — próximamente",
@@ -243,14 +256,43 @@
           "Flotación y equilibrio corporal en el agua",
           "Entradas y salidas seguras del agua",
           "Técnica base de estilo libre y espalda",
-          "Resistencia inicial: 25 a 100 metros continuos sin detenerse",
+          "Desarrollo progresivo de resistencia hacia el estándar Foundation: 102 metros continuos",
           "Manejo de la ansiedad en profundidad progresiva"
         ],
         "breathing": {
           "body": "En este nivel el trabajo respiratorio es de base, no de apnea: ritmo de respiración bilateral, exhalación controlada bajo el agua, y la coordinación entre respiración y brazada. Es el fundamento técnico sobre el que se construye — más adelante — cualquier trabajo de apnea real."
         },
+        "entryProfile": {
+          "heading": "Entry Profile",
+          "intro": "Foundation es el punto de entrada para quien:",
+          "items": [
+            "Puede flotar de forma independiente",
+            "Tiene autonomía acuática básica",
+            "Puede desenvolverse en el agua sin asistencia constante",
+            "Todavía necesita desarrollar técnica",
+            "Tiene respiración o resistencia limitadas",
+            "Puede tener estilo libre o espalda técnicamente deficientes"
+          ],
+          "note": "Si una persona necesita asistencia constante para mantenerse a flote de forma segura, actualmente no cumple el requisito mínimo de ingreso de GEN 001."
+        },
+        "roadmap": {
+          "heading": "Progresión de 4 Semanas",
+          "weeks": [
+            { "label": "W01", "title": "Control", "items": ["Adaptación acuática", "Flotación", "Respiración", "Orientación"] },
+            { "label": "W02", "title": "Técnica", "items": ["Posición corporal", "Estilo libre", "Espalda", "Coordinación"] },
+            { "label": "W03", "title": "Capacidad", "items": ["Resistencia", "Eficiencia", "Gestión del esfuerzo"] },
+            { "label": "W04", "title": "Integración", "items": ["Integración técnica", "Control", "Preparación", "Clearance"] }
+          ]
+        },
         "certification": {
+          "sectionHeading": "Foundation Clearance",
+          "headline": "Demuestra la base.",
+          "intro": "Completar las 8 sesiones no garantiza el ascenso — el Clearance confirma que la base está lista.",
           "format": "Evaluación práctica en agua: checklist técnico de flotación, respiración y desplazamiento, más 102 metros continuos sin detenerse (6 largos).",
+          "resultLabel": "Foundation Cleared",
+          "unlockLabel": "Performance Unlocked",
+          "retainedLabel": "Foundation Retained",
+          "retainedNote": "Si el estándar aún no se cumple, repites el ciclo Foundation hasta alcanzarlo — sin cargo adicional por el Clearance.",
           "unlocks": "Elegibilidad para inscribirte al programa Performance."
         }
       },
@@ -272,7 +314,10 @@
           "body": "Introducción al desplazamiento subacuático: línea de cuerpo, patada de delfín básica, y ejercicios cortos de orientación sin referencias visuales en superficie. Es la base técnica que en Tactical se convierte en apnea dinámica real."
         },
         "certification": {
+          "sectionHeading": "Performance Certification",
           "format": "Prueba de distancia: 340 metros (20 largos), con registro de tiempos en 17 y 34 metros, y evaluación técnica por video.",
+          "resultLabel": "Performance Certified",
+          "unlockLabel": "Tactical Unlocked",
           "unlocks": "Elegibilidad para solicitar evaluación de ingreso al programa Tactical."
         }
       },
@@ -301,8 +346,11 @@
           "body": "Una evaluación o competencia Vorshein integra, de forma orientativa: una prueba de resistencia cronometrada, una prueba de velocidad, apnea estática (tiempo de contención supervisado), apnea dinámica (distancia subacuática), evaluación técnica y un escenario de presión física y mental."
         },
         "certification": {
+          "sectionHeading": "Tactical Certification",
           "format": "Prueba de nado: 510 metros (30 largos), evaluación técnica y un escenario práctico bajo presión. La apnea no es un componente obligatorio de la certificación — se trabaja durante el entrenamiento, nunca como requisito de aprobación.",
-          "unlocks": "Certificación TACTICAL y Competition Eligible en cuanto se active el calendario de competencias."
+          "resultLabel": "Tactical Certified",
+          "unlockLabel": "Competition Eligible",
+          "unlocks": "Certificación TACTICAL y elegibilidad para Competition Eligible en cuanto se active el calendario de competencias."
         }
       }
     }
@@ -387,10 +435,10 @@
     "01": { "name": "Técnica de Nado", "description": "Mecánica de nado eficiente: postura, tracción y patada como base de todo lo demás." },
     "02": { "name": "Resistencia", "description": "Construcción progresiva de resistencia aeróbica y capacidad de sostener esfuerzo." },
     "03": { "name": "Control Respiratorio", "description": "Gestión consciente de la respiración, en superficie y bajo presión de esfuerzo." },
-    "04": { "name": "Confianza en el Agua", "description": "Control emocional y corporal en aguas profundas, abiertas o de baja visibilidad." },
+    "04": { "name": "Confianza en el Agua", "description": "Flotación, inmersión controlada, orientación y recuperación de posición: autonomía real dentro de la piscina, supervisada en todo momento." },
     "05": { "name": "Velocidad", "description": "Desarrollo de potencia y velocidad sin sacrificar eficiencia técnica." },
     "06": { "name": "Rendimiento Subacuático", "description": "Desplazamiento, orientación y control del cuerpo por debajo de la superficie." },
-    "07": { "name": "Recuperación", "description": "Protocolos de recuperación activa y pasiva entre sesiones de alta exigencia." },
+    "07": { "name": "Recuperación", "description": "Gestión consciente del esfuerzo: recuperación respiratoria y control para sostener la técnica entre sesiones." },
     "08": { "name": "Control Mental", "description": "Regulación del estrés y la fatiga para mantener decisiones claras bajo presión." },
     "09": { "name": "Apnea", "description": "Tolerancia progresiva a la contención de la respiración, siempre supervisada." },
     "10": { "name": "Preparación para Competencia", "description": "Integración de todos los módulos anteriores en protocolos de evaluación y competencia." }

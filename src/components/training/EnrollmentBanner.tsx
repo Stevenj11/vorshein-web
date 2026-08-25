@@ -27,7 +27,7 @@ export async function EnrollmentBanner({
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-4 sm:grid-cols-3 lg:grid-cols-5">
           <div>
             <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
               {t("daysLabel")}
@@ -40,6 +40,16 @@ export async function EnrollmentBanner({
                 {t("timeLabel")}
               </span>
               <p className="mt-1 text-sm font-medium text-fg">{capacity.scheduleTime}</p>
+            </div>
+          )}
+          {capacity && (
+            <div>
+              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+                {t("capacityLabel")}
+              </span>
+              <p className="mt-1 text-sm font-medium text-fg">
+                {t("capacityValue", { min: capacity.min, max: capacity.max })}
+              </p>
             </div>
           )}
           <div>
