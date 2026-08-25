@@ -19,10 +19,16 @@ export async function getMember(id: string): Promise<Member | null> {
   return all.find((m) => m.id === id) ?? null;
 }
 
+/** Based on the highest existing numeric suffix ever issued, not array
+ * length — see the identical fix in applications/store.ts for why length
+ * is unsafe once anything can shrink the array. */
 export async function nextMemberId(): Promise<string> {
   const all = await readAll();
-  const n = all.length + 1;
-  return `VRSN-${String(n).padStart(4, "0")}`;
+  const maxN = all.reduce((max, m) => {
+    const match = /^VRSN-(\d+)$/.exec(m.id);
+    return match ? Math.max(max, parseInt(match[1], 10)) : max;
+  }, 0);
+  return `VRSN-${String(maxN + 1).padStart(4, "0")}`;
 }
 
 /** Application VRSN-A#### becomes Member VRSN-#### on admission — the ID is permanent from here on. */

@@ -18,10 +18,17 @@ export async function getApplication(id: string): Promise<Application | null> {
   return all.find((a) => a.id === id) ?? null;
 }
 
+/** Based on the highest existing numeric suffix ever issued, never on
+ * array length — length-based IDs collide as soon as any application is
+ * deleted (the array shrinks, so a future "length + 1" reuses an ID
+ * that's still attached to a different, older application). */
 export async function nextApplicationId(): Promise<string> {
   const all = await readAll();
-  const n = all.length + 1;
-  return `VRSN-A${String(n).padStart(4, "0")}`;
+  const maxN = all.reduce((max, a) => {
+    const match = /^VRSN-A(\d+)$/.exec(a.id);
+    return match ? Math.max(max, parseInt(match[1], 10)) : max;
+  }, 0);
+  return `VRSN-A${String(maxN + 1).padStart(4, "0")}`;
 }
 
 export async function createApplication(app: Application): Promise<Application> {
