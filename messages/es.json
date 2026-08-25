@@ -512,6 +512,9 @@
       "sexFemale": "Mujer",
       "floatingLabel": "Requisito Mínimo",
       "floatingPrompt": "¿Puedes flotar de forma independiente, sin asistencia?",
+      "healthLabel": "Antes de tu resultado",
+      "healthPrompt": "¿Tienes alguna condición, lesión, limitación o necesidad de adaptación que debamos conocer?",
+      "healthHelper": "No implica rechazo automático. Si respondes sí, tu postulación pasa a revisión manual — nunca es una decisión médica automática.",
       "yes": "Sí",
       "no": "No"
     },
@@ -543,28 +546,12 @@
       },
       "styles": {
         "prompt": "¿Qué estilos dominas con técnica suficiente? (selecciona todos los que apliquen)",
-        "options": ["Libre", "Espalda", "Pecho", "Mariposa", "Ninguno con técnica suficiente"]
+        "options": ["Libre", "Espalda", "Pecho", "Mariposa", "Ninguno con técnica suficiente"],
+        "immersionPrompt": "Además: ¿puedes sumergirte voluntariamente, orientarte y tocar el fondo de forma controlada?"
       },
-      "immersion": {
-        "prompt": "¿Puedes sumergirte voluntariamente, orientarte y tocar el fondo de forma controlada?",
-        "options": ["Sí", "No"]
-      },
-      "physicalCondition": {
-        "prompt": "¿Con qué frecuencia entrenas o realizas actividad física actualmente?",
-        "options": ["Sedentario", "Ocasional", "1–2 sesiones por semana", "3–5 sesiones por semana", "Entrenamiento intenso / competitivo"]
-      },
-      "priorExperience": {
-        "prompt": "¿Qué experiencia previa tienes en natación estructurada?",
-        "options": ["Nunca", "Ocasional", "Algunos meses", "Varios años", "Entrenamiento o competición formal"]
-      },
-      "postEffort": {
-        "prompt": "Después de un esfuerzo físico intenso, ¿qué tan bien mantienes técnica y respiración?",
-        "options": ["Se pierde por completo", "Se pierde bastante", "Se mantiene parcialmente", "Se mantiene bien"]
-      },
-      "health": {
-        "prompt": "¿Tienes alguna condición, lesión, limitación o necesidad de adaptación que debamos conocer?",
-        "helper": "No implica rechazo automático. Si respondes sí, tu postulación pasa a revisión manual — nunca es una decisión médica automática.",
-        "options": ["Sí", "No"]
+      "readiness": {
+        "prompt": "¿Cómo describirías tu nivel de entrenamiento y condición física actual?",
+        "options": ["No entreno actualmente y pierdo la técnica con el esfuerzo", "Entreno de forma ocasional y mantengo algo de técnica bajo esfuerzo", "Entreno con regularidad (3–5 veces por semana) y mantengo buena técnica", "Entreno de forma intensa o competitiva y mantengo el control incluso bajo esfuerzo alto"]
       }
     },
     "result": {

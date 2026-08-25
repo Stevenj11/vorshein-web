@@ -10,7 +10,11 @@ import {
   checkFloating,
   classify,
 } from "@/lib/assessment/gates";
-import { INDICATOR_QUESTIONS, TOTAL_INDICATOR_QUESTIONS } from "@/lib/assessment/questions";
+import {
+  INDICATOR_QUESTIONS,
+  READINESS_TO_INPUT,
+  TOTAL_INDICATOR_QUESTIONS,
+} from "@/lib/assessment/questions";
 import { saveAssessmentResult } from "@/lib/assessment/storage";
 import { playAnalysisSound, playConfirmSound } from "@/lib/sound";
 import { AnalyzingScreen } from "./AnalyzingScreen";
@@ -28,6 +32,7 @@ type Phase =
   | "floating"
   | "ineligible-floating"
   | "quiz"
+  | "health"
   | "confirm"
   | "analyzing"
   | "result";
@@ -46,6 +51,8 @@ export function AssessmentFlow() {
   const [age, setAge] = useState("");
   const [sex, setSex] = useState<"male" | "female" | null>(null);
   const [canFloat, setCanFloat] = useState<boolean | null>(null);
+  const [immersionControl, setImmersionControl] = useState<boolean | null>(null);
+  const [health, setHealth] = useState<boolean | null>(null);
   const [answers, setAnswers] = useState<Record<string, number | number[]>>({});
   const [confirmed, setConfirmed] = useState(false);
   const [result, setResult] = useState<ReturnType<typeof classify> | null>(null);
@@ -129,7 +136,7 @@ export function AssessmentFlow() {
       window.setTimeout(() => setStep(step + 1), question.kind === "multi" ? 0 : 220);
       return;
     }
-    window.setTimeout(() => setPhase("confirm"), question.kind === "multi" ? 0 : 220);
+    window.setTimeout(() => setPhase("health"), question.kind === "multi" ? 0 : 220);
   }
 
   function goBack() {
@@ -140,20 +147,27 @@ export function AssessmentFlow() {
     setStep(step - 1);
   }
 
+  function selectHealth(value: boolean) {
+    setHealth(value);
+    setPhase("confirm");
+  }
+
   function submit() {
-    if (!confirmed || sex === null || canFloat === null) return;
+    if (!confirmed || sex === null || canFloat === null || immersionControl === null || health === null) return;
 
     const styleIndexes = (answers.styles as number[] | undefined) ?? [];
+    const readinessIndex = (answers.readiness as number | undefined) ?? 0;
+    const [physicalCondition, priorExperience, postEffort] = READINESS_TO_INPUT[readinessIndex];
     const input: ClassificationInput = {
       canFloat,
       experience: (answers.experience as ClassificationInput["experience"]) ?? 0,
       distanceBucket: (answers.distance as ClassificationInput["distanceBucket"]) ?? 0,
       styles: styleIndexes.map((i) => STYLE_ORDER[i]),
-      immersionControl: (answers.immersion as number) === 0,
-      physicalCondition: (answers.physicalCondition as ClassificationInput["physicalCondition"]) ?? 0,
-      priorExperience: (answers.priorExperience as ClassificationInput["priorExperience"]) ?? 0,
-      postEffortPerformance: (answers.postEffort as ClassificationInput["postEffortPerformance"]) ?? 0,
-      healthOrAdaptationFlag: (answers.health as number) === 0,
+      immersionControl,
+      physicalCondition: physicalCondition as ClassificationInput["physicalCondition"],
+      priorExperience: priorExperience as ClassificationInput["priorExperience"],
+      postEffortPerformance: postEffort as ClassificationInput["postEffortPerformance"],
+      healthOrAdaptationFlag: health,
     };
 
     setPhase("analyzing");
@@ -186,6 +200,8 @@ export function AssessmentFlow() {
     setAge("");
     setSex(null);
     setCanFloat(null);
+    setImmersionControl(null);
+    setHealth(null);
     setAnswers({});
     setConfirmed(false);
     setResult(null);
@@ -327,6 +343,32 @@ export function AssessmentFlow() {
     );
   }
 
+  if (phase === "health") {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center text-center">
+        <span className="font-mono text-xs uppercase tracking-[0.3em] text-fg-faint">
+          {t("gates.healthLabel")}
+        </span>
+        <h2 className="mt-5 text-2xl font-semibold md:text-3xl">{t("gates.healthPrompt")}</h2>
+        <p className="mt-3 text-sm text-fg-muted">{t("gates.healthHelper")}</p>
+        <div className="mt-8 flex w-full flex-col gap-3">
+          <button
+            onClick={() => selectHealth(true)}
+            className="border border-line-strong px-6 py-4 text-sm transition-colors hover:border-fg-muted"
+          >
+            {t("gates.yes")}
+          </button>
+          <button
+            onClick={() => selectHealth(false)}
+            className="border border-line-strong px-6 py-4 text-sm transition-colors hover:border-fg-muted"
+          >
+            {t("gates.no")}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (phase === "analyzing") {
     return <AnalyzingScreen />;
   }
@@ -410,7 +452,37 @@ export function AssessmentFlow() {
 
       {isMulti && (
         <div className="mt-8">
-          <Button onClick={confirmMultiStyle} disabled={selectedMulti.length === 0}>
+          {question.id === "styles" && (
+            <div className="mb-8 border-t border-line pt-8 text-left">
+              <p className="text-sm font-medium text-fg">{t("questions.styles.immersionPrompt")}</p>
+              <div className="mt-4 flex gap-3">
+                <button
+                  onClick={() => setImmersionControl(true)}
+                  className={`border px-6 py-3 text-sm transition-colors ${
+                    immersionControl === true
+                      ? "border-signal text-signal"
+                      : "border-line-strong text-fg hover:border-fg-muted"
+                  }`}
+                >
+                  {t("gates.yes")}
+                </button>
+                <button
+                  onClick={() => setImmersionControl(false)}
+                  className={`border px-6 py-3 text-sm transition-colors ${
+                    immersionControl === false
+                      ? "border-signal text-signal"
+                      : "border-line-strong text-fg hover:border-fg-muted"
+                  }`}
+                >
+                  {t("gates.no")}
+                </button>
+              </div>
+            </div>
+          )}
+          <Button
+            onClick={confirmMultiStyle}
+            disabled={selectedMulti.length === 0 || (question.id === "styles" && immersionControl === null)}
+          >
             {t("continue")}
           </Button>
         </div>

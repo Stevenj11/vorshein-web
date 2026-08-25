@@ -512,6 +512,9 @@
       "sexFemale": "Female",
       "floatingLabel": "Minimum Requirement",
       "floatingPrompt": "Can you float independently, without assistance?",
+      "healthLabel": "Before your result",
+      "healthPrompt": "Do you have any condition, injury, limitation, or adaptation need we should know about?",
+      "healthHelper": "This doesn't mean automatic rejection. A yes sends your application to manual review — never an automatic medical decision.",
       "yes": "Yes",
       "no": "No"
     },
@@ -543,28 +546,12 @@
       },
       "styles": {
         "prompt": "Which strokes do you have sufficient technique in? (select all that apply)",
-        "options": ["Freestyle", "Backstroke", "Breaststroke", "Butterfly", "None with sufficient technique"]
+        "options": ["Freestyle", "Backstroke", "Breaststroke", "Butterfly", "None with sufficient technique"],
+        "immersionPrompt": "Also: can you submerge voluntarily, orient yourself, and touch the bottom in a controlled way?"
       },
-      "immersion": {
-        "prompt": "Can you submerge voluntarily, orient yourself, and touch the bottom in a controlled way?",
-        "options": ["Yes", "No"]
-      },
-      "physicalCondition": {
-        "prompt": "How often do you currently train or exercise?",
-        "options": ["Sedentary", "Occasional", "1–2 sessions a week", "3–5 sessions a week", "Intense / competitive training"]
-      },
-      "priorExperience": {
-        "prompt": "What prior experience do you have with structured swimming?",
-        "options": ["Never", "Occasional", "A few months", "Several years", "Formal training or competition"]
-      },
-      "postEffort": {
-        "prompt": "After intense physical effort, how well do you maintain technique and breathing?",
-        "options": ["Completely falls apart", "Falls apart a lot", "Partially maintained", "Well maintained"]
-      },
-      "health": {
-        "prompt": "Do you have any condition, injury, limitation, or adaptation need we should know about?",
-        "helper": "This doesn't mean automatic rejection. A yes sends your application to manual review — never an automatic medical decision.",
-        "options": ["Yes", "No"]
+      "readiness": {
+        "prompt": "How would you describe your current training level and physical condition?",
+        "options": ["I don't train currently and lose technique under effort", "I train occasionally and maintain some technique under effort", "I train regularly (3–5 times a week) and maintain good technique", "I train intensely or competitively and stay in control even under high effort"]
       }
     },
     "result": {
