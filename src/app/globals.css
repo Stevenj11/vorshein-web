@@ -112,3 +112,20 @@ body {
     opacity: 0;
   }
 }
+
+@keyframes scroll-hint {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
