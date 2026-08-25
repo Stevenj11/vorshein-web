@@ -12,6 +12,13 @@ async function setStatus(id: string, status: ApplicationStatus, officialLevel?: 
   });
 }
 
+/**
+ * Only ever shows ONE obvious next step by default (the button matching
+ * where this application actually is in the funnel), plus a "More" toggle
+ * for the exception paths (manual review / not yet eligible / no-show).
+ * The old version rendered up to 6 buttons on every row regardless of
+ * status, which read as cluttered/confusing in real use.
+ */
 export function ApplicationRowActions({
   id,
   status,
@@ -23,6 +30,7 @@ export function ApplicationRowActions({
 }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   async function run(action: () => Promise<void>) {
     setBusy(true);
@@ -31,56 +39,80 @@ export function ApplicationRowActions({
     setBusy(false);
   }
 
-  const btn =
+  const officialSlug =
+    preliminaryLevel === "TACTICAL"
+      ? "tactical"
+      : preliminaryLevel === "PERFORMANCE"
+        ? "performance"
+        : "foundation";
+
+  const canAdmit = preliminaryLevel !== "INCONCLUSIVE" && status !== "ADMITTED";
+  const admit = () => run(() => setStatus(id, "ADMITTED", officialSlug));
+
+  const primaryBtn =
+    "shrink-0 border border-white bg-white px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-black transition-opacity hover:opacity-80 disabled:opacity-30";
+  const secondaryBtn =
     "shrink-0 border border-white/20 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-white/70 transition-colors hover:border-white hover:text-white disabled:opacity-30";
+  const moreToggle =
+    "shrink-0 px-1.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 transition-colors hover:text-white";
+
+  if (status === "ADMITTED") {
+    return <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-white/30">—</span>;
+  }
+
+  let primary: React.ReactNode = null;
+  if (status === "RESERVED") {
+    primary = (
+      <button disabled={busy} className={primaryBtn} onClick={() => run(() => setStatus(id, "CONFIRMED"))}>
+        Confirm
+      </button>
+    );
+  } else if (status === "CONFIRMED") {
+    primary = (
+      <button disabled={busy} className={primaryBtn} onClick={() => run(() => setStatus(id, "CHECKED_IN"))}>
+        Check-in
+      </button>
+    );
+  } else if (canAdmit) {
+    primary = (
+      <button disabled={busy} className={primaryBtn} onClick={admit}>
+        Admit {preliminaryLevel}
+      </button>
+    );
+  }
 
   return (
-    <div className="flex flex-wrap gap-1.5">
-      {status === "RESERVED" && (
-        <button disabled={busy} className={btn} onClick={() => run(() => setStatus(id, "CONFIRMED"))}>
-          Confirm
-        </button>
-      )}
-      {(status === "RESERVED" || status === "CONFIRMED") && (
-        <button disabled={busy} className={btn} onClick={() => run(() => setStatus(id, "CHECKED_IN"))}>
-          Check-in
-        </button>
-      )}
-      {preliminaryLevel !== "INCONCLUSIVE" && status !== "ADMITTED" && (
-        <button
-          disabled={busy}
-          className={btn}
-          onClick={() =>
-            run(() =>
-              setStatus(
-                id,
-                "ADMITTED",
-                preliminaryLevel === "TACTICAL"
-                  ? "tactical"
-                  : preliminaryLevel === "PERFORMANCE"
-                    ? "performance"
-                    : "foundation",
-              ),
-            )
-          }
-        >
-          Confirm {preliminaryLevel}
-        </button>
-      )}
-      {status !== "ADMITTED" && (
-        <button disabled={busy} className={btn} onClick={() => run(() => setStatus(id, "MANUAL_REVIEW"))}>
-          Manual Review
-        </button>
-      )}
-      {status !== "ADMITTED" && status !== "NOT_YET_ELIGIBLE" && (
-        <button disabled={busy} className={btn} onClick={() => run(() => setStatus(id, "NOT_YET_ELIGIBLE"))}>
-          Not Yet Eligible
-        </button>
-      )}
-      {status !== "NO_SHOW" && status !== "ADMITTED" && (
-        <button disabled={busy} className={btn} onClick={() => run(() => setStatus(id, "NO_SHOW"))}>
-          No-show
-        </button>
+    <div className="flex flex-wrap items-center gap-1.5">
+      {primary}
+      <button
+        type="button"
+        className={moreToggle}
+        onClick={() => setShowMore((v) => !v)}
+        aria-expanded={showMore}
+      >
+        {showMore ? "Less ▴" : "More ▾"}
+      </button>
+      {showMore && (
+        <>
+          {canAdmit && status !== "RESERVED" && status !== "CONFIRMED" && (
+            <button disabled={busy} className={secondaryBtn} onClick={admit}>
+              Admit {preliminaryLevel}
+            </button>
+          )}
+          <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "MANUAL_REVIEW"))}>
+            Manual Review
+          </button>
+          {status !== "NOT_YET_ELIGIBLE" && (
+            <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "NOT_YET_ELIGIBLE"))}>
+              Not Yet Eligible
+            </button>
+          )}
+          {status !== "NO_SHOW" && (
+            <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "NO_SHOW"))}>
+              No-show
+            </button>
+          )}
+        </>
       )}
     </div>
   );

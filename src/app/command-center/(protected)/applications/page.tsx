@@ -43,7 +43,7 @@ export default async function ApplicationsPage() {
                 <td className="py-3 pr-4 text-xs text-white/60">
                   {app.turnDateISO}<br />{app.turnTimeSlot}
                 </td>
-                <td className="py-3 pr-4 font-mono text-xs">{app.status}</td>
+                <td className="py-3 pr-4 font-mono text-xs">{app.status.replace(/_/g, " ")}</td>
                 <td className="py-3 pr-4">
                   <ApplicationRowActions
                     id={app.id}
