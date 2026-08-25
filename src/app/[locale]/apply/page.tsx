@@ -34,7 +34,11 @@ export default async function ApplyPage({
         <p className="mt-5 text-fg-muted">{t("body")}</p>
 
         <div className="mt-12">
-          <ApplicationForm entryDates={generation.dates.entryDatesISO} />
+          <ApplicationForm
+            entryDates={generation.dates.entryDatesISO}
+            price={generation.price}
+            currency={generation.currency}
+          />
         </div>
       </div>
     </Container>

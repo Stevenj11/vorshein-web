@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Application } from "@/lib/applications/types";
 import { buildConfirmLink } from "@/lib/applications/whatsapp";
+import { formatWeekdayDate } from "@/lib/enrollment";
 
 function useCountdown(deadlineISO: string) {
   const [remaining, setRemaining] = useState(() => Date.parse(deadlineISO) - Date.now());
@@ -16,7 +17,21 @@ function useCountdown(deadlineISO: string) {
   return remaining;
 }
 
-export function EntryPassCard({ application }: { application: Application }) {
+const STATUS_KEY: Record<string, string> = {
+  RESERVED: "statusReserved",
+  CONFIRMED: "statusConfirmed",
+  WAITLIST: "statusWaitlist",
+};
+
+export function EntryPassCard({
+  application,
+  price,
+  currency,
+}: {
+  application: Application;
+  price: number;
+  currency: string;
+}) {
   const t = useTranslations("apply.entryPass");
   const locale = useLocale();
   const remainingMs = useCountdown(application.whatsappConfirmDeadlineISO);
@@ -25,18 +40,19 @@ export function EntryPassCard({ application }: { application: Application }) {
   const minutes = Math.max(0, Math.floor((remainingMs % 3_600_000) / 60_000));
 
   const waLink = buildConfirmLink(application, locale);
+  const statusLabel = t(STATUS_KEY[application.status] ?? "statusReserved");
 
   const rows: [string, string][] = [
     [t("applicationId"), application.id],
     [t("name"), `${application.firstName} ${application.lastName}`],
     [t("division"), `DIVISION ${application.division}`],
     [t("preliminaryLevel"), application.preliminaryLevel],
-    [t("date"), application.turnDateISO],
+    [t("date"), formatWeekdayDate(application.turnDateISO, locale)],
     [t("turn"), application.turnTimeSlot],
     [t("checkIn"), t("checkInDetail")],
-    [t("price"), "Bs 250"],
+    [t("price"), `${currency} ${price}`],
     [t("payment"), t("paymentDetail")],
-    [t("status"), application.status],
+    [t("status"), statusLabel],
   ];
 
   return (
@@ -46,6 +62,10 @@ export function EntryPassCard({ application }: { application: Application }) {
           {t("label")}
         </span>
         <h2 className="mt-2 text-2xl font-extrabold tracking-tight">{t("heading")}</h2>
+        <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-fg-faint">
+          {t("subLabel")}
+        </p>
+        <p className="mt-3 text-sm text-fg-muted">{t("tagline")}</p>
       </div>
 
       <div className="divide-y divide-line">

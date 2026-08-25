@@ -28,17 +28,19 @@ export type Application = {
   generationId: string;
   createdAt: string;
 
-  // Applicant data
+  // Applicant data — kept to the minimum needed to hold a spot. Email,
+  // emergency contact, and health/adaptation notes are collected
+  // presencially at check-in instead of in the first online form.
   firstName: string;
   lastName: string;
-  birthDateISO: string;
+  birthYear: number;
   age: number;
   division: Division;
   whatsapp: string;
-  email: string;
-  emergencyContactName: string;
-  emergencyContactRelation: string;
-  emergencyContactPhone: string;
+  email: string | null;
+  emergencyContactName: string | null;
+  emergencyContactRelation: string | null;
+  emergencyContactPhone: string | null;
   healthNote: string | null; // private, never public
 
   // Assessment

@@ -1,24 +1,16 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { readJsonArray, writeJsonArray } from "@/lib/jsonStore";
 import { Generation, GEN_001_DEFAULT } from "./generation-defaults";
 
 export type { Generation, GenerationStatus, LevelCapacity } from "./generation-defaults";
 export { GEN_001_DEFAULT } from "./generation-defaults";
 
-const FILE = path.join(process.cwd(), "data", "generations.json");
-
 async function readAll(): Promise<Generation[]> {
-  try {
-    const raw = await fs.readFile(FILE, "utf-8");
-    return JSON.parse(raw) as Generation[];
-  } catch {
-    return [GEN_001_DEFAULT];
-  }
+  const all = await readJsonArray<Generation>("generations");
+  return all.length > 0 ? all : [GEN_001_DEFAULT];
 }
 
 async function writeAll(generations: Generation[]): Promise<void> {
-  await fs.mkdir(path.dirname(FILE), { recursive: true });
-  await fs.writeFile(FILE, JSON.stringify(generations, null, 2), "utf-8");
+  await writeJsonArray("generations", generations);
 }
 
 export async function listGenerations(): Promise<Generation[]> {

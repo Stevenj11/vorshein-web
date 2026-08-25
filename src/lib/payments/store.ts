@@ -1,22 +1,13 @@
-import { promises as fs } from "fs";
-import path from "path";
 import { randomUUID } from "crypto";
+import { readJsonArray, writeJsonArray } from "@/lib/jsonStore";
 import { Payment } from "./types";
 
-const FILE = path.join(process.cwd(), "data", "payments.json");
-
 async function readAll(): Promise<Payment[]> {
-  try {
-    const raw = await fs.readFile(FILE, "utf-8");
-    return JSON.parse(raw) as Payment[];
-  } catch {
-    return [];
-  }
+  return readJsonArray<Payment>("payments");
 }
 
 async function writeAll(payments: Payment[]): Promise<void> {
-  await fs.mkdir(path.dirname(FILE), { recursive: true });
-  await fs.writeFile(FILE, JSON.stringify(payments, null, 2), "utf-8");
+  await writeJsonArray("payments", payments);
 }
 
 export async function listPayments(): Promise<Payment[]> {

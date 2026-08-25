@@ -1,21 +1,12 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { readJsonArray, writeJsonArray } from "@/lib/jsonStore";
 import { AttendanceRecord } from "./types";
 
-const FILE = path.join(process.cwd(), "data", "attendance.json");
-
 async function readAll(): Promise<AttendanceRecord[]> {
-  try {
-    const raw = await fs.readFile(FILE, "utf-8");
-    return JSON.parse(raw) as AttendanceRecord[];
-  } catch {
-    return [];
-  }
+  return readJsonArray<AttendanceRecord>("attendance");
 }
 
 async function writeAll(records: AttendanceRecord[]): Promise<void> {
-  await fs.mkdir(path.dirname(FILE), { recursive: true });
-  await fs.writeFile(FILE, JSON.stringify(records, null, 2), "utf-8");
+  await writeJsonArray("attendance", records);
 }
 
 export async function listAttendance(): Promise<AttendanceRecord[]> {

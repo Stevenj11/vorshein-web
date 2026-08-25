@@ -1,26 +1,12 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { readJsonArray, writeJsonArray } from "@/lib/jsonStore";
 import { Application, ApplicationStatus } from "./types";
 
-const FILE = path.join(process.cwd(), "data", "applications.json");
-
-/**
- * Local, file-backed store — fine for demoing GEN 001 end to end, but not
- * durable on a serverless deploy (ephemeral filesystem). Swap for a real
- * database before running a live cohort at scale.
- */
 async function readAll(): Promise<Application[]> {
-  try {
-    const raw = await fs.readFile(FILE, "utf-8");
-    return JSON.parse(raw) as Application[];
-  } catch {
-    return [];
-  }
+  return readJsonArray<Application>("applications");
 }
 
 async function writeAll(applications: Application[]): Promise<void> {
-  await fs.mkdir(path.dirname(FILE), { recursive: true });
-  await fs.writeFile(FILE, JSON.stringify(applications, null, 2), "utf-8");
+  await writeJsonArray("applications", applications);
 }
 
 export async function listApplications(): Promise<Application[]> {
@@ -62,6 +48,18 @@ export async function setApplicationStatus(
   status: ApplicationStatus,
 ): Promise<Application | null> {
   return updateApplication(id, { status });
+}
+
+/** Finds an existing application for this WhatsApp number in this generation,
+ * so the same person can't accidentally submit twice. */
+export async function findByWhatsapp(
+  whatsapp: string,
+  generationId: string,
+): Promise<Application | null> {
+  const all = await readAll();
+  return (
+    all.find((a) => a.whatsapp === whatsapp && a.generationId === generationId) ?? null
+  );
 }
 
 /** Count of RESERVED/CONFIRMED applications sharing a turn — used to derive turn state. */

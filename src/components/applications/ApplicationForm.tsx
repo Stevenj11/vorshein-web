@@ -1,21 +1,65 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Application } from "@/lib/applications/types";
+import { formatWeekdayDate } from "@/lib/enrollment";
 import { useAssessmentResult } from "@/lib/assessment/storage";
 import { EntryPassCard } from "./EntryPassCard";
 
 type Status = "idle" | "submitting" | "success" | "error";
+type TurnAvailability = {
+  turnDateISO: string;
+  timeSlot: string;
+  reserved: number;
+  capacity: number;
+  full: boolean;
+};
 
-export function ApplicationForm({ entryDates }: { entryDates: string[] }) {
+const CURRENT_YEAR = new Date().getFullYear();
+const MIN_BIRTH_YEAR = CURRENT_YEAR - 30;
+const MAX_BIRTH_YEAR = CURRENT_YEAR - 18;
+
+const ERROR_KEY: Record<string, string> = {
+  missing_name: "errorName",
+  invalid_birth_year: "errorBirthYear",
+  invalid_whatsapp: "errorWhatsapp",
+  missing_assessment: "errorNeedsAssessment",
+  not_eligible: "errorNotEligible",
+  duplicate_application: "errorDuplicate",
+  server_error: "errorServer",
+};
+
+export function ApplicationForm({
+  entryDates,
+  price,
+  currency,
+}: {
+  entryDates: string[];
+  price: number;
+  currency: string;
+}) {
   const t = useTranslations("apply.form");
   const locale = useLocale();
   const stored = useAssessmentResult();
   const [status, setStatus] = useState<Status>("idle");
   const [application, setApplication] = useState<Application | null>(null);
   const [turnDate, setTurnDate] = useState(entryDates[0]);
-  const [fieldError, setFieldError] = useState<string | null>(null);
+  const [turns, setTurns] = useState<TurnAvailability[] | null>(null);
+  const [errorKey, setErrorKey] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!stored) return;
+    const level = stored.preliminaryLevel.toLowerCase();
+    fetch(`/api/applications/turns?level=${level}`)
+      .then((res) => res.json())
+      .then((data: { turns: TurnAvailability[] }) => {
+        setTurns(data.turns);
+        const firstOpen = data.turns.find((turn) => !turn.full);
+        if (firstOpen) setTurnDate(firstOpen.turnDateISO);
+      })
+      .catch(() => setTurns(null));
+  }, [stored]);
 
   if (!stored) {
     return (
@@ -33,37 +77,40 @@ export function ApplicationForm({ entryDates }: { entryDates: string[] }) {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setFieldError(null);
+    setErrorKey(null);
 
     const form = new FormData(e.currentTarget);
+    const firstName = String(form.get("firstName") ?? "").trim();
+    const lastName = String(form.get("lastName") ?? "").trim();
+    const birthYear = Number(form.get("birthYear"));
+    const whatsapp = String(form.get("whatsapp") ?? "").trim();
+
+    if (!firstName || !lastName) {
+      setErrorKey("errorName");
+      return;
+    }
+    if (!birthYear || birthYear < MIN_BIRTH_YEAR - 5 || birthYear > MAX_BIRTH_YEAR + 5) {
+      setErrorKey("errorBirthYear");
+      return;
+    }
+    if (birthYear < MIN_BIRTH_YEAR || birthYear > MAX_BIRTH_YEAR) {
+      setErrorKey("errorAgeRange");
+      return;
+    }
+    if (!whatsapp || whatsapp.replace(/\D/g, "").length < 7) {
+      setErrorKey("errorWhatsapp");
+      return;
+    }
+
     const payload = {
-      firstName: String(form.get("firstName") ?? "").trim(),
-      lastName: String(form.get("lastName") ?? "").trim(),
-      birthDateISO: String(form.get("birthDate") ?? ""),
-      whatsapp: String(form.get("whatsapp") ?? "").trim(),
-      email: String(form.get("email") ?? "").trim(),
-      emergencyContactName: String(form.get("emergencyName") ?? "").trim(),
-      emergencyContactRelation: String(form.get("emergencyRelation") ?? "").trim(),
-      emergencyContactPhone: String(form.get("emergencyPhone") ?? "").trim(),
-      healthNote: String(form.get("healthNote") ?? "").trim() || null,
+      firstName,
+      lastName,
+      birthYear,
+      whatsapp,
       turnDateISO: turnDate,
-      locale,
       sex: stored?.sex,
       assessmentAnswers: stored?.answers,
     };
-
-    if (
-      !payload.firstName ||
-      !payload.lastName ||
-      !payload.birthDateISO ||
-      !payload.whatsapp ||
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email) ||
-      !payload.emergencyContactName ||
-      !payload.emergencyContactPhone
-    ) {
-      setFieldError(t("requiredError"));
-      return;
-    }
 
     setStatus("submitting");
     try {
@@ -72,17 +119,22 @@ export function ApplicationForm({ entryDates }: { entryDates: string[] }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("failed");
-      const data = await res.json();
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setErrorKey(ERROR_KEY[data.error as string] ?? "errorServer");
+        setStatus("error");
+        return;
+      }
       setApplication(data.application);
       setStatus("success");
     } catch {
+      setErrorKey("errorServer");
       setStatus("error");
     }
   }
 
   if (status === "success" && application) {
-    return <EntryPassCard application={application} />;
+    return <EntryPassCard application={application} price={price} currency={currency} />;
   }
 
   return (
@@ -92,81 +144,95 @@ export function ApplicationForm({ entryDates }: { entryDates: string[] }) {
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
             {t("firstName")}
           </span>
-          <input name="firstName" className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal" />
+          <input
+            name="firstName"
+            autoComplete="given-name"
+            className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal"
+          />
         </label>
         <label className="flex flex-col gap-2">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
             {t("lastName")}
           </span>
-          <input name="lastName" className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal" />
+          <input
+            name="lastName"
+            autoComplete="family-name"
+            className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal"
+          />
         </label>
       </div>
-
-      <label className="flex flex-col gap-2">
-        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-          {t("birthDate")}
-        </span>
-        <input name="birthDate" type="date" className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal" />
-      </label>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         <label className="flex flex-col gap-2">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-            {t("whatsapp")}
+            {t("birthYear")}
           </span>
-          <input name="whatsapp" type="tel" className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal" />
+          <input
+            name="birthYear"
+            type="number"
+            inputMode="numeric"
+            placeholder="2000"
+            min={MIN_BIRTH_YEAR - 5}
+            max={MAX_BIRTH_YEAR + 5}
+            className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal"
+          />
         </label>
         <label className="flex flex-col gap-2">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-            {t("email")}
+            {t("whatsapp")}
           </span>
-          <input name="email" type="email" className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal" />
+          <input
+            name="whatsapp"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="+591 7xxxxxxx"
+            className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none focus:border-signal"
+          />
         </label>
       </div>
-
-      <div className="mt-2 border-t border-line pt-5">
-        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-          {t("emergencyContact")}
-        </span>
-        <div className="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-3">
-          <input name="emergencyName" placeholder={t("emergencyName") as string} className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none placeholder:text-fg-faint focus:border-signal" />
-          <input name="emergencyRelation" placeholder={t("emergencyRelation") as string} className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none placeholder:text-fg-faint focus:border-signal" />
-          <input name="emergencyPhone" type="tel" placeholder={t("emergencyPhone") as string} className="border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none placeholder:text-fg-faint focus:border-signal" />
-        </div>
-      </div>
-
-      <label className="flex flex-col gap-2">
-        <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
-          {t("healthNote")}
-        </span>
-        <textarea name="healthNote" rows={3} placeholder={t("healthNotePlaceholder") as string} className="resize-none border border-line-strong bg-transparent px-4 py-3 text-sm text-fg outline-none placeholder:text-fg-faint focus:border-signal" />
-        <span className="text-xs text-fg-faint">{t("healthNotePrivate")}</span>
-      </label>
 
       {entryDates.length > 1 && (
         <div className="border-t border-line pt-5">
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
             {t("turnDate")}
           </span>
-          <div className="mt-4 flex flex-col gap-3">
-            {entryDates.map((date) => (
-              <label key={date} className="flex items-center gap-3 border border-line-strong px-4 py-3">
-                <input
-                  type="radio"
-                  name="turnDate"
-                  checked={turnDate === date}
-                  onChange={() => setTurnDate(date)}
-                  className="accent-signal"
-                />
-                <span className="text-sm text-fg">{date}</span>
-              </label>
-            ))}
+          <p className="mt-1 text-xs text-fg-faint">{t("turnDateSub")}</p>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            {entryDates.map((date) => {
+              const info = turns?.find((turn) => turn.turnDateISO === date);
+              const full = info?.full ?? false;
+              const active = turnDate === date;
+              return (
+                <button
+                  key={date}
+                  type="button"
+                  disabled={full}
+                  onClick={() => setTurnDate(date)}
+                  className={`flex flex-col items-start gap-1 border px-4 py-3 text-left transition-colors ${
+                    full
+                      ? "cursor-not-allowed border-line text-fg-faint opacity-50"
+                      : active
+                        ? "border-signal text-signal"
+                        : "border-line-strong text-fg hover:border-fg-muted"
+                  }`}
+                >
+                  <span className="text-sm font-medium">
+                    {formatWeekdayDate(date, locale)}
+                  </span>
+                  {info && (
+                    <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+                      {info.timeSlot} · {full ? t("turnFull") : `${info.capacity - info.reserved}/${info.capacity} ${t("turnSpotsLeft")}`}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}
 
-      {fieldError && <p className="text-sm text-signal">{fieldError}</p>}
-      {status === "error" && <p className="text-sm text-signal">{t("errorBody")}</p>}
+      {errorKey && <p className="text-sm text-signal">{t(errorKey)}</p>}
 
       <button
         type="submit"
@@ -175,6 +241,7 @@ export function ApplicationForm({ entryDates }: { entryDates: string[] }) {
       >
         {status === "submitting" ? t("submitting") : t("submit")}
       </button>
+      <p className="text-center text-xs text-fg-faint">{t("noPaymentNote")}</p>
     </form>
   );
 }

@@ -1,22 +1,13 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { readJsonArray, writeJsonArray } from "@/lib/jsonStore";
 import { Application } from "../applications/types";
 import { Member } from "./types";
 
-const FILE = path.join(process.cwd(), "data", "members.json");
-
 async function readAll(): Promise<Member[]> {
-  try {
-    const raw = await fs.readFile(FILE, "utf-8");
-    return JSON.parse(raw) as Member[];
-  } catch {
-    return [];
-  }
+  return readJsonArray<Member>("members");
 }
 
 async function writeAll(members: Member[]): Promise<void> {
-  await fs.mkdir(path.dirname(FILE), { recursive: true });
-  await fs.writeFile(FILE, JSON.stringify(members, null, 2), "utf-8");
+  await writeJsonArray("members", members);
 }
 
 export async function listMembers(): Promise<Member[]> {
