@@ -50,6 +50,56 @@ export async function updateApplication(
   return all[idx];
 }
 
+/** One-time repair for the ID-collision bug (nextApplicationId used to
+ * derive IDs from array length, which broke once deletion existed): walks
+ * applications in stored order, leaves the first occurrence of any ID
+ * alone, and reassigns every later occurrence a fresh, never-used ID. */
+export async function repairDuplicateApplicationIds(): Promise<
+  { oldId: string; newId: string; firstName: string; lastName: string }[]
+> {
+  const all = await readAll();
+  const seen = new Set<string>();
+  const changes: { oldId: string; newId: string; firstName: string; lastName: string }[] = [];
+  let maxN = all.reduce((max, a) => {
+    const match = /^VRSN-A(\d+)$/.exec(a.id);
+    return match ? Math.max(max, parseInt(match[1], 10)) : max;
+  }, 0);
+
+  for (const app of all) {
+    if (seen.has(app.id)) {
+      const oldId = app.id;
+      maxN += 1;
+      app.id = `VRSN-A${String(maxN).padStart(4, "0")}`;
+      changes.push({ oldId, newId: app.id, firstName: app.firstName, lastName: app.lastName });
+    }
+    seen.add(app.id);
+  }
+
+  if (changes.length > 0) await writeAll(all);
+  return changes;
+}
+
+/** An application with a memberId but a status other than ADMITTED can
+ * only mean an in-place status edit (e.g. one accidentally aimed at the
+ * wrong row during the ID-collision incident) clobbered it after
+ * promotion already ran — promotion is the only thing that ever sets
+ * memberId. Restores status without re-promoting (that would mint a
+ * second, orphaned Member for the same person). */
+export async function repairOrphanedAdmittedStatus(): Promise<
+  { id: string; firstName: string; lastName: string }[]
+> {
+  const all = await readAll();
+  const fixed: { id: string; firstName: string; lastName: string }[] = [];
+  for (const app of all) {
+    if (app.memberId && app.status !== "ADMITTED") {
+      app.status = "ADMITTED";
+      fixed.push({ id: app.id, firstName: app.firstName, lastName: app.lastName });
+    }
+  }
+  if (fixed.length > 0) await writeAll(all);
+  return fixed;
+}
+
 export async function deleteApplication(id: string): Promise<boolean> {
   const all = await readAll();
   const next = all.filter((a) => a.id !== id);
