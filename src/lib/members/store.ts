@@ -71,6 +71,14 @@ export async function updateMember(
   return all[idx];
 }
 
+export async function deleteMember(id: string): Promise<boolean> {
+  const all = await readAll();
+  const next = all.filter((m) => m.id !== id);
+  if (next.length === all.length) return false;
+  await writeAll(next);
+  return true;
+}
+
 export async function occupancy(
   generationId: string,
 ): Promise<{ foundation: number; performance: number; tactical: number }> {

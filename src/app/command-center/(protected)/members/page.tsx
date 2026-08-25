@@ -1,5 +1,6 @@
 import { listMembers } from "@/lib/members/store";
 import { MEMBER_STATUS_LABEL } from "@/lib/commandCenterLabels";
+import { DeleteMemberButton } from "./DeleteMemberButton";
 
 export default async function MembersPage() {
   const members = (await listMembers()).slice().reverse();
@@ -19,7 +20,7 @@ export default async function MembersPage() {
         </a>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[800px] border-collapse text-left text-sm">
+        <table className="w-full min-w-[900px] border-collapse text-left text-sm">
           <thead>
             <tr className="border-b border-white/10 text-white/40">
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">VRSN ID</th>
@@ -29,6 +30,7 @@ export default async function MembersPage() {
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Nivel Actual</th>
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Estado</th>
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Admitido</th>
+              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Acciones</th>
             </tr>
           </thead>
           <tbody>
@@ -44,6 +46,9 @@ export default async function MembersPage() {
                 </td>
                 <td className="py-3 pr-4 text-xs text-white/50">
                   {new Date(m.admittedAt).toLocaleDateString("es-BO")}
+                </td>
+                <td className="py-3 pr-4">
+                  <DeleteMemberButton id={m.id} name={`${m.firstName} ${m.lastName}`} />
                 </td>
               </tr>
             ))}
