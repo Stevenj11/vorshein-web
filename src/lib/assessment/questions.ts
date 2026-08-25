@@ -20,10 +20,8 @@ export const INDICATOR_QUESTIONS: IndicatorQuestion[] = [
   { id: "styles", kind: "multi", optionCount: 5 },
   { id: "immersion", kind: "single", optionCount: 2 },
   { id: "physicalCondition", kind: "single", optionCount: 5 },
-  { id: "turns", kind: "single", optionCount: 4 },
   { id: "priorExperience", kind: "single", optionCount: 5 },
   { id: "postEffort", kind: "single", optionCount: 4 },
-  { id: "goal", kind: "single", optionCount: 7 },
   { id: "health", kind: "single", optionCount: 2, hasHelper: true },
 ];
 

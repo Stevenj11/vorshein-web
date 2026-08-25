@@ -507,7 +507,7 @@
       "ageLabel": "Elegibilidad — Edad",
       "agePrompt": "¿Cuántos años tienes?",
       "sexLabel": "Elegibilidad — Convocatoria",
-      "sexPrompt": "GEN 001 está habilitada para hombres de 18 a 30 años. ¿Cuál es tu sexo?",
+      "sexPrompt": "¿Cuál es tu sexo?",
       "sexMale": "Hombre",
       "sexFemale": "Mujer",
       "floatingLabel": "Requisito Mínimo",
@@ -553,10 +553,6 @@
         "prompt": "¿Con qué frecuencia entrenas o realizas actividad física actualmente?",
         "options": ["Sedentario", "Ocasional", "1–2 sesiones por semana", "3–5 sesiones por semana", "Entrenamiento intenso / competitivo"]
       },
-      "turns": {
-        "prompt": "¿Cómo describirías tu manejo de virajes en la pared?",
-        "options": ["Me detengo por completo", "Impulso básico", "Viraje básico", "Dominio técnico del viraje"]
-      },
       "priorExperience": {
         "prompt": "¿Qué experiencia previa tienes en natación estructurada?",
         "options": ["Nunca", "Ocasional", "Algunos meses", "Varios años", "Entrenamiento o competición formal"]
@@ -564,10 +560,6 @@
       "postEffort": {
         "prompt": "Después de un esfuerzo físico intenso, ¿qué tan bien mantienes técnica y respiración?",
         "options": ["Se pierde por completo", "Se pierde bastante", "Se mantiene parcialmente", "Se mantiene bien"]
-      },
-      "goal": {
-        "prompt": "¿Cuál es tu objetivo principal?",
-        "options": ["Técnica", "Condición física", "Resistencia", "Superar mis límites", "Tactical", "Competencias futuras", "Otro"]
       },
       "health": {
         "prompt": "¿Tienes alguna condición, lesión, limitación o necesidad de adaptación que debamos conocer?",
@@ -587,7 +579,7 @@
       "officialDisclaimer": "Tu nivel oficial se determina mediante evaluación presencial. Este resultado es orientativo.",
       "manualReviewLabel": "Revisión Manual",
       "manualReviewBody": "Informaste una condición, lesión o necesidad de adaptación. Un miembro del equipo revisará tu postulación manualmente antes de confirmar tu cupo.",
-      "apply": "Postular a GEN 001",
+      "apply": "Sí, quiero postular",
       "viewProgram": "Ver el Programa",
       "retake": "Repetir Evaluación"
     }

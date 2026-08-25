@@ -507,7 +507,7 @@
       "ageLabel": "Eligibility — Age",
       "agePrompt": "How old are you?",
       "sexLabel": "Eligibility — Cohort",
-      "sexPrompt": "GEN 001 is open to men aged 18 to 30. What's your sex?",
+      "sexPrompt": "What's your sex?",
       "sexMale": "Male",
       "sexFemale": "Female",
       "floatingLabel": "Minimum Requirement",
@@ -553,10 +553,6 @@
         "prompt": "How often do you currently train or exercise?",
         "options": ["Sedentary", "Occasional", "1–2 sessions a week", "3–5 sessions a week", "Intense / competitive training"]
       },
-      "turns": {
-        "prompt": "How would you describe your wall turns?",
-        "options": ["I stop completely", "Basic push-off", "Basic turn", "Technical mastery of the turn"]
-      },
       "priorExperience": {
         "prompt": "What prior experience do you have with structured swimming?",
         "options": ["Never", "Occasional", "A few months", "Several years", "Formal training or competition"]
@@ -564,10 +560,6 @@
       "postEffort": {
         "prompt": "After intense physical effort, how well do you maintain technique and breathing?",
         "options": ["Completely falls apart", "Falls apart a lot", "Partially maintained", "Well maintained"]
-      },
-      "goal": {
-        "prompt": "What's your main goal?",
-        "options": ["Technique", "Physical condition", "Endurance", "Push my limits", "Tactical", "Future competitions", "Other"]
       },
       "health": {
         "prompt": "Do you have any condition, injury, limitation, or adaptation need we should know about?",
@@ -587,7 +579,7 @@
       "officialDisclaimer": "Your official level is determined through a presencial evaluation. This result is indicative.",
       "manualReviewLabel": "Manual Review",
       "manualReviewBody": "You reported a condition, injury, or adaptation need. A team member will manually review your application before confirming your spot.",
-      "apply": "Apply to GEN 001",
+      "apply": "Yes, I want to apply",
       "viewProgram": "View the Program",
       "retake": "Retake Assessment"
     }
