@@ -60,9 +60,9 @@ export function Concierge() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       {open && (
-        <div className="flex h-[480px] w-[340px] flex-col border border-line-strong bg-panel shadow-2xl">
+        <div className="flex h-[70svh] w-[calc(100vw-2rem)] max-w-[340px] flex-col border border-line-strong bg-panel shadow-2xl sm:h-[480px]">
           <div className="flex items-center gap-3 border-b border-line px-5 py-4">
             <Logo size={18} />
             <div>
@@ -125,10 +125,13 @@ export function Concierge() {
 
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 border border-line-strong bg-void px-5 py-3.5 font-mono text-xs uppercase tracking-[0.2em] text-fg shadow-xl transition-colors hover:border-signal hover:text-signal"
+        aria-label={open ? t("closeLabel") : t("openLabel")}
+        className="flex h-12 w-12 items-center justify-center border border-line-strong bg-void text-fg shadow-xl transition-colors hover:border-signal hover:text-signal sm:h-auto sm:w-auto sm:gap-2 sm:px-5 sm:py-3.5"
       >
-        <Logo size={14} />
-        {open ? t("closeLabel") : t("openLabel")}
+        <Logo size={16} />
+        <span className="hidden font-mono text-xs uppercase tracking-[0.2em] sm:inline">
+          {open ? t("closeLabel") : t("openLabel")}
+        </span>
       </button>
     </div>
   );

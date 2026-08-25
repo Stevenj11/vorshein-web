@@ -70,11 +70,14 @@ export function EntryPassCard({
 
       <div className="divide-y divide-line">
         {rows.map(([label, value]) => (
-          <div key={label} className="flex items-center justify-between px-6 py-3">
-            <span className="font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
+          <div
+            key={label}
+            className="flex flex-col gap-1 px-6 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4"
+          >
+            <span className="shrink-0 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-faint">
               {label}
             </span>
-            <span className="text-sm font-medium text-fg">{value}</span>
+            <span className="text-sm font-medium text-fg sm:text-right">{value}</span>
           </div>
         ))}
       </div>

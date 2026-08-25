@@ -71,12 +71,12 @@ export function StatusChecker() {
 
   return (
     <div className="mx-auto w-full max-w-md">
-      <form onSubmit={handleSubmit} className="flex gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-2 sm:flex-row">
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("placeholder")}
-          className="flex-1 border border-line-strong bg-transparent px-4 py-3 text-center font-mono uppercase text-fg outline-none focus:border-signal"
+          className="min-w-0 flex-1 border border-line-strong bg-transparent px-4 py-3 text-center font-mono uppercase text-fg outline-none focus:border-signal"
         />
         <button
           type="submit"
@@ -102,23 +102,23 @@ export function StatusChecker() {
           <p className="mt-3 text-sm text-fg-muted">{t(display.detailKey)}</p>
 
           <div className="mt-6 divide-y divide-line border-t border-line text-left">
-            <div className="flex items-center justify-between py-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+            <div className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
                 {t("name")}
               </span>
-              <span className="text-sm text-fg">{result.firstName} {result.lastName}</span>
+              <span className="text-sm text-fg sm:text-right">{result.firstName} {result.lastName}</span>
             </div>
-            <div className="flex items-center justify-between py-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+            <div className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
                 {t("level")}
               </span>
-              <span className="text-sm text-fg">{result.preliminaryLevel}</span>
+              <span className="text-sm text-fg sm:text-right">{result.preliminaryLevel}</span>
             </div>
-            <div className="flex items-center justify-between py-3">
-              <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+            <div className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
                 {t("turn")}
               </span>
-              <span className="text-sm text-fg">
+              <span className="text-sm text-fg sm:text-right">
                 {formatWeekdayDate(result.turnDateISO, locale)} · {result.turnTimeSlot}
               </span>
             </div>

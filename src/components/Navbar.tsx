@@ -87,7 +87,7 @@ export function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-line px-6 py-6 lg:hidden">
+        <div className="min-h-[calc(100svh-72px)] border-t border-line bg-void px-6 py-6 lg:hidden">
           <nav className="flex flex-col gap-5">
             {links.map((link) => (
               <Link

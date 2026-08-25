@@ -120,7 +120,7 @@ export default async function ProgramDetailPage({
               <SectionLabel index={program.level}>
                 {tp(`${program.slug}.subtitle`)}
               </SectionLabel>
-              <h1 className="mt-6 text-5xl font-extrabold tracking-tight md:text-7xl">
+              <h1 className="mt-6 text-4xl font-extrabold tracking-tight sm:text-5xl md:text-7xl">
                 {tp(`${program.slug}.name`)}
               </h1>
               <p className="mt-6 max-w-xl text-lg text-fg-muted">
