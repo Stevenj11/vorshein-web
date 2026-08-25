@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import type { Generation } from "@/lib/generation-defaults";
+import { GENERATION_STATUS_LABEL } from "@/lib/commandCenterLabels";
 
 const field =
   "border border-white/20 bg-transparent px-3 py-2 text-sm text-white outline-none focus:border-white";
@@ -27,15 +28,15 @@ export function GenerationForm({ generation }: { generation: Generation }) {
     <form onSubmit={handleSubmit} className="flex flex-col gap-6">
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <label className="flex flex-col gap-1">
-          <span className={label}>Name</span>
+          <span className={label}>Nombre</span>
           <input name="name" defaultValue={generation.name} className={field} />
         </label>
         <label className="flex flex-col gap-1">
-          <span className={label}>Location</span>
+          <span className={label}>Ubicación</span>
           <input name="location" defaultValue={generation.location} className={field} />
         </label>
         <label className="flex flex-col gap-1">
-          <span className={label}>Status</span>
+          <span className={label}>Estado</span>
           <select name="status" defaultValue={generation.status} className={field}>
             {[
               "COMING_SOON",
@@ -47,50 +48,50 @@ export function GenerationForm({ generation }: { generation: Generation }) {
               "CLEARANCE",
               "GEN_COMPLETE",
             ].map((s) => (
-              <option key={s} value={s}>{s}</option>
+              <option key={s} value={s}>{GENERATION_STATUS_LABEL[s] ?? s}</option>
             ))}
           </select>
         </label>
         <label className="flex flex-col gap-1">
-          <span className={label}>WhatsApp Number</span>
+          <span className={label}>Número de WhatsApp</span>
           <input name="whatsappNumber" defaultValue={generation.whatsappNumber} className={field} />
         </label>
       </div>
 
       <div>
-        <p className={`${label} mb-2`}>Price (Bs)</p>
+        <p className={`${label} mb-2`}>Precio (Bs)</p>
         <div className="grid grid-cols-3 gap-3">
           <input name="price" type="number" defaultValue={generation.price} placeholder="Total" className={field} />
-          <input name="assessmentFee" type="number" defaultValue={generation.assessmentFee} placeholder="Assessment" className={field} />
-          <input name="trainingFee" type="number" defaultValue={generation.trainingFee} placeholder="Training" className={field} />
+          <input name="assessmentFee" type="number" defaultValue={generation.assessmentFee} placeholder="Evaluación" className={field} />
+          <input name="trainingFee" type="number" defaultValue={generation.trainingFee} placeholder="Entrenamiento" className={field} />
         </div>
       </div>
 
       <div>
-        <p className={`${label} mb-2`}>Dates</p>
+        <p className={`${label} mb-2`}>Fechas</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <label className="flex flex-col gap-1">
-            <span className={label}>Applications Open</span>
+            <span className={label}>Apertura de Postulaciones</span>
             <input name="applicationsOpenISO" type="date" defaultValue={generation.dates.applicationsOpenISO} className={field} />
           </label>
           <label className="flex flex-col gap-1">
-            <span className={label}>Applications Close</span>
+            <span className={label}>Cierre de Postulaciones</span>
             <input name="applicationsCloseISO" type="date" defaultValue={generation.dates.applicationsCloseISO} className={field} />
           </label>
           <label className="flex flex-col gap-1">
-            <span className={label}>Entry Date 1</span>
+            <span className={label}>Fecha de Evaluación 1</span>
             <input name="entryDate1" type="date" defaultValue={generation.dates.entryDatesISO[0]} className={field} />
           </label>
           <label className="flex flex-col gap-1">
-            <span className={label}>Entry Date 2</span>
+            <span className={label}>Fecha de Evaluación 2</span>
             <input name="entryDate2" type="date" defaultValue={generation.dates.entryDatesISO[1]} className={field} />
           </label>
           <label className="flex flex-col gap-1">
-            <span className={label}>Training Begins</span>
+            <span className={label}>Inicio de Entrenamiento</span>
             <input name="trainingBeginsISO" type="date" defaultValue={generation.dates.trainingBeginsISO} className={field} />
           </label>
           <label className="flex flex-col gap-1">
-            <span className={label}>Clearance Weekend</span>
+            <span className={label}>Fin de Semana de Clearance</span>
             <div className="flex gap-2">
               <input name="clearanceDate1" type="date" defaultValue={generation.dates.clearanceWeekendISO[0]} className={field} />
               <input name="clearanceDate2" type="date" defaultValue={generation.dates.clearanceWeekendISO[1]} className={field} />
@@ -101,18 +102,18 @@ export function GenerationForm({ generation }: { generation: Generation }) {
 
       {(["foundation", "performance", "tactical"] as const).map((level) => (
         <div key={level}>
-          <p className={`${label} mb-2`}>{level} capacity</p>
+          <p className={`${label} mb-2`}>Capacidad {level}</p>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <input name={`${level}Min`} type="number" defaultValue={generation.capacities[level].min} placeholder="Min" className={field} />
-            <input name={`${level}Max`} type="number" defaultValue={generation.capacities[level].max} placeholder="Max" className={field} />
+            <input name={`${level}Min`} type="number" defaultValue={generation.capacities[level].min} placeholder="Mín" className={field} />
+            <input name={`${level}Max`} type="number" defaultValue={generation.capacities[level].max} placeholder="Máx" className={field} />
             <input name={`${level}Schedule`} defaultValue={generation.capacities[level].scheduleTime} placeholder="13:00–15:00" className={field} />
-            <input name={`${level}EntryCapacity`} type="number" defaultValue={generation.capacities[level].entryTurnCapacity} placeholder="Entry cap." className={field} />
+            <input name={`${level}EntryCapacity`} type="number" defaultValue={generation.capacities[level].entryTurnCapacity} placeholder="Cupo evaluación" className={field} />
           </div>
         </div>
       ))}
 
       <button type="submit" className="bg-white px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-black">
-        {saved ? "Saved ✓" : "Save Generation"}
+        {saved ? "Guardado ✓" : "Guardar Generación"}
       </button>
     </form>
   );

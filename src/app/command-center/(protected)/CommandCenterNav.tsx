@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const ITEMS = [
-  { href: "/command-center", label: "Dashboard" },
-  { href: "/command-center/applications", label: "Applications" },
+  { href: "/command-center", label: "Panel" },
+  { href: "/command-center/applications", label: "Postulaciones" },
   { href: "/command-center/checkin", label: "Check-in" },
-  { href: "/command-center/members", label: "Members" },
-  { href: "/command-center/attendance", label: "Attendance" },
-  { href: "/command-center/payments", label: "Payments" },
-  { href: "/command-center/generation", label: "Generation" },
+  { href: "/command-center/members", label: "Miembros" },
+  { href: "/command-center/attendance", label: "Asistencia" },
+  { href: "/command-center/payments", label: "Pagos" },
+  { href: "/command-center/generation", label: "Generación" },
 ];
 
 export function CommandCenterNav() {

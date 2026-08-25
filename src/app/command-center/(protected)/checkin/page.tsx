@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Application } from "@/lib/applications/types";
+import { APPLICATION_STATUS_LABEL } from "@/lib/commandCenterLabels";
 
 export default function CheckinPage() {
   const [query, setQuery] = useState("");
@@ -67,7 +68,9 @@ export default function CheckinPage() {
             <p className="mt-1 font-mono text-xs text-white/50">
               {app.preliminaryLevel} · {app.turnDateISO} · {app.turnTimeSlot}
             </p>
-            <p className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-white/70">{app.status}</p>
+            <p className="mt-1 font-mono text-xs uppercase tracking-[0.15em] text-white/70">
+              {APPLICATION_STATUS_LABEL[app.status] ?? app.status}
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-3">
@@ -75,13 +78,13 @@ export default function CheckinPage() {
               Check-in
             </button>
             <button disabled={busy} className={bigBtn} onClick={() => action("sign")}>
-              Signed
+              Firmado
             </button>
             <button disabled={busy} className={bigBtn} onClick={() => action("pay_qr")}>
-              Payment QR
+              Pago QR
             </button>
             <button disabled={busy} className={bigBtn} onClick={() => action("pay_cash")}>
-              Payment Cash
+              Pago Efectivo
             </button>
             <button className={`${bigBtn} bg-white text-black`} onClick={next}>
               Siguiente →

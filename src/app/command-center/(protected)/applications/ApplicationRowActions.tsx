@@ -64,7 +64,7 @@ export function ApplicationRowActions({
   if (status === "RESERVED") {
     primary = (
       <button disabled={busy} className={primaryBtn} onClick={() => run(() => setStatus(id, "CONFIRMED"))}>
-        Confirm
+        Confirmar
       </button>
     );
   } else if (status === "CONFIRMED") {
@@ -76,7 +76,7 @@ export function ApplicationRowActions({
   } else if (canAdmit) {
     primary = (
       <button disabled={busy} className={primaryBtn} onClick={admit}>
-        Admit {preliminaryLevel}
+        Admitir {preliminaryLevel}
       </button>
     );
   }
@@ -90,26 +90,26 @@ export function ApplicationRowActions({
         onClick={() => setShowMore((v) => !v)}
         aria-expanded={showMore}
       >
-        {showMore ? "Less ▴" : "More ▾"}
+        {showMore ? "Menos ▴" : "Más ▾"}
       </button>
       {showMore && (
         <>
           {canAdmit && status !== "RESERVED" && status !== "CONFIRMED" && (
             <button disabled={busy} className={secondaryBtn} onClick={admit}>
-              Admit {preliminaryLevel}
+              Admitir {preliminaryLevel}
             </button>
           )}
           <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "MANUAL_REVIEW"))}>
-            Manual Review
+            Revisión Manual
           </button>
           {status !== "NOT_YET_ELIGIBLE" && (
             <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "NOT_YET_ELIGIBLE"))}>
-              Not Yet Eligible
+              Aún No Elegible
             </button>
           )}
           {status !== "NO_SHOW" && (
             <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "NO_SHOW"))}>
-              No-show
+              No Se Presentó
             </button>
           )}
         </>

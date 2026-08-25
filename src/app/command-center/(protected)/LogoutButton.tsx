@@ -11,7 +11,7 @@ export function LogoutButton() {
   }
   return (
     <button onClick={logout} className="font-mono text-[10px] uppercase tracking-[0.15em] text-white/40 hover:text-white">
-      Logout
+      Cerrar sesión
     </button>
   );
 }

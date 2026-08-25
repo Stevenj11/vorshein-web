@@ -20,7 +20,7 @@ export function RefundButton({ id }: { id: string }) {
       onClick={refund}
       className="border border-white/20 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white disabled:opacity-30"
     >
-      Mark Refunded
+      Marcar Reembolsado
     </button>
   );
 }

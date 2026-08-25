@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AttendanceMark, AttendanceRecord } from "@/lib/attendance/types";
+import { ATTENDANCE_MARK_LABEL } from "@/lib/commandCenterLabels";
 import { Member } from "@/lib/members/types";
 
 export function AttendanceClient({
@@ -60,7 +61,7 @@ export function AttendanceClient({
         >
           {Array.from({ length: 8 }, (_, i) => i + 1).map((n) => (
             <option key={n} value={n}>
-              Session {n}
+              Sesión {n}
             </option>
           ))}
         </select>
@@ -89,7 +90,7 @@ export function AttendanceClient({
                         : "border-white/20 text-white/60"
                     }`}
                   >
-                    {v}
+                    {ATTENDANCE_MARK_LABEL[v]}
                   </button>
                 ))}
               </div>
