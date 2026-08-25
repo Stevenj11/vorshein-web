@@ -113,16 +113,6 @@ body {
   }
 }
 
-@keyframes breathe {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.04);
-  }
-}
-
 @keyframes scroll-hint {
   0% {
     top: 0%;
