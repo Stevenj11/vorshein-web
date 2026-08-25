@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getApplication } from "@/lib/applications/store";
+import { getActiveGeneration } from "@/lib/generation";
 
 /**
  * Public, unauthenticated status lookup by Application ID — the only
@@ -18,6 +19,8 @@ export async function GET(
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
 
+  const generation = await getActiveGeneration();
+
   return NextResponse.json({
     id: application.id,
     firstName: application.firstName,
@@ -26,5 +29,6 @@ export async function GET(
     status: application.status,
     turnDateISO: application.turnDateISO,
     turnTimeSlot: application.turnTimeSlot,
+    whatsappNumber: generation.whatsappNumber,
   });
 }

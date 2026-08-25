@@ -25,6 +25,7 @@ export default async function ApplicationsPage() {
             <tr className="border-b border-white/10 text-white/40">
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">ID</th>
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Nombre</th>
+              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">WhatsApp</th>
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Edad</th>
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Div</th>
               <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Preliminar</th>
@@ -38,6 +39,16 @@ export default async function ApplicationsPage() {
               <tr key={app.id} className="border-b border-white/5">
                 <td className="py-3 pr-4 font-mono text-xs text-cyan-400">{app.id}</td>
                 <td className="py-3 pr-4">{app.firstName} {app.lastName}</td>
+                <td className="py-3 pr-4">
+                  <a
+                    href={`https://wa.me/${app.whatsapp.replace(/\D/g, "")}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-mono text-xs text-emerald-400 hover:underline"
+                  >
+                    {app.whatsapp}
+                  </a>
+                </td>
                 <td className="py-3 pr-4">{app.age}</td>
                 <td className="py-3 pr-4">{app.division}</td>
                 <td className="py-3 pr-4 font-mono text-xs">{app.preliminaryLevel}</td>

@@ -15,6 +15,7 @@ type LookupResult = {
   status: ApplicationStatus;
   turnDateISO: string;
   turnTimeSlot: string;
+  whatsappNumber: string;
 };
 
 const DOT_CLASS: Record<StatusColor, string> = {
@@ -122,6 +123,20 @@ export function StatusChecker() {
               </span>
             </div>
           </div>
+
+          {display.color !== "green" && (
+            <div className="mt-6 border-t border-line pt-6">
+              <p className="text-xs text-fg-faint">{t("waitingNote")}</p>
+              <a
+                href={`https://wa.me/${result.whatsappNumber}?text=${encodeURIComponent(`Hola, quiero consultar el estado de mi postulación ${result.id}.`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center justify-center gap-2 border border-line-strong px-5 py-2.5 font-mono text-xs uppercase tracking-[0.2em] text-fg transition-colors hover:border-signal hover:text-signal"
+              >
+                {t("contactCta")}
+              </a>
+            </div>
+          )}
         </div>
       )}
     </div>

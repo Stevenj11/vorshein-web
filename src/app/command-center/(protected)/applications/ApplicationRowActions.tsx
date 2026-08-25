@@ -62,11 +62,8 @@ export function ApplicationRowActions({
   const moreToggle =
     "shrink-0 px-1.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-white/40 transition-colors hover:text-white";
 
-  if (status === "ADMITTED") {
-    return <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-white/30">—</span>;
-  }
-
   const rejected = status === "NOT_YET_ELIGIBLE" || status === "NO_SHOW" || status === "WAITLIST";
+  const admitted = status === "ADMITTED";
 
   function confirmDelete() {
     if (window.confirm("¿Eliminar esta postulación de forma permanente? Esta acción no se puede deshacer.")) {
@@ -113,23 +110,43 @@ export function ApplicationRowActions({
       </button>
       {showMore && (
         <>
-          {canAdmit && status !== "RESERVED" && status !== "CONFIRMED" && (
-            <button disabled={busy} className={secondaryBtn} onClick={admit}>
-              Admitir {preliminaryLevel}
+          {admitted ? (
+            <button
+              disabled={busy}
+              className={secondaryBtn}
+              onClick={() => {
+                if (
+                  window.confirm(
+                    "¿Revertir la admisión? Esto corrige el estado de la postulación, pero no elimina el registro en Miembros si ya se creó — revísalo ahí también si hace falta.",
+                  )
+                ) {
+                  run(() => setStatus(id, "CONFIRMED"));
+                }
+              }}
+            >
+              Corregir — Revertir a Confirmado
             </button>
-          )}
-          <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "MANUAL_REVIEW"))}>
-            Revisión Manual
-          </button>
-          {status !== "NOT_YET_ELIGIBLE" && (
-            <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "NOT_YET_ELIGIBLE"))}>
-              Aún No Elegible
-            </button>
-          )}
-          {status !== "NO_SHOW" && (
-            <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "NO_SHOW"))}>
-              No Se Presentó
-            </button>
+          ) : (
+            <>
+              {canAdmit && status !== "RESERVED" && status !== "CONFIRMED" && (
+                <button disabled={busy} className={secondaryBtn} onClick={admit}>
+                  Admitir {preliminaryLevel}
+                </button>
+              )}
+              <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "MANUAL_REVIEW"))}>
+                Revisión Manual
+              </button>
+              {status !== "NOT_YET_ELIGIBLE" && (
+                <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "NOT_YET_ELIGIBLE"))}>
+                  Aún No Elegible
+                </button>
+              )}
+              {status !== "NO_SHOW" && (
+                <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "NO_SHOW"))}>
+                  No Se Presentó
+                </button>
+              )}
+            </>
           )}
         </>
       )}
