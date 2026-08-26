@@ -12,7 +12,8 @@
     "events": "Events",
     "reserve": "Apply",
     "findYourLevel": "Discover Your Level",
-    "toggleMenu": "Open menu"
+    "toggleMenu": "Open menu",
+    "myApplication": "Applications"
   },
   "footer": {
     "systemLabel": "System",

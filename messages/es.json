@@ -12,7 +12,8 @@
     "events": "Eventos",
     "reserve": "Postular",
     "findYourLevel": "Descubre tu Nivel",
-    "toggleMenu": "Abrir menú"
+    "toggleMenu": "Abrir menú",
+    "myApplication": "Solicitudes"
   },
   "footer": {
     "systemLabel": "Sistema",

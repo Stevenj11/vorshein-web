@@ -18,6 +18,7 @@ export function Navbar() {
     { href: "/apply", label: t("gen001") },
     { href: "/vorshein", label: t("about") },
     { href: "/events", label: t("events") },
+    { href: "/estado", label: t("myApplication") },
   ];
 
   return (

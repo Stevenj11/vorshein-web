@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Application } from "@/lib/applications/types";
+import { saveMyApplicationId } from "@/lib/applications/myApplication";
 import { formatWeekdayDate } from "@/lib/enrollment";
 import { useAssessmentResult } from "@/lib/assessment/storage";
 import { EntryPassCard } from "./EntryPassCard";
@@ -121,6 +122,7 @@ export function ApplicationForm({
         return;
       }
       setApplication(data.application);
+      saveMyApplicationId(data.application.id);
       setStatus("success");
     } catch {
       setErrorKey("errorServer");

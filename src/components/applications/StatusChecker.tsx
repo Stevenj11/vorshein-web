@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { ApplicationStatus } from "@/lib/applications/types";
 import { applicantFacingCode } from "@/lib/applications/format";
+import { loadMyApplicationId } from "@/lib/applications/myApplication";
 import { STATUS_DISPLAY, StatusColor } from "@/lib/applications/statusDisplay";
 import { formatWeekdayDate } from "@/lib/enrollment";
 
@@ -54,12 +55,19 @@ export function StatusChecker() {
 
   // Auto-search when arriving via a link that already carries the ID
   // (e.g. "Check my status later" on the Entry Pass), so nobody has to
-  // retype what they already gave us minutes earlier.
+  // retype what they already gave us minutes earlier. Falling back to the
+  // locally-remembered application (saved at submission time) means the
+  // "Solicitudes" nav link works with zero typing on a return visit from
+  // the same device.
   useEffect(() => {
-    const idFromUrl = searchParams.get("id");
-    // One-shot mount lookup triggered by a URL param, not a derived-state sync loop.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (idFromUrl) lookup(idFromUrl.toUpperCase());
+    const idFromUrl = searchParams.get("id") ?? loadMyApplicationId();
+    // One-shot mount lookup triggered by a URL param / saved id, not a
+    // derived-state sync loop.
+    if (idFromUrl) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setQuery(applicantFacingCode(idFromUrl));
+      lookup(idFromUrl.toUpperCase());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
