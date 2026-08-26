@@ -73,18 +73,36 @@ export function Navbar() {
           </Link>
         </div>
 
-        <button
-          aria-label={t("toggleMenu")}
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 lg:hidden"
-        >
-          <span
-            className={`h-px w-6 bg-fg transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
-          />
-          <span
-            className={`h-px w-6 bg-fg transition-transform ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
-          />
-        </button>
+        <div className="flex items-center gap-1 lg:hidden">
+          <Link
+            href="/estado"
+            aria-label={t("myApplication")}
+            onClick={() => setOpen(false)}
+            className="flex h-9 w-9 items-center justify-center text-fg-muted transition-colors hover:text-fg"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+              <path
+                d="M4 6h16v9a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V6Z"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              <path d="M8 10h8M8 13h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </Link>
+          <button
+            aria-label={t("toggleMenu")}
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-9 w-9 flex-col items-center justify-center gap-1.5"
+          >
+            <span
+              className={`h-px w-6 bg-fg transition-transform ${open ? "translate-y-[3.5px] rotate-45" : ""}`}
+            />
+            <span
+              className={`h-px w-6 bg-fg transition-transform ${open ? "-translate-y-[3.5px] -rotate-45" : ""}`}
+            />
+          </button>
+        </div>
       </div>
 
       {open && (
