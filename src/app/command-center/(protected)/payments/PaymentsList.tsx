@@ -68,7 +68,7 @@ export function PaymentsList({ payments }: { payments: EnrichedPayment[] }) {
 
       {filtered.length === 0 && (
         <p className="py-12 text-center font-mono text-xs uppercase tracking-[0.15em] text-white/30">
-          Sin resultados para &ldquo;{query}&rdquo;.
+          {query.trim() ? <>Sin resultados para &ldquo;{query}&rdquo;.</> : "Sin pagos todavía."}
         </p>
       )}
     </div>
