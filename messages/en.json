@@ -72,6 +72,13 @@
       "status": "COMING LATER",
       "cta": "Competition Status →"
     },
+    "statusCheck": {
+      "index": "08",
+      "label": "My Application",
+      "heading": "Already applied?",
+      "body": "Enter your code and check your application status anytime.",
+      "cta": "Check My Application"
+    },
     "howItWorks": {
       "index": "01",
       "label": "How It Works",
@@ -218,15 +225,17 @@
       "deadlinePassed": "The confirmation window has passed",
       "confirmCta": "Confirm My Spot on WhatsApp",
       "pendingNote": "Your spot stays pending until you confirm on WhatsApp and the team reviews it.",
+      "requirementsNote": "Once we confirm your application, we'll send the requirements and exact location over WhatsApp.",
+      "copyCode": "Copy code",
       "checkStatusLater": "Check my application status later"
     }
   },
   "statusCheck": {
     "label": "Application Status",
     "heading": "Was my spot confirmed?",
-    "body": "Enter your Application ID (the one on your Entry Pass) to check its status.",
-    "inputLabel": "Application ID",
-    "placeholder": "VRSN-A0001",
+    "body": "Enter your application code to check its status — just the number also works.",
+    "inputLabel": "Application Code",
+    "placeholder": "0001",
     "cta": "Check Status",
     "checking": "Looking up…",
     "notFound": "We couldn't find an application with that ID. Double-check it's typed correctly.",

@@ -6,6 +6,30 @@ import { Application } from "@/lib/applications/types";
 import { buildConfirmLink } from "@/lib/applications/whatsapp";
 import { formatWeekdayDate } from "@/lib/enrollment";
 
+function CopyCodeButton({ code, label }: { code: string; label: string }) {
+  const [copied, setCopied] = useState(false);
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // Clipboard API can be unavailable (older browsers, non-HTTPS) — the
+      // code is already shown big on screen, so failing silently is fine.
+    }
+  }
+
+  return (
+    <button
+      onClick={copy}
+      className="mt-3 inline-flex items-center gap-2 border border-line-strong px-4 py-2 font-mono text-[11px] uppercase tracking-[0.15em] text-fg-muted transition-colors hover:border-signal hover:text-signal"
+    >
+      {copied ? "✓" : "⧉"} {label}
+    </button>
+  );
+}
+
 function useCountdown(deadlineISO: string) {
   const [remaining, setRemaining] = useState(() => Date.parse(deadlineISO) - Date.now());
   useEffect(() => {
@@ -45,7 +69,6 @@ export function EntryPassCard({
   const statusLabel = t(STATUS_KEY[application.status] ?? "statusReserved");
 
   const rows: [string, string][] = [
-    [t("applicationId"), application.id],
     [t("name"), `${application.firstName} ${application.lastName}`],
     [t("division"), `DIVISION ${application.division}`],
     [t("preliminaryLevel"), application.preliminaryLevel],
@@ -68,6 +91,16 @@ export function EntryPassCard({
           {t("subLabel")}
         </p>
         <p className="mt-3 text-sm text-fg-muted">{t("tagline")}</p>
+
+        <div className="mt-5 flex flex-col items-center">
+          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-faint">
+            {t("applicationId")}
+          </span>
+          <span className="mt-1 font-mono text-3xl font-bold tracking-[0.1em] text-signal">
+            {application.id}
+          </span>
+          <CopyCodeButton code={application.id} label={t("copyCode")} />
+        </div>
       </div>
 
       <div className="divide-y divide-line">
@@ -108,6 +141,7 @@ export function EntryPassCard({
           {t("confirmCta")}
         </a>
         <p className="mt-4 text-xs text-fg-muted">{t("pendingNote")}</p>
+        <p className="mt-2 text-xs text-fg-faint">{t("requirementsNote")}</p>
         <a
           href={`/${locale}/estado?id=${encodeURIComponent(application.id)}`}
           className="mt-5 inline-flex w-full items-center justify-center gap-2 border border-line-strong px-7 py-3 font-mono text-xs uppercase tracking-[0.2em] text-fg transition-colors hover:border-signal hover:text-signal"

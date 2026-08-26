@@ -7,6 +7,7 @@ import { PhilosophyTeaser } from "@/components/home/PhilosophyTeaser";
 import { PricingTeaser } from "@/components/home/PricingTeaser";
 import { ProgramsTeaser } from "@/components/home/ProgramsTeaser";
 import { ProgressionTeaser } from "@/components/home/ProgressionTeaser";
+import { StatusCheckTeaser } from "@/components/home/StatusCheckTeaser";
 import { SystemTeaser } from "@/components/home/SystemTeaser";
 
 export default async function Home({
@@ -28,6 +29,7 @@ export default async function Home({
       <PricingTeaser locale={locale} />
       <AssessmentBanner />
       <EventsTeaser />
+      <StatusCheckTeaser />
     </>
   );
 }

@@ -18,6 +18,22 @@ export async function getApplication(id: string): Promise<Application | null> {
   return all.find((a) => a.id === id) ?? null;
 }
 
+/**
+ * Accepts whatever an applicant is likely to type from memory — "4",
+ * "0004", "A0004", "VRSN-A0004" — and resolves it to the canonical ID.
+ * Application IDs are always VRSN-A#### with no other letters, so
+ * reducing to the digits and re-padding is always unambiguous.
+ */
+export function normalizeApplicationId(input: string): string {
+  const digits = input.replace(/\D/g, "");
+  if (!digits) return input.toUpperCase();
+  return `VRSN-A${String(parseInt(digits, 10)).padStart(4, "0")}`;
+}
+
+export async function getApplicationByFlexibleId(input: string): Promise<Application | null> {
+  return getApplication(normalizeApplicationId(input));
+}
+
 /** Based on the highest existing numeric suffix ever issued, never on
  * array length — length-based IDs collide as soon as any application is
  * deleted (the array shrinks, so a future "length + 1" reuses an ID

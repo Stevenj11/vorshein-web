@@ -72,6 +72,13 @@
       "status": "COMING LATER",
       "cta": "Estatus de Competencia →"
     },
+    "statusCheck": {
+      "index": "08",
+      "label": "Mi Postulación",
+      "heading": "¿Ya postulaste?",
+      "body": "Ingresa tu código y revisa el estado de tu solicitud en cualquier momento.",
+      "cta": "Ver mi Solicitud"
+    },
     "howItWorks": {
       "index": "01",
       "label": "Cómo Funciona",
@@ -218,15 +225,17 @@
       "deadlinePassed": "El plazo de confirmación venció",
       "confirmCta": "Confirmar mi Cupo por WhatsApp",
       "pendingNote": "Tu cupo queda pendiente hasta que confirmes por WhatsApp y el equipo lo revise.",
+      "requirementsNote": "Cuando confirmemos tu solicitud, te enviaremos los requisitos y la ubicación exacta por WhatsApp.",
+      "copyCode": "Copiar código",
       "checkStatusLater": "Ver estado de mi postulación más tarde"
     }
   },
   "statusCheck": {
     "label": "Estado de mi Postulación",
     "heading": "¿Confirmaron mi cupo?",
-    "body": "Ingresa tu ID de Postulación (el que aparece en tu Pase de Evaluación) para ver el estado.",
-    "inputLabel": "ID de Postulación",
-    "placeholder": "VRSN-A0001",
+    "body": "Ingresa tu código de postulación para ver el estado — solo el número también funciona.",
+    "inputLabel": "Código de Postulación",
+    "placeholder": "0001",
     "cta": "Ver Estado",
     "checking": "Buscando…",
     "notFound": "No encontramos una postulación con ese ID. Revisa que esté bien escrito.",

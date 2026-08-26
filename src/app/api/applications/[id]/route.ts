@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getApplication } from "@/lib/applications/store";
+import { getApplicationByFlexibleId } from "@/lib/applications/store";
 import { getActiveGeneration } from "@/lib/generation";
 
 /**
@@ -14,7 +14,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  const application = await getApplication(id.toUpperCase());
+  const application = await getApplicationByFlexibleId(id);
   if (!application) {
     return NextResponse.json({ error: "not_found" }, { status: 404 });
   }
