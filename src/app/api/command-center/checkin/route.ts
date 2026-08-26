@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
-import { getApplication, updateApplication } from "@/lib/applications/store";
+import { getApplication, getApplicationByFlexibleId, updateApplication } from "@/lib/applications/store";
 import { recordPayment } from "@/lib/payments/store";
 import { getActiveGeneration } from "@/lib/generation";
 
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   }
   const id = request.nextUrl.searchParams.get("id");
   if (!id) return NextResponse.json({ error: "missing id" }, { status: 400 });
-  const application = await getApplication(id.trim().toUpperCase());
+  const application = await getApplicationByFlexibleId(id);
   if (!application) return NextResponse.json({ error: "not found" }, { status: 404 });
   return NextResponse.json({ application });
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { normalizeApplicationId } from "@/lib/applications/format";
 import { PAYMENT_METHOD_LABEL, PAYMENT_STATUS_LABEL } from "@/lib/commandCenterLabels";
 import { RefundButton } from "./RefundButton";
 
@@ -14,20 +15,14 @@ type EnrichedPayment = {
   date: string;
 };
 
-function normalize(s: string): string {
-  return s.toUpperCase().replace(/[^A-Z0-9]/g, "");
-}
-
+// Shares the same normalization as the public status lookup and Check-in
+// search, so "0004", "VS0004", "A0004", or "VRSN-A0004" all match here too —
+// whatever format the applicant actually reads off their Entry Pass.
 function matches(query: string, payment: EnrichedPayment): boolean {
-  if (!query.trim()) return true;
-  const q = normalize(query);
-  const idVariants = [
-    normalize(payment.applicationId),
-    normalize(payment.applicationId.replace("VRSN-A", "")),
-    normalize(payment.applicationId.replace("VRSN-", "")),
-  ];
-  if (idVariants.some((v) => v.includes(q))) return true;
-  return payment.applicantName.toUpperCase().includes(query.trim().toUpperCase());
+  const trimmed = query.trim();
+  if (!trimmed) return true;
+  if (normalizeApplicationId(trimmed) === normalizeApplicationId(payment.applicationId)) return true;
+  return payment.applicantName.toUpperCase().includes(trimmed.toUpperCase());
 }
 
 export function PaymentsList({ payments }: { payments: EnrichedPayment[] }) {
@@ -39,7 +34,7 @@ export function PaymentsList({ payments }: { payments: EnrichedPayment[] }) {
       <input
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Buscar por ID (0004, A0004, VRSN-A0004) o nombre…"
+        placeholder="Buscar por código (VS0004, 0004) o nombre…"
         className="mb-4 w-full border border-white/20 bg-transparent px-3 py-2 text-sm text-white outline-none focus:border-white"
       />
 

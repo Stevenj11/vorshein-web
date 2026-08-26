@@ -70,7 +70,7 @@ export default function CheckinPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && search()}
-            placeholder="VRSN-A0001"
+            placeholder="VS0001"
             className="flex-1 border border-white/20 bg-transparent px-4 py-3 text-center font-mono uppercase text-white outline-none focus:border-white"
           />
           <button onClick={search} className="border border-white/20 px-5 py-3 text-xs font-mono uppercase tracking-[0.15em]">
