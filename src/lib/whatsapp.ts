@@ -30,6 +30,6 @@ export function buildReservationMessage(params: {
   return lines.join("\n");
 }
 
-export function buildWhatsAppLink(message: string): string {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+export function buildWhatsAppLink(message: string, targetNumber: string = WHATSAPP_NUMBER): string {
+  return `https://wa.me/${targetNumber.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
 }

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/adminAuth";
 import { getActiveGeneration, updateGeneration } from "@/lib/generation";
+import { listApplications } from "@/lib/applications/store";
 
 export async function POST(request: NextRequest) {
   if (!(await isAdminAuthenticated())) {
@@ -12,6 +13,32 @@ export async function POST(request: NextRequest) {
   const current = await getActiveGeneration();
   const price = Number(body.price);
   const assessmentFee = Number(body.assessmentFee);
+
+  // Detect entry-date changes and find CONFIRMED applications still pointing
+  // at a date that's about to disappear — the admin needs to know who to
+  // notify, since we never move an application's turn date silently.
+  const oldEntryDates = current.dates.entryDatesISO;
+  const newEntryDates = [body.entryDate1, body.entryDate2].filter(Boolean);
+  const removedDates = oldEntryDates.filter((d) => !newEntryDates.includes(d));
+  let affectedApplications: { id: string; firstName: string; lastName: string; whatsapp: string; turnDateISO: string; turnTimeSlot: string }[] = [];
+  if (removedDates.length > 0) {
+    const allApplications = await listApplications();
+    affectedApplications = allApplications
+      .filter(
+        (a) =>
+          removedDates.includes(a.turnDateISO) &&
+          (a.status === "CONFIRMED" || a.status === "RESERVED"),
+      )
+      .map((a) => ({
+        id: a.id,
+        firstName: a.firstName,
+        lastName: a.lastName,
+        whatsapp: a.whatsapp,
+        turnDateISO: a.turnDateISO,
+        turnTimeSlot: a.turnTimeSlot,
+      }));
+  }
+
   const updated = await updateGeneration(current.id, {
     name: body.name,
     location: body.location,
@@ -51,5 +78,5 @@ export async function POST(request: NextRequest) {
     },
   });
 
-  return NextResponse.json({ generation: updated });
+  return NextResponse.json({ generation: updated, affectedApplications });
 }

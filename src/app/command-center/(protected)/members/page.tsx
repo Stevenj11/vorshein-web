@@ -19,42 +19,36 @@ export default async function MembersPage() {
           Exportar CSV
         </a>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[900px] border-collapse text-left text-sm">
-          <thead>
-            <tr className="border-b border-white/10 text-white/40">
-              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">VRSN ID</th>
-              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Nombre</th>
-              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Div</th>
-              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Nivel de Entrada</th>
-              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Nivel Actual</th>
-              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Estado</th>
-              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Admitido</th>
-              <th className="py-2 pr-4 font-mono text-[10px] uppercase tracking-[0.1em]">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {members.map((m) => (
-              <tr key={m.id} className="border-b border-white/5">
-                <td className="py-3 pr-4 font-mono text-xs text-cyan-400">{m.id}</td>
-                <td className="py-3 pr-4">{m.firstName} {m.lastName}</td>
-                <td className="py-3 pr-4">{m.division}</td>
-                <td className="py-3 pr-4 font-mono text-xs uppercase">{m.entryLevel}</td>
-                <td className="py-3 pr-4 font-mono text-xs uppercase">{m.currentLevel}</td>
-                <td className="py-3 pr-4 font-mono text-xs uppercase">
-                  {MEMBER_STATUS_LABEL[m.status] ?? m.status}
-                </td>
-                <td className="py-3 pr-4 text-xs text-white/50">
-                  {new Date(m.admittedAt).toLocaleDateString("es-BO")}
-                </td>
-                <td className="py-3 pr-4">
-                  <DeleteMemberButton id={m.id} name={`${m.firstName} ${m.lastName}`} />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {members.map((m) => (
+          <div key={m.id} className="flex flex-col gap-2 border border-white/10 p-4">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs text-cyan-400">{m.id}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-white/50">
+                {MEMBER_STATUS_LABEL[m.status] ?? m.status}
+              </span>
+            </div>
+            <p className="text-base font-medium text-white">{m.firstName} {m.lastName}</p>
+            <p className="font-mono text-xs text-white/60">
+              División {m.division} · {m.entryLevel.toUpperCase()}
+              {m.currentLevel !== m.entryLevel ? ` → ${m.currentLevel.toUpperCase()}` : ""}
+            </p>
+            <p className="font-mono text-[11px] text-white/40">
+              Admitido {new Date(m.admittedAt).toLocaleDateString("es-BO")}
+            </p>
+            <div className="mt-1">
+              <DeleteMemberButton id={m.id} name={`${m.firstName} ${m.lastName}`} />
+            </div>
+          </div>
+        ))}
       </div>
+
+      {members.length === 0 && (
+        <p className="py-12 text-center font-mono text-xs uppercase tracking-[0.15em] text-white/30">
+          Sin miembros todavía.
+        </p>
+      )}
     </div>
   );
 }

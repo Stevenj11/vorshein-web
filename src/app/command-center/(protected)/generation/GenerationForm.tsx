@@ -3,28 +3,53 @@
 import { FormEvent, useState } from "react";
 import type { Generation } from "@/lib/generation-defaults";
 import { GENERATION_STATUS_LABEL } from "@/lib/commandCenterLabels";
+import { formatWeekdayDate } from "@/lib/enrollment";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 const field =
   "border border-white/20 bg-transparent px-3 py-2 text-sm text-white outline-none focus:border-white";
 const label = "font-mono text-[10px] uppercase tracking-[0.15em] text-white/40";
 
+type AffectedApplication = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  whatsapp: string;
+  turnDateISO: string;
+  turnTimeSlot: string;
+};
+
 export function GenerationForm({ generation }: { generation: Generation }) {
   const [saved, setSaved] = useState(false);
   const [price, setPrice] = useState(generation.price);
   const [assessmentFee, setAssessmentFee] = useState(generation.assessmentFee);
+  const [affected, setAffected] = useState<AffectedApplication[]>([]);
   const trainingFee = price - assessmentFee;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const body = Object.fromEntries(form.entries());
-    await fetch("/api/command-center/generation", {
+    const res = await fetch("/api/command-center/generation", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
+    const data = await res.json().catch(() => ({}));
+    setAffected(data.affectedApplications ?? []);
     setSaved(true);
     window.setTimeout(() => setSaved(false), 2000);
+  }
+
+  function notifyLink(app: AffectedApplication) {
+    const message = [
+      "VORSHEIN ELITE",
+      "La fecha de tu evaluación cambió — la fecha anterior ya no está disponible.",
+      `Fecha anterior: ${formatWeekdayDate(app.turnDateISO, "es")} · ${app.turnTimeSlot}`,
+      "Escríbenos para coordinar tu nueva fecha.",
+      `Código: ${app.id}`,
+    ].join("\n");
+    return buildWhatsAppLink(message, app.whatsapp);
   }
 
   return (
@@ -150,6 +175,34 @@ export function GenerationForm({ generation }: { generation: Generation }) {
       <button type="submit" className="bg-white px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-black">
         {saved ? "Guardado ✓" : "Guardar Generación"}
       </button>
+
+      {affected.length > 0 && (
+        <div className="border border-red-500/40 bg-red-500/5 p-4">
+          <p className="font-mono text-xs uppercase tracking-[0.15em] text-red-400">
+            Fecha Modificada — {affected.length} {affected.length === 1 ? "Persona Afectada" : "Personas Afectadas"}
+          </p>
+          <p className="mt-1 text-xs text-white/60">
+            Estas postulaciones tenían turno en una fecha que ya no está disponible. Avísales por WhatsApp para coordinar una nueva fecha.
+          </p>
+          <div className="mt-3 flex flex-col gap-2">
+            {affected.map((app) => (
+              <div key={app.id} className="flex items-center justify-between border border-white/10 px-3 py-2">
+                <span className="font-mono text-xs text-white">
+                  {app.id} — {app.firstName} {app.lastName}
+                </span>
+                <a
+                  href={notifyLink(app)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border border-white/20 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-white/70 hover:border-white hover:text-white"
+                >
+                  Avisar por WhatsApp
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </form>
   );
 }

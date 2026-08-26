@@ -3,6 +3,8 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ApplicationStatus } from "@/lib/applications/types";
+import { formatWeekdayDate } from "@/lib/enrollment";
+import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 async function setStatus(id: string, status: ApplicationStatus, officialLevel?: string) {
   await fetch(`/api/command-center/applications/${id}/status`, {
@@ -27,10 +29,16 @@ export function ApplicationRowActions({
   id,
   status,
   preliminaryLevel,
+  whatsapp,
+  turnDateISO,
+  turnTimeSlot,
 }: {
   id: string;
   status: ApplicationStatus;
   preliminaryLevel: string;
+  whatsapp?: string;
+  turnDateISO?: string;
+  turnTimeSlot?: string;
 }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -53,6 +61,21 @@ export function ApplicationRowActions({
   const canAdmit = preliminaryLevel !== "INCONCLUSIVE" && status !== "ADMITTED";
   const admit = () => run(() => setStatus(id, "ADMITTED", officialSlug));
 
+  async function confirmAndNotify() {
+    await run(() => setStatus(id, "CONFIRMED"));
+    if (!whatsapp || !turnDateISO || !turnTimeSlot) return;
+    const message = [
+      "VORSHEIN ELITE",
+      "Tu solicitud de evaluación ha sido confirmada.",
+      `Clasificación preliminar: ${preliminaryLevel}`,
+      `Fecha: ${formatWeekdayDate(turnDateISO, "es")}`,
+      `Hora: ${turnTimeSlot}`,
+      "Preséntate 30 minutos antes.",
+      `Código: ${id}`,
+    ].join("\n");
+    window.open(buildWhatsAppLink(message, whatsapp), "_blank", "noopener,noreferrer");
+  }
+
   const primaryBtn =
     "shrink-0 border border-white bg-white px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-black transition-opacity hover:opacity-80 disabled:opacity-30";
   const secondaryBtn =
@@ -74,7 +97,7 @@ export function ApplicationRowActions({
   let primary: React.ReactNode = null;
   if (status === "RESERVED") {
     primary = (
-      <button disabled={busy} className={primaryBtn} onClick={() => run(() => setStatus(id, "CONFIRMED"))}>
+      <button disabled={busy} className={primaryBtn} onClick={confirmAndNotify}>
         Confirmar
       </button>
     );
@@ -128,9 +151,9 @@ export function ApplicationRowActions({
             </button>
           ) : (
             <>
-              {canAdmit && status !== "RESERVED" && status !== "CONFIRMED" && (
+              {canAdmit && !rejected && (status === "RESERVED" || status === "CONFIRMED") && (
                 <button disabled={busy} className={secondaryBtn} onClick={admit}>
-                  Admitir {preliminaryLevel}
+                  Admitir {preliminaryLevel} (adelantar)
                 </button>
               )}
               <button disabled={busy} className={secondaryBtn} onClick={() => run(() => setStatus(id, "MANUAL_REVIEW"))}>
