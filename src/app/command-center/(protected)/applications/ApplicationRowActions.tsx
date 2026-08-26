@@ -89,10 +89,17 @@ export function ApplicationRowActions({
   const rejected = status === "NOT_YET_ELIGIBLE" || status === "NO_SHOW" || status === "WAITLIST";
   const admitted = status === "ADMITTED";
 
-  function confirmDelete() {
-    if (window.confirm("¿Eliminar esta postulación de forma permanente? Esta acción no se puede deshacer.")) {
-      run(() => deleteApp(id));
+  async function confirmDelete() {
+    if (!window.confirm("¿Eliminar esta postulación de forma permanente? Esta acción no se puede deshacer.")) {
+      return;
     }
+    setBusy(true);
+    await deleteApp(id);
+    // Always land on the list, not just refresh() — this component also
+    // renders on the detail page for this exact application, and after
+    // deletion that page's own server component would 404 on itself.
+    router.push("/command-center/applications");
+    router.refresh();
   }
 
   let primary: React.ReactNode = null;
