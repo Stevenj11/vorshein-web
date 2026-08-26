@@ -141,7 +141,7 @@ export function ApplicationForm({
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex items-center justify-between border border-line-strong px-5 py-4">
+      <div className="flex flex-col gap-2 border border-line-strong px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div>
           <p className="text-sm font-medium text-fg">
             {stored.firstName} {stored.lastName}
