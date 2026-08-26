@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { Logo } from "@/components/Logo";
@@ -25,14 +26,17 @@ export function Hero() {
 
   return (
     <section className="relative flex min-h-[88svh] flex-col items-center justify-center overflow-hidden border-b border-line px-6 py-24 text-center">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.1]"
-        style={{
-          backgroundImage:
-            "linear-gradient(var(--line-strong) 1px, transparent 1px), linear-gradient(90deg, var(--line-strong) 1px, transparent 1px)",
-          backgroundSize: "56px 56px",
-        }}
-      />
+      <div className="pointer-events-none absolute inset-0">
+        <Image
+          src="/media/home/hero-training.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[50%_40%] md:object-[50%_22%]"
+        />
+        <div className="absolute inset-0 bg-void/25" />
+      </div>
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(76,201,240,0.14),transparent_62%)]" />
       <div
         className="pointer-events-none absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-signal/50 to-transparent"
@@ -59,7 +63,10 @@ export function Hero() {
         />
       ))}
 
-      <div className="relative flex w-full max-w-lg flex-col items-center">
+      <div
+        className="relative flex w-full max-w-lg flex-col items-center"
+        style={{ textShadow: "0 2px 16px rgba(0,0,0,0.7)" }}
+      >
         <div
           className="flex animate-fade-up items-center gap-3"
           style={{ animationDelay: D(0) }}
