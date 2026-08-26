@@ -38,6 +38,7 @@ export default async function ApplyPage({
             entryDates={generation.dates.entryDatesISO}
             price={generation.price}
             currency={generation.currency}
+            whatsappNumber={generation.whatsappNumber}
           />
         </div>
       </div>

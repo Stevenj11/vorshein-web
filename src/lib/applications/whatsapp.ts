@@ -1,4 +1,5 @@
 import { buildWhatsAppLink } from "../whatsapp";
+import { formatWeekdayDate } from "../enrollment";
 import { Application } from "./types";
 
 /** Spec section 25 — prefilled WhatsApp confirmation message. */
@@ -9,11 +10,11 @@ export function buildConfirmMessage(app: Application, locale: string): string {
     `${isEs ? "Application ID" : "Application ID"}: ${app.id}`,
     `${isEs ? "Nombre" : "Name"}: ${app.firstName} ${app.lastName}`,
     `${isEs ? "Nivel preliminar" : "Preliminary level"}: ${app.preliminaryLevel}`,
-    `${isEs ? "Turno" : "Turn"}: ${app.turnDateISO} · ${app.turnTimeSlot}`,
+    `${isEs ? "Turno" : "Turn"}: ${formatWeekdayDate(app.turnDateISO, locale)} · ${app.turnTimeSlot}`,
   ];
   return lines.join("\n");
 }
 
-export function buildConfirmLink(app: Application, locale: string): string {
-  return buildWhatsAppLink(buildConfirmMessage(app, locale));
+export function buildConfirmLink(app: Application, locale: string, targetNumber: string): string {
+  return buildWhatsAppLink(buildConfirmMessage(app, locale), targetNumber);
 }

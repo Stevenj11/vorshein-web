@@ -27,10 +27,12 @@ export function EntryPassCard({
   application,
   price,
   currency,
+  whatsappNumber,
 }: {
   application: Application;
   price: number;
   currency: string;
+  whatsappNumber: string;
 }) {
   const t = useTranslations("apply.entryPass");
   const locale = useLocale();
@@ -39,7 +41,7 @@ export function EntryPassCard({
   const hours = Math.max(0, Math.floor(remainingMs / 3_600_000));
   const minutes = Math.max(0, Math.floor((remainingMs % 3_600_000) / 60_000));
 
-  const waLink = buildConfirmLink(application, locale);
+  const waLink = buildConfirmLink(application, locale, whatsappNumber);
   const statusLabel = t(STATUS_KEY[application.status] ?? "statusReserved");
 
   const rows: [string, string][] = [

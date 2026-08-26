@@ -50,10 +50,12 @@ export function ApplicationForm({
   entryDates,
   price,
   currency,
+  whatsappNumber,
 }: {
   entryDates: string[];
   price: number;
   currency: string;
+  whatsappNumber: string;
 }) {
   const t = useTranslations("apply.form");
   const locale = useLocale();
@@ -127,7 +129,14 @@ export function ApplicationForm({
   }
 
   if (status === "success" && application) {
-    return <EntryPassCard application={application} price={price} currency={currency} />;
+    return (
+      <EntryPassCard
+        application={application}
+        price={price}
+        currency={currency}
+        whatsappNumber={whatsappNumber}
+      />
+    );
   }
 
   return (
