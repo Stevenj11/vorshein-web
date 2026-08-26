@@ -73,22 +73,13 @@ export function Navbar() {
           </Link>
         </div>
 
-        <div className="flex items-center gap-1 lg:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <Link
             href="/estado"
-            aria-label={t("myApplication")}
             onClick={() => setOpen(false)}
-            className="flex h-9 w-9 items-center justify-center text-fg-muted transition-colors hover:text-fg"
+            className="flex h-9 items-center border border-line-strong px-2.5 font-mono text-[9px] uppercase tracking-[0.15em] text-fg-muted transition-colors hover:border-signal hover:text-signal"
           >
-            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-              <path
-                d="M4 6h16v9a2 2 0 0 1-2 2H9l-4 4v-4H6a2 2 0 0 1-2-2V6Z"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-              <path d="M8 10h8M8 13h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
+            {t("myApplication")}
           </Link>
           <button
             aria-label={t("toggleMenu")}
