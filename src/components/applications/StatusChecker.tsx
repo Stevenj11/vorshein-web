@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { ApplicationStatus } from "@/lib/applications/types";
-import { applicantFacingCode } from "@/lib/applications/format";
+import { applicantFacingCode, normalizeApplicationId } from "@/lib/applications/format";
 import { loadMyApplicationId } from "@/lib/applications/myApplication";
 import { STATUS_DISPLAY, StatusColor } from "@/lib/applications/statusDisplay";
 import { formatWeekdayDate } from "@/lib/enrollment";
@@ -31,7 +31,10 @@ export function StatusChecker() {
   const t = useTranslations("statusCheck");
   const locale = useLocale();
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState(() => searchParams.get("id") ?? "");
+  const [query, setQuery] = useState(() => {
+    const idFromUrl = searchParams.get("id");
+    return idFromUrl ? applicantFacingCode(normalizeApplicationId(idFromUrl)) : "";
+  });
   const [result, setResult] = useState<LookupResult | null>(null);
   const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
 
@@ -65,7 +68,7 @@ export function StatusChecker() {
     // derived-state sync loop.
     if (idFromUrl) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setQuery(applicantFacingCode(idFromUrl));
+      setQuery(applicantFacingCode(normalizeApplicationId(idFromUrl)));
       lookup(idFromUrl.toUpperCase());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
