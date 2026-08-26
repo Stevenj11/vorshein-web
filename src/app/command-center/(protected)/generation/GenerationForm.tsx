@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import type { Generation } from "@/lib/generation-defaults";
 import { GENERATION_STATUS_LABEL } from "@/lib/commandCenterLabels";
+import { applicantFacingCode } from "@/lib/applications/format";
 import { formatWeekdayDate } from "@/lib/enrollment";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
@@ -47,7 +48,7 @@ export function GenerationForm({ generation }: { generation: Generation }) {
       "La fecha de tu evaluación cambió — la fecha anterior ya no está disponible.",
       `Fecha anterior: ${formatWeekdayDate(app.turnDateISO, "es")} · ${app.turnTimeSlot}`,
       "Escríbenos para coordinar tu nueva fecha.",
-      `Código: ${app.id}`,
+      `Código: ${applicantFacingCode(app.id)}`,
     ].join("\n");
     return buildWhatsAppLink(message, app.whatsapp);
   }

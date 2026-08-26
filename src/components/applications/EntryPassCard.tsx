@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Application } from "@/lib/applications/types";
+import { applicantFacingCode } from "@/lib/applications/format";
 import { buildConfirmLink } from "@/lib/applications/whatsapp";
 import { formatWeekdayDate } from "@/lib/enrollment";
 
@@ -96,10 +97,10 @@ export function EntryPassCard({
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fg-faint">
             {t("applicationId")}
           </span>
-          <span className="mt-1 font-mono text-3xl font-bold tracking-[0.1em] text-signal">
-            {application.id}
+          <span className="mt-1 font-mono text-4xl font-bold tracking-[0.15em] text-signal">
+            {applicantFacingCode(application.id)}
           </span>
-          <CopyCodeButton code={application.id} label={t("copyCode")} />
+          <CopyCodeButton code={applicantFacingCode(application.id)} label={t("copyCode")} />
         </div>
       </div>
 

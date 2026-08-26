@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ApplicationStatus } from "@/lib/applications/types";
+import { applicantFacingCode } from "@/lib/applications/format";
 import { formatWeekdayDate } from "@/lib/enrollment";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
@@ -71,7 +72,7 @@ export function ApplicationRowActions({
       `Fecha: ${formatWeekdayDate(turnDateISO, "es")}`,
       `Hora: ${turnTimeSlot}`,
       "Preséntate 30 minutos antes.",
-      `Código: ${id}`,
+      `Código: ${applicantFacingCode(id)}`,
     ].join("\n");
     window.open(buildWhatsAppLink(message, whatsapp), "_blank", "noopener,noreferrer");
   }

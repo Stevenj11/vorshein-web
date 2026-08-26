@@ -35,8 +35,9 @@ export function Hero() {
           sizes="100vw"
           className="object-cover object-[50%_40%] md:object-[50%_22%]"
         />
-        <div className="absolute inset-0 bg-void/25" />
+        <div className="absolute inset-0 bg-void/45" />
       </div>
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[900px] w-[700px] max-w-[95vw] -translate-x-1/2 -translate-y-1/2 rounded-[40px] bg-void/85 blur-3xl" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(76,201,240,0.14),transparent_62%)]" />
       <div
         className="pointer-events-none absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-signal/50 to-transparent"

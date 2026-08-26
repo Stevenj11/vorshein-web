@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { ApplicationStatus } from "@/lib/applications/types";
+import { applicantFacingCode } from "@/lib/applications/format";
 import { STATUS_DISPLAY, StatusColor } from "@/lib/applications/statusDisplay";
 import { formatWeekdayDate } from "@/lib/enrollment";
 
@@ -129,7 +130,7 @@ export function StatusChecker() {
                 {t(display.color !== "green" ? "waitingNote" : "admittedContactNote")}
               </p>
               <a
-                href={`https://wa.me/${result.whatsappNumber}?text=${encodeURIComponent(`Hola, quiero consultar el estado de mi postulación ${result.id}.`)}`}
+                href={`https://wa.me/${result.whatsappNumber}?text=${encodeURIComponent(`Hola, quiero consultar el estado de mi postulación ${applicantFacingCode(result.id)}.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center justify-center gap-2 border border-line-strong px-5 py-2.5 font-mono text-xs uppercase tracking-[0.2em] text-fg transition-colors hover:border-signal hover:text-signal"
