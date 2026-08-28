@@ -10,6 +10,7 @@ import { EntryPassCard } from "./EntryPassCard";
 
 type Status = "idle" | "submitting" | "success" | "error";
 type TurnAvailability = {
+  turnId: string;
   turnDateISO: string;
   timeSlot: string;
   reserved: number;
@@ -48,12 +49,10 @@ const ERROR_KEY: Record<string, string> = {
  * as one continuous flow instead of retyping the same details twice.
  */
 export function ApplicationForm({
-  entryDates,
   price,
   currency,
   whatsappNumber,
 }: {
-  entryDates: string[];
   price: number;
   currency: string;
   whatsappNumber: string;
@@ -63,7 +62,7 @@ export function ApplicationForm({
   const stored = useAssessmentResult();
   const [status, setStatus] = useState<Status>("idle");
   const [application, setApplication] = useState<Application | null>(null);
-  const [turnDate, setTurnDate] = useState(entryDates[0]);
+  const [turnId, setTurnId] = useState<string | null>(null);
   const [turns, setTurns] = useState<TurnAvailability[] | null>(null);
   const [errorKey, setErrorKey] = useState<string | null>(null);
 
@@ -75,7 +74,7 @@ export function ApplicationForm({
       .then((data: { turns: TurnAvailability[] }) => {
         setTurns(data.turns);
         const firstOpen = data.turns.find((turn) => !turn.full);
-        if (firstOpen) setTurnDate(firstOpen.turnDateISO);
+        if (firstOpen) setTurnId(firstOpen.turnId);
       })
       .catch(() => setTurns(null));
   }, [stored]);
@@ -104,7 +103,7 @@ export function ApplicationForm({
       lastName: stored.lastName,
       birthYear: new Date().getFullYear() - stored.age,
       whatsapp: stored.whatsapp,
-      turnDateISO: turnDate,
+      turnId,
       sex: stored.sex,
       assessmentAnswers: stored.answers,
     };
@@ -160,25 +159,23 @@ export function ApplicationForm({
         </a>
       </div>
 
-      {entryDates.length > 1 && (
+      {turns && turns.length > 0 && (
         <div>
           <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-faint">
             {t("turnDate")}
           </span>
           <p className="mt-1 text-xs text-fg-faint">{t("turnDateSub")}</p>
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {entryDates.map((date) => {
-              const info = turns?.find((turn) => turn.turnDateISO === date);
-              const full = info?.full ?? false;
-              const active = turnDate === date;
+            {turns.map((turn) => {
+              const active = turnId === turn.turnId;
               return (
                 <button
-                  key={date}
+                  key={turn.turnId}
                   type="button"
-                  disabled={full}
-                  onClick={() => setTurnDate(date)}
+                  disabled={turn.full}
+                  onClick={() => setTurnId(turn.turnId)}
                   className={`flex flex-col items-start gap-1 border px-4 py-3 text-left transition-colors ${
-                    full
+                    turn.full
                       ? "cursor-not-allowed border-line text-fg-faint opacity-50"
                       : active
                         ? "border-signal text-signal"
@@ -186,16 +183,15 @@ export function ApplicationForm({
                   }`}
                 >
                   <span className="text-sm font-medium">
-                    {formatWeekdayDate(date, locale)}
+                    {formatWeekdayDate(turn.turnDateISO, locale)}
                   </span>
-                  {info && (
-                    <>
-                      <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
-                        {info.timeSlot} · {full ? t("turnFull") : `${info.capacity - info.reserved}/${info.capacity} ${t("turnSpotsLeft")}`}
-                      </span>
-                      <CapacityDots reserved={info.reserved} capacity={info.capacity} active={active} />
-                    </>
-                  )}
+                  <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
+                    {turn.timeSlot} ·{" "}
+                    {turn.full
+                      ? t("turnFull")
+                      : `${turn.capacity - turn.reserved}/${turn.capacity} ${t("turnSpotsLeft")}`}
+                  </span>
+                  <CapacityDots reserved={turn.reserved} capacity={turn.capacity} active={active} />
                 </button>
               );
             })}
@@ -208,7 +204,7 @@ export function ApplicationForm({
       <button
         type="button"
         onClick={handleSubmit}
-        disabled={status === "submitting"}
+        disabled={status === "submitting" || (turns !== null && !turnId)}
         className="mt-2 inline-flex items-center justify-center gap-2 bg-fg px-7 py-3.5 text-xs font-mono uppercase tracking-[0.2em] text-void transition-colors duration-200 hover:bg-signal disabled:opacity-40"
       >
         {status === "submitting" ? t("submitting") : t("submit")}

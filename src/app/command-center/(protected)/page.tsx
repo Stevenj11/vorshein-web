@@ -1,6 +1,6 @@
 import { listApplications } from "@/lib/applications/store";
 import { GENERATION_STATUS_LABEL } from "@/lib/commandCenterLabels";
-import { getActiveGeneration } from "@/lib/generation";
+import { getActiveGeneration, maxCapacityForLevel } from "@/lib/generation";
 import { occupancy } from "@/lib/members/store";
 
 function Stat({ label, value, accent }: { label: string; value: string | number; accent?: boolean }) {
@@ -61,9 +61,9 @@ export default async function DashboardPage() {
           Ocupación (Miembros)
         </p>
         <div className="grid grid-cols-3 gap-2">
-          <Stat label="Foundation" value={`${occ.foundation}/${generation.capacities.foundation.max}`} />
-          <Stat label="Performance" value={`${occ.performance}/${generation.capacities.performance.max}`} />
-          <Stat label="Tactical" value={`${occ.tactical}/${generation.capacities.tactical.max}`} />
+          <Stat label="Foundation" value={`${occ.foundation}/${maxCapacityForLevel(generation.turnos, "foundation")}`} />
+          <Stat label="Performance" value={`${occ.performance}/${maxCapacityForLevel(generation.turnos, "performance")}`} />
+          <Stat label="Tactical" value={`${occ.tactical}/${maxCapacityForLevel(generation.turnos, "tactical")}`} />
         </div>
       </div>
     </div>

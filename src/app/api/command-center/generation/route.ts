@@ -56,26 +56,15 @@ export async function POST(request: NextRequest) {
       trainingBeginsISO: body.trainingBeginsISO,
       clearanceWeekendISO: [body.clearanceDate1, body.clearanceDate2].filter(Boolean),
     },
-    capacities: {
-      foundation: {
-        min: Number(body.foundationMin),
-        max: Number(body.foundationMax),
-        scheduleTime: body.foundationSchedule,
-        entryTurnCapacity: Number(body.foundationEntryCapacity),
-      },
-      performance: {
-        min: Number(body.performanceMin),
-        max: Number(body.performanceMax),
-        scheduleTime: body.performanceSchedule,
-        entryTurnCapacity: Number(body.performanceEntryCapacity),
-      },
-      tactical: {
-        min: Number(body.tacticalMin),
-        max: Number(body.tacticalMax),
-        scheduleTime: body.tacticalSchedule,
-        entryTurnCapacity: Number(body.tacticalEntryCapacity),
-      },
-    },
+    // Day/levels are structural (which two levels share a turno) and aren't
+    // exposed in the form — only time and capacity are admin-editable.
+    turnos: current.turnos.map((turno) => ({
+      ...turno,
+      startTime: body[`turno_${turno.id}_startTime`] || turno.startTime,
+      endTime: body[`turno_${turno.id}_endTime`] || turno.endTime,
+      minCapacity: Number(body[`turno_${turno.id}_min`] ?? turno.minCapacity),
+      maxCapacity: Number(body[`turno_${turno.id}_max`] ?? turno.maxCapacity),
+    })),
   });
 
   return NextResponse.json({ generation: updated, affectedApplications });

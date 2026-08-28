@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { getActiveGeneration } from "@/lib/generation";
-import { formatEnrollmentDate } from "@/lib/enrollment";
+import { getActiveGeneration, turnoTimeRange, turnosForLevel } from "@/lib/generation";
+import { formatEnrollmentDate, weekdayName } from "@/lib/enrollment";
 import { ProgramSlug } from "@/lib/programs";
 
 export async function EnrollmentBanner({
@@ -13,7 +13,13 @@ export async function EnrollmentBanner({
   const t = await getTranslations({ locale, namespace: "enrollment" });
   const generation = await getActiveGeneration();
 
-  const capacity = slug ? generation.capacities[slug] : null;
+  const levelTurnos = slug ? turnosForLevel(generation.turnos, slug) : [];
+  const capacity = levelTurnos[0]
+    ? { min: levelTurnos[0].minCapacity, max: levelTurnos[0].maxCapacity }
+    : null;
+  const scheduleTime = levelTurnos
+    .map((turno) => `${weekdayName(turno.day, locale)} ${turnoTimeRange(turno)}`)
+    .join(" · ");
   const deadline = formatEnrollmentDate(generation.dates.applicationsCloseISO, locale);
   const start = formatEnrollmentDate(generation.dates.trainingBeginsISO, locale);
 
@@ -39,7 +45,7 @@ export async function EnrollmentBanner({
               <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-fg-faint">
                 {t("timeLabel")}
               </span>
-              <p className="mt-1 text-sm font-medium text-fg">{capacity.scheduleTime}</p>
+              <p className="mt-1 text-sm font-medium text-fg">{scheduleTime}</p>
             </div>
           )}
           {capacity && (
@@ -61,8 +67,9 @@ export async function EnrollmentBanner({
             </p>
             <p className="text-xs text-fg-faint">
               {t("priceDetail", {
-                count: generation.cycle.sessions,
-                hours: generation.cycle.hours / generation.cycle.sessions,
+                trainingSessions: generation.cycle.sessions - 1,
+                trainingHours: 1.5,
+                evalHours: 1,
               })}
             </p>
           </div>

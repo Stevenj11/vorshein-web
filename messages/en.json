@@ -34,7 +34,7 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Cochabamba · GEN 001 · Men 18–30",
+      "eyebrow": "Cochabamba · GEN 001 · Ages 18–35",
       "tagline": "A progressive aquatic performance system.",
       "campaignLine": "Swimming is the beginning. Mastering the water is the goal.",
       "ctaPrimary": "Discover Your Level",
@@ -169,7 +169,7 @@
     "capacityValue": "{min}–{max} athletes",
     "priceLabel": "Price",
     "priceValue": "{currency} {price} / cycle",
-    "priceDetail": "{count} sessions of {hours} hours · Clearance included",
+    "priceDetail": "{trainingSessions} sessions of {trainingHours}h + a {evalHours}h evaluation · Clearance included",
     "deadlineLabel": "Applications close",
     "startLabel": "Cycle starts",
     "cta": "Evaluate My Level"
@@ -192,7 +192,7 @@
       "turnSpotsLeft": "open",
       "errorName": "Enter your first and last name.",
       "errorBirthYear": "Enter a valid birth year.",
-      "errorAgeRange": "GEN 001 is currently open to people aged 18 to 30.",
+      "errorAgeRange": "GEN 001 is currently open to people aged 18 to 35.",
       "errorWhatsapp": "Enter a valid WhatsApp number.",
       "errorNeedsAssessment": "You need to complete the assessment before applying.",
       "errorNotEligible": "You don't fall within GEN 001's current eligibility range.",
@@ -290,9 +290,8 @@
     "hoursLabel": "Hours",
     "priceLabel": "Price",
     "sessionStructure": {
-      "heading": "2 Hours // One System",
-      "warmupLabel": "Warm-Up",
-      "physicalLabel": "Physical Conditioning",
+      "heading": "1.5 Hours // One System",
+      "warmupLabel": "Physical Warm-Up",
       "aquaticLabel": "Aquatic Training"
     },
     "mediaBreathing": "Breathing exercise — coming soon",
@@ -532,7 +531,7 @@
     "ineligible": {
       "cohortLabel": "Not open for GEN 001",
       "cohortHeading": "This cohort isn't open for your profile yet.",
-      "cohortBody": "GEN 001 is currently open to men aged 18–30. This doesn't mean Vorshein will never open other categories — leave your interest and we'll reach out.",
+      "cohortBody": "GEN 001 is currently open to people aged 18 to 35. This doesn't mean Vorshein will never open other categories — leave your interest and we'll reach out.",
       "cohortRange": "{min}–{max} years",
       "floatingLabel": "Not yet eligible",
       "floatingHeading": "You don't meet the minimum requirement yet.",

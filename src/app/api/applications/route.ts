@@ -7,7 +7,7 @@ import {
   nextApplicationId,
 } from "@/lib/applications/store";
 import { Application, Division } from "@/lib/applications/types";
-import { getActiveGeneration } from "@/lib/generation";
+import { getActiveGeneration, turnoTimeRange } from "@/lib/generation";
 import { sendApplicationReceivedEmail } from "@/lib/emails/templates";
 
 const WHATSAPP_RE = /^[0-9+\s()-]{7,20}$/;
@@ -60,15 +60,23 @@ export async function POST(request: NextRequest) {
           ? "performance"
           : "foundation";
 
-    const capacity = generation.capacities[officialSlug];
-    const turnDateISO =
-      body.turnDateISO && generation.dates.entryDatesISO.includes(body.turnDateISO)
-        ? body.turnDateISO
-        : generation.dates.entryDatesISO[0];
-    const turnTimeSlot = capacity.scheduleTime;
+    // Entry evaluation only ever happens on a Saturday turno matching the
+    // applicant's own level — resolved from a specific turno id (never from
+    // level alone), since a level can map to two different turnos with
+    // different times (e.g. Performance runs both Saturday slots).
+    const requestedTurno = generation.turnos.find(
+      (t) => t.id === body.turnId && t.day === "saturday" && t.levels.includes(officialSlug),
+    );
+    const turno =
+      requestedTurno ??
+      generation.turnos.find((t) => t.day === "saturday" && t.levels.includes(officialSlug));
+    if (!turno) return fail("no_turno_available", 409);
+
+    const turnDateISO = generation.dates.entryDatesISO[0];
+    const turnTimeSlot = turnoTimeRange(turno);
 
     const existingCount = await countForTurn(turnDateISO, turnTimeSlot);
-    const status = existingCount >= capacity.entryTurnCapacity ? "WAITLIST" : "RESERVED";
+    const status = existingCount >= turno.maxCapacity ? "WAITLIST" : "RESERVED";
 
     const id = await nextApplicationId();
     const now = new Date();

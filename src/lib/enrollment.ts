@@ -22,3 +22,14 @@ export function formatWeekdayDate(iso: string, locale: string): string {
   }).format(new Date(`${iso}T12:00:00`));
   return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
+
+/** Weekday name only, decoupled from any specific calendar date — for
+ * describing a recurring weekly turno (e.g. "Sábado 14:30–16:00") rather
+ * than a one-off dated event. 2026-01-03/04 are a known Saturday/Sunday. */
+export function weekdayName(day: "saturday" | "sunday", locale: string): string {
+  const ref = day === "saturday" ? "2026-01-03" : "2026-01-04";
+  const formatted = new Intl.DateTimeFormat(locale === "es" ? "es-BO" : "en-US", {
+    weekday: "long",
+  }).format(new Date(`${ref}T12:00:00`));
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+}

@@ -9,7 +9,8 @@ import { Container } from "@/components/ui/Container";
 import { ImagePlaceholder } from "@/components/ui/ImagePlaceholder";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { BRAND } from "@/lib/brand";
-import { getActiveGeneration } from "@/lib/generation";
+import { weekdayName } from "@/lib/enrollment";
+import { getActiveGeneration, turnoTimeRange, turnosForLevel } from "@/lib/generation";
 import { getProgram, PROGRAMS } from "@/lib/programs";
 import {
   PROGRAM_APNEA_IMAGE,
@@ -86,7 +87,6 @@ export default async function ProgramDetailPage({
   const tp = await getTranslations({ locale, namespace: "programs" });
   const tm = await getTranslations({ locale, namespace: "manual" });
   const td = await getTranslations({ locale, namespace: "programDetail" });
-  const te = await getTranslations({ locale, namespace: "enrollment" });
   const tl = await getTranslations({
     locale,
     namespace: `programDetail.levels.${program.slug}`,
@@ -95,7 +95,11 @@ export default async function ProgramDetailPage({
   const focus = tp.raw(`${program.slug}.focus`) as string[];
   const improvements = tl.raw("improvements") as string[];
   const generation = await getActiveGeneration();
-  const capacity = generation.capacities[program.slug];
+  const levelTurnos = turnosForLevel(generation.turnos, program.slug);
+  const capacity = { min: levelTurnos[0].minCapacity, max: levelTurnos[0].maxCapacity };
+  const scheduleLine = levelTurnos
+    .map((turno) => `${weekdayName(turno.day, locale)} ${turnoTimeRange(turno)}`)
+    .join(" · ");
 
   const isTactical = program.slug === "tactical";
   const isFoundation = program.slug === "foundation";
@@ -144,7 +148,7 @@ export default async function ProgramDetailPage({
                 ))}
               </div>
               <p className="mt-4 font-mono text-xs uppercase tracking-[0.2em] text-fg-faint">
-                {te("days")} · {capacity.scheduleTime}
+                {scheduleLine}
               </p>
 
               <div className="mt-9 flex flex-wrap gap-4">
@@ -241,10 +245,9 @@ export default async function ProgramDetailPage({
             <SectionLabel index={nextIndex()}>
               {td("sessionStructure.heading")}
             </SectionLabel>
-            <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden border border-line bg-line sm:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden border border-line bg-line sm:grid-cols-2">
               {[
                 { duration: "30", label: td("sessionStructure.warmupLabel") },
-                { duration: "30", label: td("sessionStructure.physicalLabel") },
                 { duration: "60", label: td("sessionStructure.aquaticLabel") },
               ].map((block) => (
                 <div

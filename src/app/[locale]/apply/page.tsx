@@ -35,7 +35,6 @@ export default async function ApplyPage({
 
         <div className="mt-12">
           <ApplicationForm
-            entryDates={generation.dates.entryDatesISO}
             price={generation.price}
             currency={generation.currency}
             whatsappNumber={generation.whatsappNumber}

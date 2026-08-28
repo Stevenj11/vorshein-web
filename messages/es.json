@@ -34,7 +34,7 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Cochabamba · GEN 001 · Hombres 18–30",
+      "eyebrow": "Cochabamba · GEN 001 · 18–35 Años",
       "tagline": "Sistema progresivo de rendimiento acuático.",
       "campaignLine": "Nadar es el principio. Dominar el agua es el objetivo.",
       "ctaPrimary": "Descubre tu Nivel",
@@ -169,7 +169,7 @@
     "capacityValue": "{min}–{max} atletas",
     "priceLabel": "Precio",
     "priceValue": "{currency} {price} / ciclo",
-    "priceDetail": "{count} clases de {hours} horas · Clearance incluido",
+    "priceDetail": "{trainingSessions} clases de {trainingHours}h + evaluación de {evalHours}h · Clearance incluido",
     "deadlineLabel": "Cierre de postulaciones",
     "startLabel": "Inicio del ciclo",
     "cta": "Evaluar mi Nivel"
@@ -192,7 +192,7 @@
       "turnSpotsLeft": "disponibles",
       "errorName": "Escribe tu nombre y apellido.",
       "errorBirthYear": "Ingresa un año de nacimiento válido.",
-      "errorAgeRange": "GEN 001 está abierta actualmente para personas de 18 a 30 años.",
+      "errorAgeRange": "GEN 001 está abierta actualmente para personas de 18 a 35 años.",
       "errorWhatsapp": "Ingresa un número de WhatsApp válido.",
       "errorNeedsAssessment": "Necesitas completar la evaluación antes de postular.",
       "errorNotEligible": "No cumples el rango de elegibilidad actual de GEN 001.",
@@ -290,9 +290,8 @@
     "hoursLabel": "Horas",
     "priceLabel": "Precio",
     "sessionStructure": {
-      "heading": "2 Horas // Un Solo Sistema",
-      "warmupLabel": "Calentamiento",
-      "physicalLabel": "Condición Física",
+      "heading": "1.5 Horas // Un Solo Sistema",
+      "warmupLabel": "Calentamiento Físico",
       "aquaticLabel": "Entrenamiento Acuático"
     },
     "mediaBreathing": "Ejercicio de respiración — próximamente",
@@ -532,7 +531,7 @@
     "ineligible": {
       "cohortLabel": "No habilitado para GEN 001",
       "cohortHeading": "Esta convocatoria no está abierta para tu perfil todavía.",
-      "cohortBody": "Esta convocatoria GEN 001 está habilitada actualmente para hombres de 18–30 años. Esto no significa que Vorshein nunca vaya a abrir otras categorías — dejá tu interés y te avisamos.",
+      "cohortBody": "Esta convocatoria GEN 001 está habilitada actualmente para personas de 18 a 35 años. Esto no significa que Vorshein nunca vaya a abrir otras categorías — dejá tu interés y te avisamos.",
       "cohortRange": "{min}–{max} años",
       "floatingLabel": "Aún no elegible",
       "floatingHeading": "Todavía no cumples el requisito mínimo.",

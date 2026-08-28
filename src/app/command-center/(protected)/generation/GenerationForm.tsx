@@ -161,17 +161,50 @@ export function GenerationForm({ generation }: { generation: Generation }) {
         </div>
       </div>
 
-      {(["foundation", "performance", "tactical"] as const).map((level) => (
-        <div key={level}>
-          <p className={`${label} mb-2`}>Capacidad {level}</p>
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <input name={`${level}Min`} type="number" defaultValue={generation.capacities[level].min} placeholder="Mín" className={field} />
-            <input name={`${level}Max`} type="number" defaultValue={generation.capacities[level].max} placeholder="Máx" className={field} />
-            <input name={`${level}Schedule`} defaultValue={generation.capacities[level].scheduleTime} placeholder="13:00–15:00" className={field} />
-            <input name={`${level}EntryCapacity`} type="number" defaultValue={generation.capacities[level].entryTurnCapacity} placeholder="Cupo evaluación" className={field} />
-          </div>
+      <div>
+        <p className={`${label} mb-2`}>Horarios (Turnos)</p>
+        <p className="mb-3 text-xs text-white/50">
+          Cada turno reúne dos niveles y comparte un solo cupo. El sábado también es el único día de evaluación de nuevos postulantes.
+        </p>
+        <div className="flex flex-col gap-3">
+          {generation.turnos.map((turno) => (
+            <div key={turno.id} className="border border-white/10 p-3">
+              <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.15em] text-cyan-400">
+                {turno.day === "saturday" ? "Sábado" : "Domingo"} — {turno.levels.join(" + ")}
+              </p>
+              <input type="hidden" name={`turno_${turno.id}_id`} value={turno.id} />
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <input
+                  name={`turno_${turno.id}_startTime`}
+                  type="time"
+                  defaultValue={turno.startTime}
+                  className={field}
+                />
+                <input
+                  name={`turno_${turno.id}_endTime`}
+                  type="time"
+                  defaultValue={turno.endTime}
+                  className={field}
+                />
+                <input
+                  name={`turno_${turno.id}_min`}
+                  type="number"
+                  defaultValue={turno.minCapacity}
+                  placeholder="Mín"
+                  className={field}
+                />
+                <input
+                  name={`turno_${turno.id}_max`}
+                  type="number"
+                  defaultValue={turno.maxCapacity}
+                  placeholder="Máx"
+                  className={field}
+                />
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
 
       <button type="submit" className="bg-white px-6 py-3 font-mono text-xs uppercase tracking-[0.2em] text-black">
         {saved ? "Guardado ✓" : "Guardar Generación"}

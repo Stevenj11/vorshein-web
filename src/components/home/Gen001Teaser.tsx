@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { getActiveGeneration } from "@/lib/generation";
+import { getActiveGeneration, maxCapacityForLevel } from "@/lib/generation";
 import { occupancy } from "@/lib/members/store";
 
 export async function Gen001Teaser({ locale }: { locale: string }) {
@@ -10,9 +10,9 @@ export async function Gen001Teaser({ locale }: { locale: string }) {
   const occ = await occupancy(generation.id);
 
   const rows: [string, string][] = [
-    ["FOUNDATION", `${occ.foundation}/${generation.capacities.foundation.max}`],
-    ["PERFORMANCE", `${occ.performance}/${generation.capacities.performance.max}`],
-    ["TACTICAL", `${occ.tactical}/${generation.capacities.tactical.max}`],
+    ["FOUNDATION", `${occ.foundation}/${maxCapacityForLevel(generation.turnos, "foundation")}`],
+    ["PERFORMANCE", `${occ.performance}/${maxCapacityForLevel(generation.turnos, "performance")}`],
+    ["TACTICAL", `${occ.tactical}/${maxCapacityForLevel(generation.turnos, "tactical")}`],
   ];
 
   return (
