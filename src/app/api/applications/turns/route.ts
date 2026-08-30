@@ -9,8 +9,7 @@ type Level = (typeof VALID_LEVELS)[number];
 /**
  * Real, live capacity per entry turn — never fake urgency. The Apply form
  * uses this to show "X/Y disponibles" on each turn card before the
- * applicant picks one. Entry evaluation only ever happens on a Saturday
- * turno, so only those are offered here (Sunday turnos are training-only).
+ * applicant picks one.
  */
 export async function GET(request: NextRequest) {
   const levelParam = request.nextUrl.searchParams.get("level");
@@ -19,18 +18,17 @@ export async function GET(request: NextRequest) {
     : "foundation";
 
   const generation = await getActiveGeneration();
-  const saturdayISO = generation.dates.entryDatesISO[0];
-  const matchingTurnos = turnosForLevel(generation.turnos, level as ProgramSlug).filter(
-    (t) => t.day === "saturday",
-  );
+  const matchingTurnos = turnosForLevel(generation.turnos, level as ProgramSlug);
 
   const turns = await Promise.all(
     matchingTurnos.map(async (turno) => {
+      const turnDateISO =
+        turno.day === "saturday" ? generation.dates.entryDatesISO[0] : generation.dates.entryDatesISO[1];
       const timeSlot = turnoTimeRange(turno);
-      const reserved = await countForTurn(saturdayISO, timeSlot);
+      const reserved = await countForTurn(turnDateISO, timeSlot);
       return {
         turnId: turno.id,
-        turnDateISO: saturdayISO,
+        turnDateISO,
         timeSlot,
         reserved,
         capacity: turno.maxCapacity,

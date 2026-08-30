@@ -18,12 +18,10 @@ export type GenerationStatus =
   | "GEN_COMPLETE";
 
 /**
- * A weekly time slot ("horario"). Two adjacent levels share the same turno
- * and the same capacity pool — e.g. Foundation + Performance both train
- * Saturday 14:30–16:00, and admitting into either one counts against the
- * same 8–22 headcount. Entry evaluation for new applicants only ever
- * happens on a Saturday turno (matching their preliminary level); Sunday
- * turnos are training-only, for members already admitted.
+ * A weekly time slot ("horario"). All levels currently share the same two
+ * turnos (one Saturday, one Sunday) and the same capacity pool — everyone
+ * trains together regardless of preliminary level, for now. Entry
+ * evaluation for new applicants can happen at either turno.
  */
 export type Turno = {
   id: string;
@@ -104,36 +102,18 @@ export const GEN_001_DEFAULT: Generation = {
     {
       id: "sat-1",
       day: "saturday",
-      startTime: "14:30",
-      endTime: "16:00",
-      levels: ["foundation", "performance"],
-      minCapacity: 8,
-      maxCapacity: 22,
-    },
-    {
-      id: "sat-2",
-      day: "saturday",
-      startTime: "16:30",
-      endTime: "18:00",
-      levels: ["performance", "tactical"],
+      startTime: "15:30",
+      endTime: "17:00",
+      levels: ["foundation", "performance", "tactical"],
       minCapacity: 8,
       maxCapacity: 22,
     },
     {
       id: "sun-1",
       day: "sunday",
-      startTime: "07:30",
-      endTime: "09:00",
-      levels: ["foundation", "performance"],
-      minCapacity: 8,
-      maxCapacity: 22,
-    },
-    {
-      id: "sun-2",
-      day: "sunday",
       startTime: "09:30",
       endTime: "11:00",
-      levels: ["performance", "tactical"],
+      levels: ["foundation", "performance", "tactical"],
       minCapacity: 8,
       maxCapacity: 22,
     },

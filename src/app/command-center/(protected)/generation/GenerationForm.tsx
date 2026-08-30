@@ -164,7 +164,7 @@ export function GenerationForm({ generation }: { generation: Generation }) {
       <div>
         <p className={`${label} mb-2`}>Horarios (Turnos)</p>
         <p className="mb-3 text-xs text-white/50">
-          Cada turno reúne dos niveles y comparte un solo cupo. El sábado también es el único día de evaluación de nuevos postulantes.
+          Todos los niveles entrenan en el mismo turno y comparten un solo cupo. Los postulantes pueden evaluarse en cualquiera de los dos.
         </p>
         <div className="flex flex-col gap-3">
           {generation.turnos.map((turno) => (
