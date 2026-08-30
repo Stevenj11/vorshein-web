@@ -7,9 +7,11 @@ const VALID_LEVELS = ["foundation", "performance", "tactical"] as const;
 type Level = (typeof VALID_LEVELS)[number];
 
 /**
- * Real, live capacity per entry turn — never fake urgency. The Apply form
- * uses this to show "X/Y disponibles" on each turn card before the
- * applicant picks one.
+ * Real, live cohort capacity — never fake urgency. Applicants don't pick a
+ * turno anymore (they attend both weekly classes from week one), so this
+ * returns one combined availability reading: the Saturday turno is the
+ * canonical capacity anchor (an application only ever books that one),
+ * with Sunday's info attached purely for display.
  */
 export async function GET(request: NextRequest) {
   const levelParam = request.nextUrl.searchParams.get("level");
@@ -18,24 +20,25 @@ export async function GET(request: NextRequest) {
     : "foundation";
 
   const generation = await getActiveGeneration();
-  const matchingTurnos = turnosForLevel(generation.turnos, level as ProgramSlug);
+  const levelTurnos = turnosForLevel(generation.turnos, level as ProgramSlug);
+  const primary = levelTurnos.find((t) => t.day === "saturday") ?? levelTurnos[0];
+  if (!primary) return NextResponse.json({ turn: null });
 
-  const turns = await Promise.all(
-    matchingTurnos.map(async (turno) => {
-      const turnDateISO =
-        turno.day === "saturday" ? generation.dates.entryDatesISO[0] : generation.dates.entryDatesISO[1];
-      const timeSlot = turnoTimeRange(turno);
-      const reserved = await countForTurn(turnDateISO, timeSlot);
-      return {
-        turnId: turno.id,
-        turnDateISO,
-        timeSlot,
-        reserved,
-        capacity: turno.maxCapacity,
-        full: reserved >= turno.maxCapacity,
-      };
-    }),
-  );
+  const secondary = levelTurnos.find((t) => t.id !== primary.id) ?? null;
+  const turnDateISO = generation.dates.entryDatesISO[0];
+  const timeSlot = turnoTimeRange(primary);
+  const reserved = await countForTurn(turnDateISO, timeSlot);
 
-  return NextResponse.json({ turns });
+  return NextResponse.json({
+    turn: {
+      turnId: primary.id,
+      turnDateISO,
+      timeSlot,
+      reserved,
+      capacity: primary.maxCapacity,
+      full: reserved >= primary.maxCapacity,
+      secondDateISO: secondary ? generation.dates.entryDatesISO[1] : null,
+      secondTimeSlot: secondary ? turnoTimeRange(secondary) : null,
+    },
+  });
 }

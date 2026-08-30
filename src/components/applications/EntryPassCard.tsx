@@ -53,11 +53,15 @@ export function EntryPassCard({
   price,
   currency,
   whatsappNumber,
+  secondDateISO,
+  secondTimeSlot,
 }: {
   application: Application;
   price: number;
   currency: string;
   whatsappNumber: string;
+  secondDateISO?: string | null;
+  secondTimeSlot?: string | null;
 }) {
   const t = useTranslations("apply.entryPass");
   const locale = useLocale();
@@ -66,7 +70,7 @@ export function EntryPassCard({
   const hours = Math.max(0, Math.floor(remainingMs / 3_600_000));
   const minutes = Math.max(0, Math.floor((remainingMs % 3_600_000) / 60_000));
 
-  const waLink = buildConfirmLink(application, locale, whatsappNumber);
+  const waLink = buildConfirmLink(application, locale, whatsappNumber, secondDateISO, secondTimeSlot);
   const statusLabel = t(STATUS_KEY[application.status] ?? "statusReserved");
 
   const rows: [string, string][] = [
@@ -75,6 +79,12 @@ export function EntryPassCard({
     [t("preliminaryLevel"), application.preliminaryLevel],
     [t("date"), formatWeekdayDate(application.turnDateISO, locale)],
     [t("turn"), application.turnTimeSlot],
+    ...(secondDateISO && secondTimeSlot
+      ? ([[t("secondClass"), `${formatWeekdayDate(secondDateISO, locale)} · ${secondTimeSlot}`]] as [
+          string,
+          string,
+        ][])
+      : []),
     [t("checkIn"), t("checkInDetail")],
     [t("price"), `${currency} ${price}`],
     [t("payment"), t("paymentDetail")],

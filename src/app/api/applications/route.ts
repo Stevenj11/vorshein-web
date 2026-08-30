@@ -60,17 +60,13 @@ export async function POST(request: NextRequest) {
           ? "performance"
           : "foundation";
 
-    // Resolved from a specific turno id (never from level alone) and
-    // re-validated against the level here — never trust the client's turno
-    // choice without confirming it actually serves this level.
-    const requestedTurno = generation.turnos.find(
-      (t) => t.id === body.turnId && t.levels.includes(officialSlug),
-    );
-    const turno = requestedTurno ?? generation.turnos.find((t) => t.levels.includes(officialSlug));
+    // No turno to choose anymore — everyone admitted attends both weekly
+    // classes from week one, evaluated live during that first weekend. The
+    // Saturday turno is the canonical capacity anchor for the whole cohort.
+    const turno = generation.turnos.find((t) => t.day === "saturday" && t.levels.includes(officialSlug));
     if (!turno) return fail("no_turno_available", 409);
 
-    const turnDateISO =
-      turno.day === "saturday" ? generation.dates.entryDatesISO[0] : generation.dates.entryDatesISO[1];
+    const turnDateISO = generation.dates.entryDatesISO[0];
     const turnTimeSlot = turnoTimeRange(turno);
 
     const existingCount = await countForTurn(turnDateISO, turnTimeSlot);

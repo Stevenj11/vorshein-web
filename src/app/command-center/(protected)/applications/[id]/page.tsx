@@ -4,6 +4,7 @@ import { getApplication } from "@/lib/applications/store";
 import { ApplicationStatus } from "@/lib/applications/types";
 import { APPLICATION_STATUS_LABEL } from "@/lib/commandCenterLabels";
 import { formatWeekdayDate } from "@/lib/enrollment";
+import { getActiveGeneration, turnoTimeRange, turnosForLevel } from "@/lib/generation";
 import { ApplicationRowActions } from "../ApplicationRowActions";
 
 const PIPELINE_STAGES = ["Solicitud", "Llegada", "Pago", "Evaluación", "Nivel", "Admisión"];
@@ -37,6 +38,22 @@ export default async function ApplicationDetailPage({
   const application = await getApplication(id.toUpperCase());
   if (!application) notFound();
 
+  const generation = await getActiveGeneration();
+  const slug =
+    application.preliminaryLevel === "TACTICAL"
+      ? "tactical"
+      : application.preliminaryLevel === "PERFORMANCE"
+        ? "performance"
+        : "foundation";
+  const secondTurno =
+    turnosForLevel(generation.turnos, slug).find((t) => turnoTimeRange(t) !== application.turnTimeSlot) ?? null;
+  const secondDateISO = secondTurno
+    ? secondTurno.day === "saturday"
+      ? generation.dates.entryDatesISO[0]
+      : generation.dates.entryDatesISO[1]
+    : null;
+  const secondTimeSlot = secondTurno ? turnoTimeRange(secondTurno) : null;
+
   const rejected =
     application.status === "NOT_YET_ELIGIBLE" ||
     application.status === "NO_SHOW" ||
@@ -63,6 +80,9 @@ export default async function ApplicationDetailPage({
         </p>
         <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.15em] text-white/40">
           {formatWeekdayDate(application.turnDateISO, "es")} · {application.turnTimeSlot}
+          {secondDateISO && secondTimeSlot && (
+            <> · {formatWeekdayDate(secondDateISO, "es")} · {secondTimeSlot}</>
+          )}
         </p>
       </div>
 
@@ -113,6 +133,8 @@ export default async function ApplicationDetailPage({
           whatsapp={application.whatsapp}
           turnDateISO={application.turnDateISO}
           turnTimeSlot={application.turnTimeSlot}
+          secondDateISO={secondDateISO}
+          secondTimeSlot={secondTimeSlot}
         />
       </div>
 

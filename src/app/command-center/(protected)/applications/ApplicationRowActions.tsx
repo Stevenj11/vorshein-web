@@ -33,6 +33,8 @@ export function ApplicationRowActions({
   whatsapp,
   turnDateISO,
   turnTimeSlot,
+  secondDateISO,
+  secondTimeSlot,
 }: {
   id: string;
   status: ApplicationStatus;
@@ -40,6 +42,8 @@ export function ApplicationRowActions({
   whatsapp?: string;
   turnDateISO?: string;
   turnTimeSlot?: string;
+  secondDateISO?: string | null;
+  secondTimeSlot?: string | null;
 }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -71,6 +75,9 @@ export function ApplicationRowActions({
       `Clasificación preliminar: ${preliminaryLevel}`,
       `Fecha: ${formatWeekdayDate(turnDateISO, "es")}`,
       `Hora: ${turnTimeSlot}`,
+      ...(secondDateISO && secondTimeSlot
+        ? [`También asiste: ${formatWeekdayDate(secondDateISO, "es")} · ${secondTimeSlot}`]
+        : []),
       "Preséntate 30 minutos antes.",
       `Código: ${applicantFacingCode(id)}`,
     ].join("\n");
